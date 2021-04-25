@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
-    "target": "ESNEXT",
+    "lib": [
+        "dom",
+        "es2017"
+    ],
+    "target": "es5",
     "module": "ESNext",
+    "jsx": "react",
+    "importHelpers": true,
     "sourceMap": true,
+    "baseUrl": ".",
     "outDir": "./dist",
     "strict": true,
     "noUnusedLocals": true,
@@ -13,6 +19,18 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "declaration": false,
+    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
   },
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "src",
+    "typings/**/*.d.ts",
+    "./node_modules/@types"
+  ],
+  "exclude": [
+      "node_modules", "**/*.js"
+  ]
 }

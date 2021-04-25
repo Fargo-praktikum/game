@@ -11,7 +11,7 @@
         "indentation": 4,
         "max-nesting-depth": null,
         "selector-class-pattern": null,
-        "selector-no-qualifying-type": null
+        "selector-no-qualifying-type": null,
+        "order/properties-alphabetical-order": null
     }
 }
-
