@@ -4,7 +4,14 @@
   "description": "123",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --mode development",
+    "build": "npm-run-all  lint  lint-styles webpack-prod",
+    "build-dev": "npm-run-all  lint  lint-styles webpack-dev",
+    "lint": "./node_modules/.bin/eslint .",
+    "lint-styles": "./node_modules/.bin/stylelint \"src/**/*.scss\"",
+    "webpack-prod": "webpack --mode production",
+    "webpack-dev": "webpack --mode development"
   },
   "repository": {
     "type": "git",
@@ -20,18 +27,38 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
+    "autoprefixer": "^10.2.5",
+    "copy-webpack-plugin": "^8.1.1",
+    "css-loader": "^5.2.4",
     "eslint": "^7.23.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.4.1",
+    "postcss": "^8.2.12",
+    "postcss-loader": "^5.2.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
     "stylelint": "^13.12.0",
     "stylelint-config-sass-guidelines": "^8.0.0",
     "stylelint-config-standard": "^21.0.0",
-    "typescript": "^4.2.3"
+    "ts-loader": "^9.1.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.34.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "engines": {
     "node": ">= 12.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "npm-run-all": "^4.1.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
