@@ -65,6 +65,7 @@ module.exports = {
     hot: true,
     open: true,
     index: "index.html",
-    writeToDisk: true
+    writeToDisk: true,
+    historyApiFallback: true,
   },
 };

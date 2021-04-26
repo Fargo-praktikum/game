@@ -1,0 +1,22 @@
+td, th {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.tablerow__img {
+    border-radius: 50%;
+    fill: #999999;
+}
+
+.tablerow__link {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.tablerow__name {
+    padding-left: 10px;
+}

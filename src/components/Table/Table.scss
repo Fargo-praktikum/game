@@ -1,0 +1,10 @@
+$my-color: #3369f3;
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid rgba($my-color, 0.12);
+}
