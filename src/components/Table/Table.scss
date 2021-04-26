@@ -1,10 +1,10 @@
 $my-color: #3369f3;
 
-table {
+.table-wrapper {
     border-collapse: collapse;
     width: 100%;
 }
 
-tr {
+.table-wrapper__line {
     border-bottom: 1px solid rgba($my-color, 0.12);
 }

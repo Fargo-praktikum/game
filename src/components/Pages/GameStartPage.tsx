@@ -4,7 +4,7 @@ import "./LeaderBoardPage.scss";
 import "./types";
 import {LeaderBoardProps} from "./types";
 
-export const LeaderBoardPage = (): JSX.Element => {
+export const LeaderBoardPage: React.FC = () => {
     const [usersScore] = useState<LeaderBoardProps[]>([{
         id: 1,
         name: "Катя",
@@ -20,7 +20,7 @@ export const LeaderBoardPage = (): JSX.Element => {
     return (
         <div className="leaderboard-wrapper">
             <div className="main-header">
-        Рейтинг
+                Рейтинг
             </div>
             <div className="leaderboard">
                 <div className="table-wrap">
