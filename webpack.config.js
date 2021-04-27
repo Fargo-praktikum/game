@@ -23,6 +23,10 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/
       },
+        {
+            test: /\.(png|jpg|svg|gif)$/,
+            use: ['file-loader']
+        },
       {
         test: /\.scss$/,
         use: [
@@ -65,6 +69,7 @@ module.exports = {
     hot: true,
     open: true,
     index: "index.html",
-    writeToDisk: true
+    writeToDisk: true,
+    historyApiFallback: true,
   },
 };

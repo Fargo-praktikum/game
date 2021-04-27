@@ -1,0 +1,15 @@
+$deep-blue: #3369f3;
+
+.leaderboard {
+    margin: 50px 70px;
+    width: 80%;
+
+    &__header {
+        font-size: 16px;
+        color: $deep-blue;
+        margin: 20px 0;
+        font-weight: bold;
+    }
+}
+
+
