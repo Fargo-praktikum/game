@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LeaderboardTable } from "../../LeaderboardTable/LeaderboardTable";
+import LeaderboardTable from "../../LeaderboardTable";
 import "./LeaderboardPage.scss";
 import { UserScore } from "../../../models/userScore";
 

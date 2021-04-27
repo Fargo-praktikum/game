@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { LeaderboardPage } from "../Pages/LeaderboardPage/LeaderBordPage";
+import LeaderboardPage from "../Pages/LeaderboardPage";
 
 import "./App.scss";
 

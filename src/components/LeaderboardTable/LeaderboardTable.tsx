@@ -1,27 +1,25 @@
 import React from "react";
 import "./LeaderboardTable.scss";
-import { LeaderboardTableRow } from "../LeaderboardTableRow/LeaderboardTableRow";
-import { UserScore } from "../../models/userScore";
+import LeaderboardTableRow from "../LeaderboardTableRow";
+import { LeaderboardTableProps } from "./types";
 
-interface LeaderBoardTableProps {
-    usersScore: UserScore[];
-}
+export const LeaderboardTable = (props: LeaderboardTableProps): JSX.Element => {
 
-export const LeaderboardTable = (props: LeaderBoardTableProps): JSX.Element => {
-
-    const rows = props.usersScore.map((el, i) => {
-        return <LeaderboardTableRow key={i} userData={el}/>;
+    const rows = props.usersScore.map((el) => {
+        return <LeaderboardTableRow key={el.id} userData={el}/>;
     });
 
-    return ( <table className="table-wrapper">
-        <tbody>
-            <tr className="table-wrapper__line">
-                <th scope="col">#</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Тема</th>
-                <th scope="col">Очки</th>
-            </tr>
-            {rows}
-        </tbody>
-    </table>);
+    return (
+        <table className="table-wrapper">
+            <tbody>
+                <tr className="table-wrapper__line">
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Тема</th>
+                    <th scope="col">Очки</th>
+                </tr>
+                {rows}
+            </tbody>
+        </table>
+    );
 };
