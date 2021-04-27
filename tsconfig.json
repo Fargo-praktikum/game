@@ -5,12 +5,11 @@
         "dom",
         "es2017"
     ],
-    "target": "es5",
+    "target": "es6",
     "module": "ESNext",
     "jsx": "react",
     "importHelpers": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "outDir": "./dist",
     "strict": true,
     "noUnusedLocals": true,
