@@ -7,7 +7,7 @@ interface LeaderBoardTableRowProps {
     userData: UserScore;
 }
 
-export const LeaderboardTableRow = (props: LeaderBoardTableRowProps) => {
+export const LeaderboardTableRow = (props: LeaderBoardTableRowProps): JSX.Element => {
     const { id, name, theme, score } = props.userData;
 
     return (    <tr className="table-wrapper__line">

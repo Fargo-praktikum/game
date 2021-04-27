@@ -7,7 +7,7 @@ interface LeaderBoardTableProps {
     usersScore: UserScore[];
 }
 
-export const LeaderboardTable = (props: LeaderBoardTableProps) => {
+export const LeaderboardTable = (props: LeaderBoardTableProps): JSX.Element => {
 
     const rows = props.usersScore.map((el, i) => {
         return <LeaderboardTableRow key={i} userData={el}/>;
