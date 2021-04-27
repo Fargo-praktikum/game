@@ -1,8 +1,8 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import authReducer from './authReducer';
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import authReducer from "./authReducer";
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+    auth: authReducer,
 });
 
 export type rootStateType = ReturnType<typeof rootReducer>;

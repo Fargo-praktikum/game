@@ -8,7 +8,7 @@
     "start": "webpack serve --mode development",
     "build": "npm-run-all  lint  lint-styles webpack-prod",
     "build-dev": "npm-run-all  lint  lint-styles webpack-dev",
-    "lint": "./node_modules/.bin/eslint .",
+    "lint": "eslint .",
     "lint-styles": "./node_modules/.bin/stylelint \"src/**/*.scss\"",
     "webpack-prod": "webpack --mode production",
     "webpack-dev": "webpack --mode development"
