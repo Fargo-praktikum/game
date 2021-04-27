@@ -1,0 +1,24 @@
+.tablerow {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+
+    &__img {
+        border-radius: 50%;
+        fill: #999;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__name {
+        padding-left: 10px;
+    }
+}
+
+
