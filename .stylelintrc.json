@@ -4,7 +4,7 @@
     ],
     "ignoreFiles": [
         "node_modules",
-        "dist"
+        "dist/**/*"
     ],
     "rules": {
         "string-quotes": "double",

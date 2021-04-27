@@ -4,6 +4,7 @@ import LeaderboardPage from "../Pages/LeaderboardPage";
 
 import "./App.scss";
 
+
 class App extends Component {
     render(): JSX.Element {
         return (
@@ -15,4 +16,5 @@ class App extends Component {
         );
     }
 }
+
 export default App;
