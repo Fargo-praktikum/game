@@ -1,4 +1,4 @@
-import isPlainObject, { PlainObject } from "../is-plain-object";
+import isPlainObject, { PlainObject } from "../isPlainObject";
 
 export default function queryString(data: PlainObject): string {
     if (!isPlainObject(data)) {

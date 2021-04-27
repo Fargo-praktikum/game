@@ -1,5 +1,5 @@
-import AuthAPI from "../api/auth-api";
-import SignupRequestData from "../models/signup-request-data";
+import AuthAPI from "../api/authApi";
+import SignupRequestData from "../models/signupRequestData";
 
 const authApi: AuthAPI = new AuthAPI();
 

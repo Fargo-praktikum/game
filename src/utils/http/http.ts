@@ -1,5 +1,5 @@
-import HttpError from "./http-error";
-import queryString from "./query-stringify";
+import HttpError from "./httpError";
+import queryString from "./queryStringify";
 
 export enum HttpMethods {
     Get = "GET",

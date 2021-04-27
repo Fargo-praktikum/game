@@ -1,10 +1,10 @@
-import DataFieldError from "../models/errors/data-field-error";
-import SignupRequestData from "../models/signup-request-data";
-import { fromSnakeCaseString } from "../utils/from-snake-case";
+import DataFieldError from "../models/errors/dataFieldError";
+import SignupRequestData from "../models/signupRequestData";
+import { fromSnakeCaseString } from "../utils/fromSnakeCase";
 import HTTPTransport from "../utils/http/http";
-import HttpError from "../utils/http/http-error";
-import toSnakeCase from "../utils/to-snake-case";
-import { getApiBaseUrl } from "./api-settings";
+import HttpError from "../utils/http/httpError";
+import toSnakeCase from "../utils/toSnakeCase";
+import { getApiBaseUrl } from "./apiSettings";
 
 const http: HTTPTransport = new HTTPTransport(getApiBaseUrl());
 
