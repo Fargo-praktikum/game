@@ -1,13 +1,13 @@
 import React from "react";
-import "./TableRow.scss";
-import {LeaderBoardProps} from "../Pages/types";
+import "./LeaderboardTableRow.scss";
 import avatar from "../../assets/circle.png";
+import { UserScore } from "../../models/userScore";
 
-type userDataProps = {
-    userData: LeaderBoardProps
-};
+interface LeaderBoardTableRowProps {
+    userData: UserScore;
+}
 
-export const TableRow = (props: userDataProps) => {
+export const LeaderboardTableRow = (props: LeaderBoardTableRowProps) => {
     const { id, name, theme, score } = props.userData;
 
     return (    <tr className="table-wrapper__line">

@@ -1,16 +1,16 @@
 import React from "react";
-import "./Table.scss";
-import {TableRow} from "../TableRow/TableRow";
-import {LeaderBoardProps} from "../Pages/types";
+import "./LeaderboardTable.scss";
+import { LeaderboardTableRow } from "../LeaderboardTableRow/LeaderboardTableRow";
+import { UserScore } from "../../models/userScore";
 
-type UsersScoreProps = {
-    usersScore: LeaderBoardProps[]
-};
+interface LeaderBoardTableProps {
+    usersScore: UserScore[];
+}
 
-export const Table = (props: UsersScoreProps) => {
+export const LeaderboardTable = (props: LeaderBoardTableProps) => {
 
     const rows = props.usersScore.map((el, i) => {
-        return <TableRow key={i} userData={el}/>;
+        return <LeaderboardTableRow key={i} userData={el}/>;
     });
 
     return ( <table className="table-wrapper">

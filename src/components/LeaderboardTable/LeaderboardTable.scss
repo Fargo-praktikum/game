@@ -1,0 +1,11 @@
+$deep-blue: #3369f3;
+
+.table-wrapper {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-wrapper__line {
+    border-bottom: 1px solid rgba($deep-blue, 0.12);
+    text-align: left;
+}

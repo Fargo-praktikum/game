@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import {LeaderBoardPage} from "../Pages/LeaderBordPage";
+import { LeaderboardPage } from "../Pages/LeaderboardPage/LeaderBordPage";
 
 import "./App.scss";
 
@@ -9,7 +9,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route component={LeaderBoardPage} path='/leaderboard' />
+                    <Route component={LeaderboardPage} path='/leaderboard' />
                 </Switch>
             </BrowserRouter>
         );
