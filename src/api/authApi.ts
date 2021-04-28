@@ -67,6 +67,9 @@ export default class AuthAPI {
                     case "user already in system":
                         errorText = "Пользователь уже в системе";
                         break;
+                    case "login or password is incorrect":
+                        errorText = "Введен неверный логин или пароль";
+                        break;
                     default:
                         errorText = e.response.reason;
                 }
