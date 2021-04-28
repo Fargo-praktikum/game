@@ -1,6 +1,8 @@
 import DataFieldError from "../models/errors/dataFieldError";
 import SignupRequestData from "../models/signupRequestData";
-import { fromSnakeCaseString } from "../utils/fromSnakeCase";
+import SigninRequestData from "../models/signinRequestData";
+import User from "../models/user";
+import { fromSnakeCase, fromSnakeCaseString } from "../utils/fromSnakeCase";
 import HTTPTransport from "../utils/http/http";
 import HttpError from "../utils/http/httpError";
 import toSnakeCase from "../utils/toSnakeCase";
@@ -15,6 +17,34 @@ export default class AuthAPI {
             return await http.post<{ id: number}>(
                 "/auth/signup",
                 { data: toSnakeCase(data) }
+            );
+        }
+        catch (e) {
+            const error = AuthAPI._processError(e);
+
+            throw error;
+        }
+    }
+
+    async signin(data: SigninRequestData): Promise<void> {
+        try {
+            return await http.post<void>(
+                "/auth/signin",
+                { data: toSnakeCase(data) }
+            );
+        }
+        catch (e) {
+            const error = AuthAPI._processError(e);
+
+            throw error;
+        }
+    }
+
+    async getUser(): Promise<User> {
+        try {
+            return await http.get<User>(
+                "/auth/user",
+                { responseTransformer: fromSnakeCase }
             );
         }
         catch (e) {
@@ -51,6 +81,12 @@ export default class AuthAPI {
                         break;
                     case "user already in system":
                         errorText = "Пользователь уже в системе";
+                        break;
+                    case "login or password is incorrect":
+                        errorText = "Введен неверный логин или пароль";
+                        break;
+                    case "cookie is not valid":
+                        errorText = "Необходима авторизация";
                         break;
                     default:
                         errorText = e.response.reason;

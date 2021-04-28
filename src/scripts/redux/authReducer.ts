@@ -6,9 +6,9 @@ const initialState = {
     userInfo: {
         id: null as number | null,
         login: null as string | null,
-        display_name: null as string | null,
-        first_name: null as string | null,
-        second_name: null as string | null,
+        displayName: null as string | null,
+        firstName: null as string | null,
+        secondName: null as string | null,
         email: null as string | null,
         avatar: null as string | null,
         phone: null as string | null,
