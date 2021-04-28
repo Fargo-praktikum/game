@@ -1,0 +1,46 @@
+@import "../Forum/forumVar";
+
+.popupform__common {
+    font-style: normal;
+    color: var(--main-text);
+
+    min-width: 405px;
+
+    background: $gray-locked;
+    box-shadow: 0 0 30px rgba(18, 17, 39, 0.3);
+}
+
+.popupform__title {
+    font-family: Jura, sans-serif;
+    font-weight: bold;
+    font-size: 29px;
+    line-height: 34px;
+    padding: 25px 40px;
+    border-bottom: 1px solid var(--inactive-light);
+}
+
+.popupform__footer {
+    padding: 25px 40px 20px;
+}
+
+.popupform__description {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.popupform__button {
+    width: fit-content;
+    height: 40px;
+    margin: 18px auto 0;
+}
+
+.popupform__buttonCool {
+    border: 2px solid transparent;
+    box-shadow: 0 0 7px 1px transparent;
+}
+
+.popupform__buttonCool:hover {
+    border: 2px solid var(--button-stroke);
+    box-shadow: 0 0 7px 1px var(--button-stroke-glow);
+}

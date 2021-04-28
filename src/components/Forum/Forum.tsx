@@ -8,6 +8,7 @@ import {setForumList} from "../../scripts/redux/forumReducer";
 import ForumList from "./ForumList/ForumList";
 import {Route} from "react-router-dom";
 import TopicsList from "./TopicsList/TopicsList";
+import {PopupboxContainer} from "../common/PopupConstructor/PopupboxContainer";
 
 // для теста
 const userInfo = {
@@ -108,6 +109,7 @@ const Forum = () => {
             <Route exact path="/forum/:forumId" render={() => <TopicsList/>}/>
             <Route exact path='/forum' render={() => <ForumList/>}/>
 
+            <PopupboxContainer/>
         </div>
     );
 };
