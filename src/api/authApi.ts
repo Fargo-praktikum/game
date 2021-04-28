@@ -1,8 +1,8 @@
 import DataFieldError from "../models/errors/dataFieldError";
 import SignupRequestData from "../models/signupRequestData";
 import SigninRequestData from "../models/signinRequestData";
-import UserRequestData from "../models/userRequestData";
-import { fromSnakeCaseString } from "../utils/fromSnakeCase";
+import User from "../models/user";
+import { fromSnakeCase, fromSnakeCaseString } from "../utils/fromSnakeCase";
 import HTTPTransport from "../utils/http/http";
 import HttpError from "../utils/http/httpError";
 import toSnakeCase from "../utils/toSnakeCase";
@@ -26,9 +26,9 @@ export default class AuthAPI {
         }
     }
 
-    async signin(data: SigninRequestData): Promise<string> {
+    async signin(data: SigninRequestData): Promise<void> {
         try {
-            return await http.post<string>(
+            return await http.post<void>(
                 "/auth/signin",
                 { data: toSnakeCase(data) }
             );
@@ -40,10 +40,11 @@ export default class AuthAPI {
         }
     }
 
-    async user(): Promise<UserRequestData> {
+    async getUser(): Promise<User> {
         try {
-            return await http.get<UserRequestData>(
-                "/auth/user"
+            return await http.get<User>(
+                "/auth/user",
+                { responseTransformer: fromSnakeCase }
             );
         }
         catch (e) {

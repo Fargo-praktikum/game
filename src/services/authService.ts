@@ -11,12 +11,10 @@ export async function signup(data: SignupRequestData): Promise<void> {
 }
 
 export async function signin(data: SigninRequestData): Promise<void> {
-    await authApi.signin(data).then(response => {
-        if(response === "OK"){
-            authApi.user().then(response => {
-                const userInfo = setUserInfoAC(response);
-                store.dispatch(userInfo);
-            });
-        }
+    await authApi.signin(data);
+
+    await authApi.getUser().then(response => {
+        const userInfo = setUserInfoAC(response);
+        store.dispatch(userInfo);
     });
 }
