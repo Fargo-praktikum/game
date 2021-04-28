@@ -13,8 +13,7 @@ export async function signup(data: SignupRequestData): Promise<void> {
 export async function signin(data: SigninRequestData): Promise<void> {
     await authApi.signin(data);
 
-    await authApi.getUser().then(response => {
-        const userInfo = setUserInfoAC(response);
-        store.dispatch(userInfo);
-    });
+    const user = await authApi.getUser();
+    const userInfo = setUserInfoAC(user);
+    store.dispatch(userInfo);
 }
