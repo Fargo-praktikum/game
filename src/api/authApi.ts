@@ -1,5 +1,6 @@
 import DataFieldError from "../models/errors/dataFieldError";
 import SignupRequestData from "../models/signupRequestData";
+import SigninRequestData from "../models/signinRequestData";
 import { fromSnakeCaseString } from "../utils/fromSnakeCase";
 import HTTPTransport from "../utils/http/http";
 import HttpError from "../utils/http/httpError";
@@ -14,6 +15,20 @@ export default class AuthAPI {
         try {
             return await http.post<{ id: number}>(
                 "/auth/signup",
+                { data: toSnakeCase(data) }
+            );
+        }
+        catch (e) {
+            const error = AuthAPI._processError(e);
+
+            throw error;
+        }
+    }
+
+    async signin(data: SigninRequestData): Promise<string> {
+        try {
+            return await http.post<string>(
+                "/auth/signin",
                 { data: toSnakeCase(data) }
             );
         }
