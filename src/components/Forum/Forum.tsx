@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 
 import "./Forum.scss";
 import ForumHeader from "./ForumHeader/ForumHeader";
-import { useDispatch } from "react-redux";
-import { setUserInfoAC } from "../../scripts/redux/authReducer";
-import { setForumList } from "../../scripts/redux/forumReducer";
+import {useDispatch} from "react-redux";
+import {setUserInfoAC} from "../../scripts/redux/authReducer";
+import {setForumList} from "../../scripts/redux/forumReducer";
 import ForumList from "./ForumList/ForumList";
+import {Route} from "react-router-dom";
+import TopicsList from "./TopicsList/TopicsList";
 
 // для теста
 const userInfo = {
@@ -22,6 +24,7 @@ const userInfo = {
 // для теста
 const forumList = [
     {
+        id: 1,
         title: "Глобальная тема №1",
         description: "Здесь какое-то описание этой темы",
         topics: [
@@ -45,11 +48,12 @@ const forumList = [
         ],
     },
     {
+        id: 2,
         title: "Глобальная тема №2",
         description: "Здесь какое-то описание этой темы",
         topics: [
             {
-                id: 2,
+                id: 1,
                 title: "Как пользоваться приложением",
                 description: "Описание топика",
                 comments: [
@@ -66,7 +70,7 @@ const forumList = [
                 ],
             },
             {
-                id: 3,
+                id: 2,
                 title: "Вторая тема, второй топик",
                 description: "Описание топика",
                 comments: [
@@ -96,10 +100,14 @@ const Forum = () => {
         dispatch(setForumList(forumList));
     }, []);
 
+
     return (
         <div className="forum__general">
             <ForumHeader/>
-            <ForumList/>
+
+            <Route exact path="/forum/:forumId" render={() => <TopicsList/>}/>
+            <Route exact path='/forum' render={() => <ForumList/>}/>
+
         </div>
     );
 };

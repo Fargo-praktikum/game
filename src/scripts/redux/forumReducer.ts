@@ -28,6 +28,7 @@ export interface ILastCommentInfo {
 }
 
 export interface IForumItem {
+    id: number,
     title: string,
     description: string,
     topics: ITopic[] | null,

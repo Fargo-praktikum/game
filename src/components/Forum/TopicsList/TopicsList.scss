@@ -1,32 +1,29 @@
 @import "../forumVar";
 
-.f-list {
+.topics {
     width: 90vw;
     height: fit-content;
     margin: auto;
 }
 
-.f-list__header {
+.topics__header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     height: 50px;
     padding: 0 30px;
     background-color: $dark-gray;
 }
 
-.f-list__title {
-    font-weight: 600;
-    font-size: 18px;
-}
 
-.f-list__card-container {
+.topics__card-container {
     min-height: 50vh;
     background-color: $gray;
 }
 
-.f-list__item {
+.topics__item {
     display: grid;
-    grid-template-columns: 30px 4fr 1.5fr 2fr;
+    grid-template-columns: 4fr 1.5fr 2fr;
     grid-column-gap: 20px;
     align-items: center;
     padding: 20px;
