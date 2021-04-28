@@ -1,14 +1,8 @@
 $color-main-primary: #1e1e1e;
-$color-main-white: #fff;
-$color-gray: #f5f6f7;
-$color-lightblue: #347eff;
-$color-gray-locked: #e6e8eb;
 $color-blue: #2f71e5;
 $color-input-field-border: #3369f3;
 $color-darkblue: #3369f3;
-$color-text-first: #999;
 $color-input-fill: #efefef;
-$color-border: #eaeaea;
 $color-active-item: #e4edfd;
 $color-select-item: #e6efff;
 $message-primary: #303030;
@@ -16,7 +10,15 @@ $outgoing-background: #cdd9e8;
 $incoming-background: #f5f6f7;
 $shadow-rgb: 0, 0, 0;
 $bubble-meta: rgba(0, 0, 0, 0.55);
-$bubble-meta-icon: rgba(0, 0, 0, 0.3);
+
 $icon-ack: #4fc3f7;
 
+
+$white: #fff;
 $bg-white: #fbfbfb;
+$border: #eaeaea;
+$lightblue: #347eff;
+$dark-gray: #999;
+$gray-locked: #dedede;
+$gray: #efeeee;
+$font-dark-second: rgba(0, 0, 0, 0.3);

@@ -36,19 +36,6 @@ module.exports = {
             "sass-loader"
         ]
       },
-      {
-        test: /\.css$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../',
-            },
-          },
-          'css-loader',
-          'postcss-loader',
-        ]
-      },
     ]
   },
   plugins: [

@@ -1,8 +1,10 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import authReducer from "./authReducer";
+import forumReducer from "./forumReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    forum: forumReducer,
 });
 
 export type rootStateType = ReturnType<typeof rootReducer>;

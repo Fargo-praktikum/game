@@ -1,0 +1,61 @@
+@import "../forumVar";
+
+.f-list {
+    width: 90vw;
+    height: fit-content;
+    margin: auto;
+}
+
+.f-list__header {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding-left: 20px;
+    background-color: $dark-gray;
+}
+
+.f-list__title {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.f-list__card-container {
+    min-height: 50vh;
+    background-color: $gray;
+}
+
+.f-list__item {
+    display: grid;
+    grid-template-columns: 30px 4fr 1.5fr 2fr;
+    grid-column-gap: 20px;
+    align-items: center;
+    padding: 20px;
+
+    &_two {
+        background-color: $gray-locked;
+    }
+}
+
+.f-list__img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.f-list__list-descr {
+    margin-top: 5px;
+}
+
+.f-list__list-topics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.f-list__topics-count {
+    font-size: 30px;
+}
+
+.f-list_text {
+    color: $font-dark-second;
+}
