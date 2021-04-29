@@ -8,7 +8,7 @@ const initialState = {
     },
 };
 
-function gameReducer(state = initialState, action: AnyAction) {
+function gameReducer(state = initialState, action: AnyAction): { gameInfo: {theme: string | null} } {
     switch (action.type) {
         case SET_GAME_INFO:
             return {
@@ -23,4 +23,5 @@ function gameReducer(state = initialState, action: AnyAction) {
 export default gameReducer;
 
 
-export const setGameInfo = (gameInfoData: typeof initialState.gameInfo) => ({ type: SET_GAME_INFO, gameInfoData });
+export const setGameInfo = (gameInfoData: typeof initialState.gameInfo): { type: string, gameInfoData: {theme: string | null} }  =>
+    ({ type: SET_GAME_INFO, gameInfoData });

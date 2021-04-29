@@ -1,10 +1,10 @@
 export default interface User {
-    id: number;
-    firstName: string;
-    secondName: string;
-    displayName: string;
-    login: string;
-    avatar: string;
-    email: string;
-    phone: string;
+    id: number | null,
+    login: string | null,
+    displayName: string | null,
+    firstName: string | null,
+    secondName: string | null,
+    email: string | null,
+    avatar: string | null,
+    phone: string | null,
 }

@@ -4,7 +4,7 @@ export default function roundRect(
     width: number, height: number,
     radius?: number,
     fill?: boolean,
-    stroke?: boolean) {
+    stroke?: boolean): void {
 
     if (typeof stroke === "undefined") {
         stroke = true;

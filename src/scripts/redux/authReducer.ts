@@ -1,4 +1,5 @@
 import { AnyAction } from "redux";
+import User from "../../models/user";
 
 const SET_AUTH_INFO = "SET_AUTH_INFO";
 
@@ -15,7 +16,7 @@ const initialState = {
     },
 };
 
-function authReducer(state = initialState, action: AnyAction) {
+function authReducer(state = initialState, action: AnyAction): { userInfo: User } {
     switch (action.type) {
     // TODO: СРЕДНИЙ. В дальнейшем здесь опишем корректную логику для пользователя
         case SET_AUTH_INFO:
@@ -31,4 +32,5 @@ function authReducer(state = initialState, action: AnyAction) {
 export default authReducer;
 
 
-export const setUserInfoAC = (userInfoData: typeof initialState.userInfo) => ({ type: SET_AUTH_INFO, userInfoData });
+export const setUserInfoAC = (userInfoData: typeof initialState.userInfo): { type: string, userInfoData: User } =>
+    ({ type: SET_AUTH_INFO, userInfoData });
