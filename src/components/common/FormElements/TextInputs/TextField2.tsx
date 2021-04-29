@@ -1,6 +1,6 @@
 import React from 'react';
 
-import "./TextField.scss";
+import "./TextInputs.scss";
 import {FieldProps} from "formik";
 
 type OwnProps = FieldProps<string, any>;

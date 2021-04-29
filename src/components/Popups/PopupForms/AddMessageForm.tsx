@@ -5,7 +5,7 @@ import "./FormsStyle.scss";
 
 import CoolButton from "../../common/FormElements/Button/CoolButton";
 import {TextField2} from "../../common/FormElements/TextInputs/TextField2";
-import {composeValidators, minLength, required} from "../../../scripts/utils/validateHelpers";
+import {composeValidators, maxLength, minLength, required} from "../../../scripts/utils/validateHelpers";
 import {TextAreaField} from "../../common/FormElements/TextInputs/TextAreaField";
 
 export interface FormValues {
@@ -18,7 +18,7 @@ const initialValues: FormValues = {
     description: "",
 };
 
-const AddTopicForm = () => (
+const AddMessageForm = () => (
     <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}>
@@ -28,13 +28,13 @@ const AddTopicForm = () => (
                     <Field
                         name="title"
                         tipe="text"
-                        placeholder="Введите название топика"
+                        placeholder="Введите заглавие"
                         validate={composeValidators(required, minLength(5))}
                         component={TextField2}/>
                     <Field
                         name="description"
                         placeholder="Введите описание"
-                        validate={required}
+                        validate={composeValidators(required, minLength(5), maxLength(300))}
                         rows="3"
                         component={TextAreaField}/>
                     <div className="form__button">
@@ -43,16 +43,29 @@ const AddTopicForm = () => (
                             type="submit"
                             text="Отправить"
                             clickHandler={() => {
-                                console.log('Отправил тему')
+                                console.log('Отправил сообщение')
                             }}
                         />
                     </div>
                 </form>
             )
-        }}
+        }
+        }
     </Formik>
 );
 
+// const validate = values => {
+//     let errors = {};
+//     if (!values.email) {
+//         errors.email = "Email is required";
+//     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+//         errors.email = "Invalid email address";
+//     }
+//     if (!values.password) {
+//         errors.password = "Password is required";
+//     }
+//     return errors;
+// };
 
 const onSubmit = (values: any, {setSubmitting}: any) => {
     setTimeout(() => {
@@ -61,4 +74,4 @@ const onSubmit = (values: any, {setSubmitting}: any) => {
     }, 400);
 };
 
-export default AddTopicForm;
+export default AddMessageForm;

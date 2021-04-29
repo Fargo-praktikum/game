@@ -2,6 +2,8 @@ import React from "react";
 
 import PopupForm from "../PopupForm";
 import PopupboxManager from "../../common/PopupConstructor/PopupboxManager";
+
+import AddMessageForm from "../PopupForms/AddMessageForm";
 import AddTopicForm from "../PopupForms/AddTopicForm";
 
 const popupOpen = (content: JSX.Element) => {
@@ -17,12 +19,20 @@ const popupOpen = (content: JSX.Element) => {
   })
 }
 
-// const openPopupBoxAddTopic = (forumId: number, history) => {
-const openPopupBoxAddTopic = () => {
+const openPopupAddTopic = () => {
   const content = (
       <PopupForm {...{
-          title: 'Создать новую тему',
+          title: 'Создать новый топик',
           form: <AddTopicForm/>
+      }}/>
+  );
+  popupOpen(content);
+};
+const openPopupAddMessage = () => {
+  const content = (
+      <PopupForm {...{
+          title: 'Новое сообщение',
+          form: <AddMessageForm/>
       }}/>
   );
   popupOpen(content);
@@ -30,5 +40,6 @@ const openPopupBoxAddTopic = () => {
 
 
 export {
-    openPopupBoxAddTopic,
+    openPopupAddTopic,
+    openPopupAddMessage,
 }

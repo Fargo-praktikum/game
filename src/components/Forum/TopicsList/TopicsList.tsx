@@ -9,6 +9,8 @@ import topicImg from "../../../assets/chat.png";
 import {IComment, IMessage } from "../../../scripts/redux/forumReducer";
 import {getTimeInfo} from "../../../scripts/utils/timeHandler";
 import {useHistory} from "react-router-dom";
+import CoolButton from "../../common/FormElements/Button/CoolButton";
+import {openPopupAddTopic} from "../../Popups/PopupFuncs/PopupFuncs";
 
 export const getTopicsOrCommentsCount = (topics: IMessage[] | IComment[] | null) => {
     return topics ? topics.length : 0;
@@ -24,10 +26,16 @@ const TopicsList = () => {
         }
     }
 
+    const createTopic = () => {
+        console.log('нажал createTopic!!!');
+        openPopupAddTopic()
+    }
+
     return (
         <section className="f-list">
             <div className="f-list__header">
                 <h2 className="f-list__title">Topics</h2>
+                <CoolButton clickHandler={createTopic} text={'Создать топик'}/>
             </div>
             <div className="f-list__card-container">
                 {topicsList &&

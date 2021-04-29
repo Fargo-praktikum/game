@@ -1,6 +1,6 @@
 import React from 'react';
 
-import "./TextField.scss";
+import "./TextInputs.scss";
 
 
 export const TextField = ({touched, error, ...restProps}: any) => {

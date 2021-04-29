@@ -10,7 +10,7 @@ import {getTimeInfo} from "../../../scripts/utils/timeHandler";
 import {getTopicsOrCommentsCount} from "../TopicsList/TopicsList";
 import {lastElem} from "../../../scripts/utils/myDash/last";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
-import {openPopupBoxAddTopic} from "../../Popups/PopupFuncs/PopupFuncs";
+import {openPopupAddMessage} from "../../Popups/PopupFuncs/PopupFuncs";
 
 
 const MessagesList = () => {
@@ -25,9 +25,9 @@ const MessagesList = () => {
             history.push(`/forum/${topicId}/${messageId}`);
         }
     }
-    const createTopic = () => {
+    const createMessage = () => {
         console.log('нажал createTopic!!!');
-        openPopupBoxAddTopic()
+        openPopupAddMessage()
     }
 
 
@@ -36,7 +36,7 @@ const MessagesList = () => {
             <div className="messages__header">
                 {/* TODO: СРЕДНЕ. Сделать пагинатор */}
                 <div className="paginator">Здесь будет пагинатор</div>
-                <CoolButton clickHandler={createTopic} text={'Создать новую тему'}/>
+                <CoolButton clickHandler={createMessage} text={'Написать сообщение'}/>
             </div>
             <div className="messages__card-container">
                 {messages &&
