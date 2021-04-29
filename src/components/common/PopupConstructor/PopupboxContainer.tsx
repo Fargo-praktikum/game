@@ -5,7 +5,7 @@ import merge from 'deepmerge'
 import "./PopupboxContainer.scss";
 
 import closePopup from "../../../assets/close.svg";
-// import {defaultConfigType, getConfigType, handleStoreChangeType, IStatePopup} from "./types";
+
 import {defaultConfigType, getConfigType, handleStoreChangeType} from "./types";
 
 

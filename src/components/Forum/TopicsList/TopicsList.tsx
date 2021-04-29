@@ -9,7 +9,7 @@ import {setStyle} from "../../../scripts/utils/setStyle";
 import {getTimeInfo} from "../../../scripts/utils/timeHandler";
 import {getTopicsOrCommentsCount} from "../ForumList/ForumList";
 import {lastElem} from "../../../scripts/utils/myDash/last";
-import CoolButton from "../../common/Button/CoolButton";
+import CoolButton from "../../common/FormElements/Button/CoolButton";
 import {openPopupBoxAddTopic} from "../../Popups/PopupFuncs/PopupFuncs";
 
 

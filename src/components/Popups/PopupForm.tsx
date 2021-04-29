@@ -14,7 +14,6 @@ const PopupForm = ({title, form}: PopupFormType) => {
             <h1 className="popupform__title">{title}</h1>
             <div className="popupform__footer">
                 {form}
-                ТРОЛОЛОЛОЛОЛОЛОЛ из PopupForm
             </div>
         </div>
     );

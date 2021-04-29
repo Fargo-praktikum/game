@@ -2,6 +2,7 @@ import React from "react";
 
 import PopupForm from "../PopupForm";
 import PopupboxManager from "../../common/PopupConstructor/PopupboxManager";
+import AddTopicForm from "../PopupForms/AddTopicForm";
 
 const popupOpen = (content: JSX.Element) => {
   PopupboxManager.open({
@@ -20,7 +21,8 @@ const popupOpen = (content: JSX.Element) => {
 const openPopupBoxAddTopic = () => {
   const content = (
       <PopupForm {...{
-          title: 'Создать новую тему'
+          title: 'Создать новую тему',
+          form: <AddTopicForm/>
       }}/>
   );
   popupOpen(content);
