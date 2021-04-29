@@ -1,12 +1,12 @@
 import React from "react";
-import {Field, Formik} from "formik";
+import { Field, Formik } from "formik";
 
 import "./FormsStyle.scss";
 
 import CoolButton from "../../common/FormElements/Button/CoolButton";
-import {TextField2} from "../../common/FormElements/TextInputs/TextField2";
-import {composeValidators, minLength, required} from "../../../scripts/utils/validateHelpers";
-import {TextAreaField} from "../../common/FormElements/TextInputs/TextAreaField";
+import { TextField2 } from "../../common/FormElements/TextInputs/TextField2";
+import { composeValidators, minLength, required } from "../../../scripts/utils/validateHelpers";
+import { TextAreaField } from "../../common/FormElements/TextInputs/TextAreaField";
 
 export interface FormValues {
     title: string;
@@ -22,9 +22,9 @@ const AddTopicForm = () => (
     <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}>
-        {(props) => {
+        {({ handleSubmit, isValid,dirty }) => {
             return (
-                <form onSubmit={props.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <Field
                         name="title"
                         tipe="text"
@@ -39,22 +39,22 @@ const AddTopicForm = () => (
                         component={TextAreaField}/>
                     <div className="form__button">
                         <CoolButton
-                            isDisabled={!props.isValid || !props.dirty}
+                            isDisabled={!isValid || !dirty}
                             type="submit"
                             text="Отправить"
                             clickHandler={() => {
-                                console.log('Отправил тему')
+                                console.log("Отправил тему");
                             }}
                         />
                     </div>
                 </form>
-            )
+            );
         }}
     </Formik>
 );
 
 
-const onSubmit = (values: any, {setSubmitting}: any) => {
+const onSubmit = (values: any, { setSubmitting }: any) => {
     setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         setSubmitting(false);

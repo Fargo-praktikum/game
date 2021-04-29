@@ -1,1 +1,1 @@
-export const setStyle = (condition: boolean, style: string) => (condition ? style : '');
+export const setStyle = (condition: boolean, style: string) => (condition ? style : "");

@@ -1,4 +1,4 @@
-import {AnyAction, Reducer} from "redux";
+import { AnyAction, Reducer } from "redux";
 
 const SET_AUTH_INFO = "SET_AUTH_INFO";
 
@@ -28,7 +28,7 @@ const authReducer: Reducer<authReducerType> = (state = initialState, action: Any
         default:
             return state;
     }
-}
+};
 
 export default authReducer;
 

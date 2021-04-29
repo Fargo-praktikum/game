@@ -6,9 +6,9 @@ import "./PopupForm.scss";
 type PopupFormType = {
     title: string,
     form?: JSX.Element,
-}
+};
 
-const PopupForm = ({title, form}: PopupFormType) => {
+const PopupForm = ({ title, form }: PopupFormType) => {
     return (
         <div className="popupform__common">
             <h1 className="popupform__title">{title}</h1>

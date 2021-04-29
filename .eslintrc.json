@@ -14,8 +14,7 @@
     "ignorePatterns": [
         "node_modules/",
         "dist/",
-        "**/*.js",
-        "**/*"
+        "**/*.js"
     ],
     "parserOptions": {
         "ecmaVersion": 12,
@@ -61,6 +60,7 @@
             {
                 "allowTemplateLiterals": true
             }
-        ]
+        ],
+        "react/prop-types": "off"
     }
 }

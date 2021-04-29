@@ -11,15 +11,16 @@
 // function  false
 
 export const isEmpty = (value: unknown) => {
-  const firstCondition = typeof (value) === 'function'
-    || typeof (value) === 'number'
-    || typeof (value) === 'boolean'
-    || Object.prototype.toString.call(value) === '[object Date]';
+    const firstCondition = typeof (value) === "function"
+        || typeof (value) === "number"
+        || typeof (value) === "boolean"
+        || Object.prototype.toString.call(value) === "[object Date]";
 
-  if (firstCondition) return false;
+    if (firstCondition) return false;
 
-  return value === undefined
-    || value == null
-    || Array.isArray(value) && value.length === 0
-    || Object.prototype.toString.call(value) === '[object Object]' && Object.keys(value as object).length === 0;
+    return value === undefined
+        || value == null
+        || Array.isArray(value) && value.length === 0
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        || Object.prototype.toString.call(value) === "[object Object]" && Object.keys(value as object).length === 0;
 };

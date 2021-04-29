@@ -1,49 +1,51 @@
-import React from "react";
-import {useSelector} from "react-redux";
-import {rootStateType} from "src/scripts/redux/store";
+import React, { useCallback } from "react";
+import { useSelector } from "react-redux";
+import { rootStateType } from "src/scripts/redux/store";
 
 import "./TopicsList.scss";
 
-import {setStyle} from "../../../scripts/utils/setStyle";
+import { setStyle } from "../../../scripts/utils/setStyle";
 import topicImg from "../../../assets/chat.png";
-import {IComment, IMessage } from "../../../scripts/redux/forumReducer";
-import {getTimeInfo} from "../../../scripts/utils/timeHandler";
-import {useHistory} from "react-router-dom";
+import { IComment, IMessage } from "../../../scripts/redux/forumReducer";
+import { getTimeInfo } from "../../../scripts/utils/timeHandler";
+import { useHistory } from "react-router-dom";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
-import {openPopupAddTopic} from "../../Popups/PopupFuncs/PopupFuncs";
+import { openPopupAddTopic } from "../../Popups/PopupFuncs/PopupFuncs";
 
 export const getTopicsOrCommentsCount = (topics: IMessage[] | IComment[] | null) => {
     return topics ? topics.length : 0;
+};
+
+const createTopic = () => {
+    console.log("нажал createTopic!!!");
+    openPopupAddTopic();
 };
 
 const TopicsList = () => {
     const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
     const history = useHistory();
 
-    const openForumItem = (id: number) => {
+    const openForumItem = useCallback((id: number) => {
         return () => {
             history.push(`/forum/${id}`);
-        }
-    }
+        };
+    }, []);
 
-    const createTopic = () => {
-        console.log('нажал createTopic!!!');
-        openPopupAddTopic()
-    }
+
 
     return (
         <section className="f-list">
             <div className="f-list__header">
                 <h2 className="f-list__title">Topics</h2>
-                <CoolButton clickHandler={createTopic} text={'Создать топик'}/>
+                <CoolButton clickHandler={createTopic} text={"Создать топик"}/>
             </div>
             <div className="f-list__card-container">
                 {topicsList &&
                 topicsList.map((topic, ind) => {
-                    const {id, title, description, messages, lastCommentInfo} = topic;
+                    const { id, title, description, messages, lastCommentInfo } = topic;
 
                     return (
-                        <div className={`f-list__item ${setStyle(ind % 2 === 1, 'f-list__item_two')}`} key={ind}>
+                        <div className={`f-list__item ${setStyle(ind % 2 === 1, "f-list__item_two")}`} key={ind}>
                             <img className="f-list__img" src={topicImg} alt="img"/>
                             <div className="f-list__info">
                                 <h3 className="f-list__list-title" onClick={openForumItem(id)}>{title}</h3>
@@ -66,7 +68,7 @@ const TopicsList = () => {
                             </div>
                             }
                         </div>
-                    )
+                    );
                 })
                 }
             </div>

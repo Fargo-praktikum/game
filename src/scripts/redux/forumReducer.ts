@@ -1,22 +1,27 @@
-import {AnyAction, Reducer} from "redux";
+import { AnyAction, Reducer } from "redux";
 
 const SET_FORUM_LIST = "SET_FORUM_LIST";
 
+export interface IUser {
+    id: number,
+    firstName: string,
+    secondName: string,
+    avatar?: string,
+}
+
 export interface IComment {
-    user: {
-        id: number,
-        firstName: string,
-        secondName: string,
-        avatar: string | null,
-    },
+    id: number,
     date: string,
     message: string,
+    user: IUser,
 }
 
 export interface IMessage {
     id: number,
     title: string,
     description: string,
+    date: string,
+    user: IUser,
     comments: IComment[] | null,
 }
 
@@ -46,7 +51,7 @@ export type forumReducerType = typeof initialState;
 
 const compareDate = (dateOne: string, dateTwo: string) => {
     return (new Date(dateOne)).getTime() < (new Date(dateTwo)).getTime();
-}
+};
 
 const forumReducer: Reducer<forumReducerType> = (state = initialState, action: AnyAction) => {
     switch (action.type) {
@@ -67,9 +72,9 @@ const forumReducer: Reducer<forumReducerType> = (state = initialState, action: A
                                 };
                             }
                         }
-                    })
+                    });
 
-                    return {...topic, lastCommentInfo}
+                    return { ...topic, lastCommentInfo };
                 }),
             };
         default:

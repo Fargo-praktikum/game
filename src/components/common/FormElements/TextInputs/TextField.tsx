@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
 import "./TextInputs.scss";
 
 
-export const TextField = ({touched, error, ...restProps}: any) => {
+export const TextField = ({ touched, error, ...restProps }: any) => {
     const hasError = touched && error;
 
     return (
-        <div className={`formControl ${hasError ? 'errorInput' : ''}`}>
+        <div className={`formControl ${hasError ? "errorInput" : ""}`}>
             <input className="text-field"
                 {...restProps} />
             <div>

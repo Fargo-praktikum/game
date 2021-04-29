@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import "../../assets/vendor/normalize.scss"
+import "../../assets/vendor/normalize.scss";
 import "./App.scss";
 
 import LeaderboardPage from "../Pages/LeaderboardPage";

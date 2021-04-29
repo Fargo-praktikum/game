@@ -1,4 +1,4 @@
-import {ReactChildren} from "react";
+import { ReactChildren } from "react";
 
 export type defaultConfigType = {
     overlayOpacity: number,
@@ -12,16 +12,20 @@ export type defaultConfigType = {
     closeBtn: boolean,
     padding: boolean,
     content: { [key in string]: any },
+    // eslint-disable-next-line @typescript-eslint/ban-types
     onOpen?: Function,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     onComplete?: Function,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     onCleanUp?: Function,
 
     transition?: string;
     callback?: any;
+    // eslint-disable-next-line @typescript-eslint/ban-types
     onClosed?: Function;
     children?: ReactChildren;
     style?: any;
-}
+};
 
 // export interface IStatePopup extends defaultConfigType {
 //     transition?: string;
@@ -34,12 +38,12 @@ export type defaultConfigType = {
 export type getConfigType = {
     params: Partial<defaultConfigType>
     isInit: boolean
-}
+};
 
 export type handleStoreChangeType = {
     children: ReactChildren,
     show: boolean;
     config: Partial<defaultConfigType>;
-}
+};
 
 export type ListenerType = { (params: any): void; (...args: any[]): void; };
