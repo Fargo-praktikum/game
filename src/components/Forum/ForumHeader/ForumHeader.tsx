@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { rootStateType } from "src/scripts/redux/store";
+import { rootStateType } from "../../../scripts/redux/store";
 
 import "./ForumHeader.scss";
 

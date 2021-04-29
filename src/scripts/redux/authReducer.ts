@@ -1,6 +1,8 @@
 import { AnyAction, Reducer } from "redux";
 
+
 const SET_AUTH_INFO = "SET_AUTH_INFO";
+
 
 const initialState = {
     userInfo: {

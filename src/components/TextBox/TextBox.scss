@@ -1,0 +1,9 @@
+.text-box {
+    border: 0;
+    box-sizing: border-box;
+    width: 100%;
+
+    &:focus {
+        outline: 0;
+    }
+}
