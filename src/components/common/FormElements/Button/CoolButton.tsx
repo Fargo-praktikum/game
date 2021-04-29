@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from "react";
+import React, {memo, MouseEventHandler} from "react";
 import "./CoolButton.scss";
 
 type CoolButtonType = {
@@ -8,8 +8,7 @@ type CoolButtonType = {
     clickHandler?: MouseEventHandler;
 }
 
-const CoolButton = ({clickHandler, text, isDisabled, type}: CoolButtonType) => {
-
+const CoolButton: React.FC<CoolButtonType> = ({clickHandler, text, isDisabled, type}) => {
   return (
     <button className="cool-button"
             disabled={isDisabled}
@@ -21,4 +20,9 @@ const CoolButton = ({clickHandler, text, isDisabled, type}: CoolButtonType) => {
   );
 };
 
-export default CoolButton;
+export default memo(CoolButton, (prevProps, nextProps) => {
+    let equal = true;
+    if (prevProps.isDisabled !== nextProps.isDisabled) equal = false;
+
+    return equal;
+});

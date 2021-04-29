@@ -2,8 +2,8 @@ import React from "react";
 import {Field, Formik} from "formik";
 
 import CoolButton from "../../common/FormElements/Button/CoolButton";
-import {TextField} from "../../common/FormElements/TextField/TextField";
 import {TextField2} from "../../common/FormElements/TextField/TextField2";
+import {composeValidators, minLength, required} from "../../../scripts/utils/validateHelpers";
 
 export interface FormValues {
     title: string;
@@ -20,41 +20,32 @@ const AddTopicForm = () => (
         initialValues={initialValues}
         // validate={validate}
         onSubmit={onSubmit}>
-        {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting
-          }) => (
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    name="title"
-                    type="text"
-                    placeholder="Введите название топика"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.title}
-                    error={errors.title}
-                    touched={touched.title}
-                />
-                <Field
-                    name="description"
-                    placeholder="введите описание"
-                    component={TextField2} />
-
-                <CoolButton
-                    isDisabled={isSubmitting}
-                    type="submit"
-                    text="Отправить тему"
-                    clickHandler={() => {
-                        console.log('Отправил тему')
-                    }}
-                />
-            </form>
-        )}
+        {(props) => {
+            return (
+                <form onSubmit={props.handleSubmit}>
+                    <Field
+                        name="title"
+                        tipe="text"
+                        placeholder="Введите заглавие сообщения"
+                        validate={composeValidators(required, minLength(5))}
+                        component={TextField2}/>
+                    <Field
+                        name="description"
+                        placeholder="Введите описание"
+                        validate={required}
+                        component={TextField2}/>
+                    <CoolButton
+                        isDisabled={!props.isValid || !props.dirty}
+                        type="submit"
+                        text="Отправить сообщение"
+                        clickHandler={() => {
+                            console.log('Отправил тему')
+                        }}
+                    />
+                </form>
+            )
+        }
+        }
     </Formik>
 );
 

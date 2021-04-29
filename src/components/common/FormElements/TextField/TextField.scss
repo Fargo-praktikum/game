@@ -1,8 +1,24 @@
-.formControl.errorInput input {
-    box-sizing: border-box;
-    border: 2px solid red;
+@import "src/components/Forum/forumVar";
+
+.errorInput .textField {
+    border-color: #f00;
 }
 
 .formControl.errorInput span {
-    color: red;
+    color: #f00;
+}
+
+.textField {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid $dark-gray;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.errorContainer {
+    height: 15px;
+
 }

@@ -8,7 +8,8 @@ export const TextField = ({touched, error, ...restProps}: any) => {
 
     return (
         <div className={`formControl ${hasError ? 'errorInput' : ''}`}>
-            <input {...restProps} />
+            <input className="text-field"
+                {...restProps} />
             <div>
                 {hasError && <span>{error}</span>}
             </div>
