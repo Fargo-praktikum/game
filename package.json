@@ -8,7 +8,7 @@
     "start": "webpack serve --mode development",
     "build": "npm-run-all  lint  lint-styles webpack-prod",
     "build-dev": "npm-run-all  lint  lint-styles webpack-dev",
-    "lint": "./node_modules/.bin/eslint .",
+    "lint": "eslint .",
     "lint-styles": "./node_modules/.bin/stylelint \"src/**/*.scss\"",
     "webpack-prod": "webpack --mode production",
     "webpack-dev": "webpack --mode development"
@@ -61,8 +61,14 @@
   "dependencies": {
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "@types/yup": "^0.29.11",
+    "formik": "^2.2.6",
     "npm-run-all": "^4.1.5",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "yup": "^0.32.9"
   }
 }

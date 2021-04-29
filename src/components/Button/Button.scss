@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.button {
+    border: 0;
+    cursor: pointer;
+    display: block;
+    background: $main-blue;
+    color: #fff;
+
+    &:focus {
+        outline: 0;
+    }
+}
