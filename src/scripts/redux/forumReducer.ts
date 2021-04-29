@@ -13,7 +13,7 @@ export interface IComment {
     message: string,
 }
 
-export interface ITopic {
+export interface IMessage {
     id: number,
     title: string,
     description: string,
@@ -27,17 +27,17 @@ export interface ILastCommentInfo {
     comment: IComment,
 }
 
-export interface IForumItem {
+export interface ITopic {
     id: number,
     title: string,
     description: string,
-    topics: ITopic[] | null,
+    messages: IMessage[] | null,
     lastCommentInfo?: ILastCommentInfo,
 }
 
 
 const initialState = {
-    forumList: null as IForumItem[] | null,
+    topicsList: null as ITopic[] | null,
 };
 
 export type forumReducerType = typeof initialState;
@@ -53,23 +53,23 @@ const forumReducer: Reducer<forumReducerType> = (state = initialState, action: A
         case SET_FORUM_LIST:
             return {
                 ...state,
-                forumList: action.forumData.map((forumItem: IForumItem) => {
+                topicsList: action.forumData.map((topic: ITopic) => {
                     let lastCommentInfo: ILastCommentInfo | undefined = undefined;
 
-                    forumItem.topics?.forEach((topic) => {
-                        if (topic.comments) {
-                            const lastCommentInTopic = topic.comments[topic.comments.length - 1];
+                    topic.messages?.forEach((message) => {
+                        if (message.comments) {
+                            const lastCommentInTopic = message.comments[message.comments.length - 1];
                             if (!lastCommentInfo || compareDate(lastCommentInfo.comment.date, lastCommentInTopic.date)) {
                                 lastCommentInfo = {
-                                    topicId: topic.id,
-                                    topicTitle: topic.title,
+                                    topicId: message.id,
+                                    topicTitle: message.title,
                                     comment: lastCommentInTopic,
                                 };
                             }
                         }
                     })
 
-                    return {...forumItem, lastCommentInfo}
+                    return {...topic, lastCommentInfo}
                 }),
             };
         default:
@@ -80,4 +80,4 @@ const forumReducer: Reducer<forumReducerType> = (state = initialState, action: A
 export default forumReducer;
 
 
-export const setForumList = (forumData: IForumItem[]) => ({ type: SET_FORUM_LIST, forumData });
+export const setTopicsList = (forumData: ITopic[]) => ({ type: SET_FORUM_LIST, forumData });

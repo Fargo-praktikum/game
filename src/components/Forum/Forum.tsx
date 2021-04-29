@@ -4,10 +4,10 @@ import "./Forum.scss";
 import ForumHeader from "./ForumHeader/ForumHeader";
 import {useDispatch} from "react-redux";
 import {setUserInfoAC} from "../../scripts/redux/authReducer";
-import {setForumList} from "../../scripts/redux/forumReducer";
-import ForumList from "./ForumList/ForumList";
-import {Route} from "react-router-dom";
+import {setTopicsList} from "../../scripts/redux/forumReducer";
 import TopicsList from "./TopicsList/TopicsList";
+import {Route} from "react-router-dom";
+import MessagesList from "./MessagesList/MessagesList";
 import {PopupboxContainer} from "../common/PopupConstructor/PopupboxContainer";
 
 // для теста
@@ -23,12 +23,12 @@ const userInfo = {
 };
 
 // для теста
-const forumList = [
+const topicsList = [
     {
         id: 1,
         title: "Глобальная тема №1",
         description: "Здесь какое-то описание этой темы",
-        topics: [
+        messages: [
             {
                 id: 1,
                 title: "Как пользоваться приложением",
@@ -52,7 +52,7 @@ const forumList = [
         id: 2,
         title: "Глобальная тема №2",
         description: "Здесь какое-то описание этой темы",
-        topics: [
+        messages: [
             {
                 id: 1,
                 title: "Как пользоваться приложением",
@@ -98,7 +98,7 @@ const Forum = () => {
     useEffect(() => {
         // в дальнейшем перенесем в redux-thunk
         dispatch(setUserInfoAC(userInfo));
-        dispatch(setForumList(forumList));
+        dispatch(setTopicsList(topicsList));
     }, []);
 
 
@@ -106,8 +106,8 @@ const Forum = () => {
         <div className="forum__general">
             <ForumHeader/>
 
-            <Route exact path="/forum/:forumId" render={() => <TopicsList/>}/>
-            <Route exact path='/forum' render={() => <ForumList/>}/>
+            <Route exact path="/forum/:topicId" render={() => <MessagesList/>}/>
+            <Route exact path='/forum' render={() => <TopicsList/>}/>
 
             <PopupboxContainer/>
         </div>
