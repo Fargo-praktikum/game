@@ -72,4 +72,7 @@ module.exports = {
     writeToDisk: true,
     historyApiFallback: true,
   },
+    stats: {
+        children: true,
+    }
 };
