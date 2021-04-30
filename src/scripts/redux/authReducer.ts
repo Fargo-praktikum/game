@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import User from "../../models/user";
 
+//TODO здесь нужна нормальная типизация.
 const SET_AUTH_INFO = "SET_AUTH_INFO";
 
 const initialState = {
