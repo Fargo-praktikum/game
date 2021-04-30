@@ -10,6 +10,7 @@ import { NotFoundPage } from "../Pages/NotFoundPage";
 import { PrivateRoute } from "../PrivateRoute";
 import { GamePage } from "../Pages/GamePage";
 import ForumPage from "../Pages/ForumPage/ForumPage";
+import { GameFinish } from "../GameFinish";
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
                     <PrivateRoute path="/profile" render={() => <div>profile</div>}/>
                     <PrivateRoute path="/leaderboard" render={() => <LeaderboardPage />}/>
                     <PrivateRoute path="/game" render={() => <GamePage />}/>
+                    <PrivateRoute path="/game-finish" render={() => <GameFinish />}/>
                     <Route path="*" render={() => <NotFoundPage />}/>
                 </Switch>
             </BrowserRouter>
