@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import LeaderboardPage from "../pages/LeaderboardPage";
-import { NotFoundPage } from "../pages/NotFoundPage";
-import { SignupPage } from "../pages/SignupPage/SignupPage";
+import LeaderboardPage from "../Pages/LeaderboardPage";
+import { NotFoundPage } from "../Pages/NotFoundPage";
+import { SignupPage } from "../Pages/SignupPage/SignupPage";
 import { PrivateRoute } from "../PrivateRoute";
+import { Game } from "../Game";
 
 import "./App.scss";
 
@@ -32,7 +33,7 @@ class App extends Component {
                         <div>forum</div>
                     </PrivateRoute>
                     <PrivateRoute path="/game">
-                        <div>game</div>
+                        <Game />
                     </PrivateRoute>
                     <Route path="*">
                         <NotFoundPage />
