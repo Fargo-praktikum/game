@@ -1,4 +1,4 @@
-$deep-blue: #3369f3;
+@import "../../../styles/variables";
 
 .leaderboard {
     margin: 50px 70px;
@@ -6,7 +6,7 @@ $deep-blue: #3369f3;
 
     &__header {
         font-size: 16px;
-        color: $deep-blue;
+        color: $main-blue;
         margin: 20px 0;
         font-weight: bold;
     }

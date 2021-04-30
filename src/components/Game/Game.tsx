@@ -1,7 +1,17 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import { drawPlayCard } from "../../game/drawPlayCard/drawPlayCard";
+import { setGameInfo } from "../../scripts/redux/gameReducer";
+import store from "../../scripts/redux/store";
 
-export const Card = (): JSX.Element => {
+export const Game = (): JSX.Element => {
+    const keyPressData = {
+        1: "capitals",
+        2: "periodic",
+        3: "history",
+        4: "english"
+    };
+    useKeyPress(keyPressData);
+
     const
         width = window.innerWidth,
         height = window.innerHeight,
@@ -62,7 +72,7 @@ function useWindowSize() {
     return size;
 }
 
-function stars(context: CanvasRenderingContext2D, width: number, height: number) {
+function stars(context: CanvasRenderingContext2D, width: number, height: number): void {
     const xMax = width;
     const yMax = height;
 
@@ -79,9 +89,29 @@ function stars(context: CanvasRenderingContext2D, width: number, height: number)
             context.shadowBlur = Math.floor((Math.random()*15)+5);
             context.shadowColor = "white";
         }
-        //context.fillStyle = "hsla(" + randomHue + ", 30%, 80%, ." + randomOpacityOne+randomOpacityTwo + ")";
-        context.fillStyle = `hsla(${randomHue}, 30%, 80%, .${randomOpacityOne + randomOpacityTwo})`;
+        context.fillStyle = `hsla(${ randomHue }, 30%, 80%, .${ randomOpacityOne + randomOpacityTwo })`;
         context.fillRect(randomX, randomY, randomSize, randomSize);
     }
 }
+
+const useKeyPress = (targetKey: { [key: string]: string; }): void => {
+    const downHandler = ({ key }: { key: string }) => {
+        if (key in targetKey){
+            //Добавляю в стейт "тему"
+            const gameInfo = setGameInfo( { theme: `${ targetKey[key] }` } );
+            store.dispatch(gameInfo);
+
+            //TODO Тут будет логика для очистки канваса и загрузки игры
+            console.log(`Pressed ${key} go to ${targetKey[key]} theme`);
+        }
+    };
+
+    React.useEffect(() => {
+        window.addEventListener("keydown", downHandler);
+        // Remove event listeners on cleanup
+        return () => {
+            window.removeEventListener("keydown", downHandler);
+        };
+    }, []);
+};
 

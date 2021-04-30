@@ -16,7 +16,7 @@ export const drawPlayCard = (context: CanvasRenderingContext2D, x: number, y: nu
     context.shadowOffsetY = 1;
     context.fill();
 
-    //Card with number near main card
+    //Game with number near main card
     context.restore();
     roundRect(context, x - 20, y, 15, 20, 3, false, false);
     context.fillStyle = "rgba(255, 255, 255, 0.5)";
