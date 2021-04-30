@@ -3,8 +3,6 @@ import { Game } from "../../Game";
 
 export const GamePage = (): JSX.Element => {
     return (
-        <>
-            <Game />
-        </>
+        <Game />
     );
 };
