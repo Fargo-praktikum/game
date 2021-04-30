@@ -5,6 +5,7 @@ import { NotFoundPage } from "../Pages/NotFoundPage";
 import { SignupPage } from "../Pages/SignupPage/SignupPage";
 import { ProfilePage } from "../Pages/ProfilePage/ProfilePage";
 import { PrivateRoute } from "../PrivateRoute";
+import { GamePage } from "../Pages/GamePage";
 
 import "./App.scss";
 
@@ -33,7 +34,7 @@ class App extends Component {
                         <div>forum</div>
                     </PrivateRoute>
                     <PrivateRoute path="/game">
-                        <div>game</div>
+                        <GamePage />
                     </PrivateRoute>
                     <Route path="*">
                         <NotFoundPage />
