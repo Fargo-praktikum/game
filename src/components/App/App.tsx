@@ -4,10 +4,9 @@ import LeaderboardPage from "../Pages/LeaderboardPage";
 import { NotFoundPage } from "../Pages/NotFoundPage";
 import { SignupPage } from "../Pages/SignupPage/SignupPage";
 import { PrivateRoute } from "../PrivateRoute";
-import { Game } from "../Game";
+import { GamePage } from "../Pages/GamePage";
 
 import "./App.scss";
-
 
 class App extends Component {
     render(): JSX.Element {
@@ -33,7 +32,7 @@ class App extends Component {
                         <div>forum</div>
                     </PrivateRoute>
                     <PrivateRoute path="/game">
-                        <Game />
+                        <GamePage />
                     </PrivateRoute>
                     <Route path="*">
                         <NotFoundPage />
