@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
-import { playCard } from "../../game/playCard/playCard";
+import { drawPlayCard } from "../../game/drawPlayCard/drawPlayCard";
 
 export const Card = (): JSX.Element => {
     const
@@ -37,10 +37,10 @@ export const Card = (): JSX.Element => {
         context.shadowBlur = 2;
         context.fillText("Выберите тему,чтобы начать играть", screenLocation.x + 190, screenLocation.y - 20);
 
-        playCard(context, screenLocation.x + 20, screenLocation.y + 20, "Столицы", "1");
-        playCard(context, screenLocation.x + 220, screenLocation.y + 20, "Химические элементы", "2");
-        playCard(context, screenLocation.x + 20, screenLocation.y + 240, "История", "3");
-        playCard(context, screenLocation.x + 220, screenLocation.y + 240, "Английский язык", "4");
+        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 20, "Столицы", "1");
+        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 20, "Химические элементы", "2");
+        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 240, "История", "3");
+        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 240, "Английский язык", "4");
 
     });
 
