@@ -21,4 +21,4 @@ export const FloatingFormField = (props: FloatingFormFieldProps): JSX.Element =>
             ) : null}
         </div>
     );
-}
+};

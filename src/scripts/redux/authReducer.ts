@@ -1,6 +1,7 @@
 import { AnyAction, Reducer } from "redux";
 
 
+//TODO здесь нужна нормальная типизация.
 const SET_AUTH_INFO = "SET_AUTH_INFO";
 
 
@@ -33,6 +34,5 @@ const authReducer: Reducer<authReducerType> = (state = initialState, action: Any
 };
 
 export default authReducer;
-
 
 export const setUserInfoAC = (userInfoData: typeof initialState.userInfo) => ({ type: SET_AUTH_INFO, userInfoData });

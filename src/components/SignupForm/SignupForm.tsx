@@ -58,7 +58,7 @@ const handleSubmit =
         finally {
             actions.setSubmitting(false);
         }
-};
+    };
 
 export const SignupForm = (): JSX.Element => {
 
@@ -79,7 +79,7 @@ export const SignupForm = (): JSX.Element => {
                 }}
                 onSubmit={handleSubmit}
                 validationSchema={formValidationSchema}
-                >
+            >
                 {({ status }) => (
                     <Form className="floating-label-form__form">
                         <div className="floating-label-form__fields-block">
@@ -136,4 +136,4 @@ export const SignupForm = (): JSX.Element => {
             </Formik>
         </div>
     );
-}
+};
