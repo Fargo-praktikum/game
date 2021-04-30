@@ -9,7 +9,7 @@ export interface IUser {
     avatar?: string,
 }
 
-export interface IComment {
+export interface Comment {
     id: number,
     date: string,
     message: string,
@@ -22,14 +22,14 @@ export interface IMessage {
     description: string,
     date: string,
     user: IUser,
-    comments: IComment[] | null,
+    comments: Comment[] | null,
 }
 
 // Можно будет перенести логику lastCommentInfo на бэк
 export interface ILastCommentInfo {
     topicId: number
     topicTitle: string,
-    comment: IComment,
+    comment: Comment,
 }
 
 export interface ITopic {

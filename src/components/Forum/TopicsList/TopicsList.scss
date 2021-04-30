@@ -4,68 +4,70 @@
     width: 90vw;
     height: fit-content;
     margin: auto;
-}
 
-.f-list__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 50px;
-    padding: 0 30px;
-    background-color: $dark-gray;
-}
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        padding: 0 30px;
+        background-color: $dark-gray;
+    }
 
-.f-list__title {
-    font-weight: 600;
-    font-size: 18px;
-}
+    &__title {
+        font-weight: 600;
+        font-size: 18px;
+    }
 
-.f-list__card-container {
-    min-height: 50vh;
-    background-color: $gray;
-}
+    &__card-container {
+        min-height: 50vh;
+        background-color: $gray;
+    }
 
-.f-list__item {
-    display: grid;
-    grid-template-columns: 30px 4fr 1.5fr 2fr;
-    grid-column-gap: 20px;
-    align-items: center;
-    padding: 20px;
+    &__item {
+        display: grid;
+        grid-template-columns: 30px 4fr 1.5fr 2fr;
+        grid-column-gap: 20px;
+        align-items: center;
+        padding: 20px;
 
-    &_two {
-        background-color: $gray-locked;
+        &_two {
+            background-color: $gray-locked;
+        }
+    }
+
+    &__img {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+    }
+
+    &__list-title {
+        cursor: pointer;
+        transition: all .2s linear;
+
+        &:hover {
+            color: $lightblue;
+        }
+    }
+
+    &__list-descr {
+        margin-top: 5px;
+    }
+
+    &__list-messages {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    &__messages-count {
+        font-size: 30px;
+    }
+
+    &_text {
+        color: $font-dark-second;
     }
 }
 
-.f-list__img {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-}
 
-.f-list__list-title {
-    cursor: pointer;
-    transition: all .2s linear;
-
-    &:hover {
-        color: $lightblue;
-    }
-}
-
-.f-list__list-descr {
-    margin-top: 5px;
-}
-
-.f-list__list-messages {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.f-list__messages-count {
-    font-size: 30px;
-}
-
-.f-list_text {
-    color: $font-dark-second;
-}
