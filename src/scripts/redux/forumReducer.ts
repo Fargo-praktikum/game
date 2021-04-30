@@ -1,4 +1,5 @@
 import { AnyAction, Reducer } from "redux";
+import { compareDate } from "../utils/compareDate";
 
 const SET_FORUM_LIST = "SET_FORUM_LIST";
 
@@ -48,10 +49,6 @@ const initialState = {
 export type forumReducerType = typeof initialState;
 
 
-
-const compareDate = (dateOne: string, dateTwo: string) => {
-    return (new Date(dateOne)).getTime() < (new Date(dateTwo)).getTime();
-};
 
 const forumReducer: Reducer<forumReducerType> = (state = initialState, action: AnyAction) => {
     switch (action.type) {

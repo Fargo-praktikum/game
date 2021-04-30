@@ -20,6 +20,7 @@ export const isEmpty = (value: unknown) => {
 
     return value === undefined
         || value == null
+        || typeof (value) === "string" && value.length === 0
         || Array.isArray(value) && value.length === 0
         // eslint-disable-next-line @typescript-eslint/ban-types
         || Object.prototype.toString.call(value) === "[object Object]" && Object.keys(value as object).length === 0;

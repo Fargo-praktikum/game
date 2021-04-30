@@ -11,39 +11,19 @@ import { PrivateRoute } from "../PrivateRoute";
 import Forum from "../Forum/Forum";
 
 
-
 class App extends Component {
     render(): JSX.Element {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route component={Forum} path="/forum"/>
-
-                    <Route path="/" exact>
-                        <div>main</div>
-                    </Route>
-                    <Route path="/login">
-                        <div>login</div>
-                    </Route>
-                    <Route path="/signup">
-                        <SignupPage />
-                    </Route>
-                    <PrivateRoute path="/profile">
-                        <div>profile</div>
-                    </PrivateRoute>
-                    <PrivateRoute path="/leaderboard">
-                        <LeaderboardPage />
-                    </PrivateRoute>
-                    {/*<PrivateRoute path="/forum">*/}
-                    {/*    <div>forum</div>*/}
-                    {/*</PrivateRoute>*/}
-                    <PrivateRoute path="/game">
-                        <div>game</div>
-                    </PrivateRoute>
-                    <Route path="*">
-                        <NotFoundPage />
-                    </Route>
-
+                    <Route exact path="/" render={() => <div>main</div>}/>
+                    <Route path="/signup" render={() => <SignupPage />}/>
+                    <Route path="/login" render={() => <div>login</div>}/>
+                    <Route path="/forum" render={() => <Forum/>}/>
+                    <PrivateRoute path="/profile" render={() => <div>profile</div>}/>
+                    <PrivateRoute path="/leaderboard" render={() => <LeaderboardPage />}/>
+                    <PrivateRoute path="/game" render={() => <div>game</div>}/>
+                    <Route path="*" render={() => <NotFoundPage />}/>
                 </Switch>
             </BrowserRouter>
         );
