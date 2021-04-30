@@ -9,9 +9,10 @@
     "build": "npm-run-all  lint  lint-styles webpack-prod",
     "build-dev": "npm-run-all  lint  lint-styles webpack-dev",
     "lint": "eslint .",
-    "lint-styles": "./node_modules/.bin/stylelint \"src/**/*.scss\"",
+    "lint-styles": "stylelint \"src/**/*.scss\"",
     "webpack-prod": "webpack --mode production",
-    "webpack-dev": "webpack --mode development"
+    "webpack-dev": "webpack --mode development",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^7.23.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "husky": "^6.0.0",
     "mini-css-extract-plugin": "^1.4.1",
     "postcss": "^8.2.12",
     "postcss-loader": "^5.2.0",

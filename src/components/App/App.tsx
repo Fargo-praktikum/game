@@ -8,7 +8,8 @@ import LeaderboardPage from "../Pages/LeaderboardPage";
 import { SignupPage } from "../Pages/SignupPage/SignupPage";
 import { NotFoundPage } from "../Pages/NotFoundPage";
 import { PrivateRoute } from "../PrivateRoute";
-import Forum from "../Forum/Forum";
+import { GamePage } from "../Pages/GamePage";
+import ForumPage from "../Pages/ForumPage/ForumPage";
 
 
 class App extends Component {
@@ -19,10 +20,10 @@ class App extends Component {
                     <Route exact path="/" render={() => <div>main</div>}/>
                     <Route path="/signup" render={() => <SignupPage />}/>
                     <Route path="/login" render={() => <div>login</div>}/>
-                    <Route path="/forum" render={() => <Forum/>}/>
+                    <PrivateRoute path="/forum" render={() => <ForumPage/>}/>
                     <PrivateRoute path="/profile" render={() => <div>profile</div>}/>
                     <PrivateRoute path="/leaderboard" render={() => <LeaderboardPage />}/>
-                    <PrivateRoute path="/game" render={() => <div>game</div>}/>
+                    <PrivateRoute path="/game" render={() => <GamePage />}/>
                     <Route path="*" render={() => <NotFoundPage />}/>
                 </Switch>
             </BrowserRouter>

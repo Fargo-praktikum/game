@@ -1,27 +1,16 @@
 import React, { useEffect } from "react";
+import { Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import "./Forum.scss";
-import ForumHeader from "./ForumHeader/ForumHeader";
-import { useDispatch } from "react-redux";
-import { setUserInfoAC } from "../../scripts/redux/authReducer";
-import { ITopic, setTopicsList } from "../../scripts/redux/forumReducer";
-import TopicsList from "./TopicsList/TopicsList";
-import { Route } from "react-router-dom";
-import MessagesList from "./MessagesList/MessagesList";
-import { PopupboxContainer } from "../common/PopupConstructor/PopupboxContainer";
-import MessageAndComments from "./MessageAndComments/MessageAndComments";
 
-// для теста
-const userInfo = {
-    id: 111,
-    login: "trololo",
-    displayName: "trololo111",
-    firstName: "tro",
-    secondName: "lolo",
-    email: "tro@gmail.com",
-    avatar: null,
-    phone: "+79161234567",
-};
+import ForumHeader from "../../Forum/ForumHeader/ForumHeader";
+import TopicsList from "../../Forum/TopicsList/TopicsList";
+import MessagesList from "../../Forum/MessagesList/MessagesList";
+import { PopupboxContainer } from "../../common/PopupConstructor/PopupboxContainer";
+import MessageAndComments from "../../Forum/MessageAndComments/MessageAndComments";
+
+import { ITopic, setTopicsList } from "../../../scripts/redux/forumReducer";
 
 // для теста
 const topicsList: ITopic[] = [
@@ -129,12 +118,11 @@ const topicsList: ITopic[] = [
 ];
 
 
-const Forum = () => {
+const ForumPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         // в дальнейшем перенесем в redux-thunk
-        dispatch(setUserInfoAC(userInfo));
         dispatch(setTopicsList(topicsList));
     }, []);
 
@@ -152,4 +140,4 @@ const Forum = () => {
     );
 };
 
-export default Forum;
+export default ForumPage;
