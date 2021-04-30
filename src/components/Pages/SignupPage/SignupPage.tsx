@@ -9,4 +9,4 @@ export const SignupPage = (): JSX.Element => {
             <SignupForm />
         </main>
     );
-}
+};
