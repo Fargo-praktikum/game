@@ -9,7 +9,6 @@ import { GamePage } from "../Pages/GamePage";
 
 import "./App.scss";
 
-
 class App extends Component {
     render(): JSX.Element {
         return (
