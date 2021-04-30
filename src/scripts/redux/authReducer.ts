@@ -1,5 +1,6 @@
 import { AnyAction } from "redux";
 
+//TODO здесь нужна нормальная типизация.
 const SET_AUTH_INFO = "SET_AUTH_INFO";
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
     },
 };
 
-function authReducer(state = initialState, action: AnyAction) {
+function authReducer(state = initialState, action: AnyAction): { userInfo: any } {
     switch (action.type) {
     // TODO: СРЕДНИЙ. В дальнейшем здесь опишем корректную логику для пользователя
         case SET_AUTH_INFO:
@@ -30,5 +31,5 @@ function authReducer(state = initialState, action: AnyAction) {
 
 export default authReducer;
 
-
+// eslint-disable-next-line
 export const setUserInfoAC = (userInfoData: typeof initialState.userInfo) => ({ type: SET_AUTH_INFO, userInfoData });
