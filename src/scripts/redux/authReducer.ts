@@ -16,7 +16,7 @@ const initialState = {
     },
 };
 
-function authReducer(state = initialState, action: AnyAction): { userInfo: User } {
+function authReducer(state = initialState, action: AnyAction): { userInfo: any } {
     switch (action.type) {
     // TODO: СРЕДНИЙ. В дальнейшем здесь опишем корректную логику для пользователя
         case SET_AUTH_INFO:
@@ -31,6 +31,6 @@ function authReducer(state = initialState, action: AnyAction): { userInfo: User 
 
 export default authReducer;
 
-
-export const setUserInfoAC = (userInfoData: typeof initialState.userInfo): { type: string, userInfoData: User } =>
+// eslint-disable-next-line
+export const setUserInfoAC = (userInfoData: typeof initialState.userInfo) =>
     ({ type: SET_AUTH_INFO, userInfoData });
