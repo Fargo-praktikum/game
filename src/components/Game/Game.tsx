@@ -12,10 +12,9 @@ export const Game = (): JSX.Element => {
     };
     useKeyPress(keyPressData);
 
-    const
-        width = window.innerWidth,
-        height = window.innerHeight,
-        pixelRatio = window.devicePixelRatio;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const pixelRatio = window.devicePixelRatio;
 
     const canvas = useRef<HTMLCanvasElement>(null);
 

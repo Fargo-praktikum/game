@@ -25,7 +25,7 @@ export const drawPlayCard = (context: CanvasRenderingContext2D, x: number, y: nu
     context.stroke();
 
     //Main text
-    if( text ) {
+    if (text) {
         const fontSize = 20;
         context.font = `${ fontSize }px Inter`;
         context.fillStyle = "black";
@@ -42,7 +42,7 @@ export const drawPlayCard = (context: CanvasRenderingContext2D, x: number, y: nu
     }
 
     //Text on little card
-    if( keyNumber ){
+    if (keyNumber) {
         const fontSizeLittleCard = 15;
         context.font = `${ fontSizeLittleCard }px Inter`;
         context.fillStyle = lightGrey;
@@ -60,7 +60,7 @@ function divideIntoLines(context: CanvasRenderingContext2D, text: string, maxWid
     for ( let i = 1; i < words.length; i++ ) {
         const word = words[i];
         const width = context.measureText(currentLine + " " + word).width;
-        if ( width < maxWidth ) {
+        if (width < maxWidth) {
             currentLine += " " + word;
         } else {
             lines.push(currentLine);
