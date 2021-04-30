@@ -64,9 +64,6 @@ export const ProfileForm = (): JSX.Element => {
 
     return (
         <div className="profile">
-            <h1 className="floating-label-form__header">
-                Регистрация
-            </h1>
             <Formik<SignupFormValuesType>
                 initialValues={{
                     email: "",

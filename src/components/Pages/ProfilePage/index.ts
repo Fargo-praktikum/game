@@ -1,3 +1,3 @@
-import { SignupForm } from "../../SignupForm/SignupForm";
+import { SidebarProfile } from "../../SidebarProfile/SidebarProfile";
 
-export { SignupForm };
+export { SidebarProfile };
