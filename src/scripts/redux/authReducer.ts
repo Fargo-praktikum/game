@@ -32,5 +32,4 @@ function authReducer(state = initialState, action: AnyAction): { userInfo: any }
 export default authReducer;
 
 // eslint-disable-next-line
-export const setUserInfoAC = (userInfoData: typeof initialState.userInfo) =>
-    ({ type: SET_AUTH_INFO, userInfoData });
+export const setUserInfoAC = (userInfoData: typeof initialState.userInfo) => ({ type: SET_AUTH_INFO, userInfoData });
