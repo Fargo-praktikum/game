@@ -1,9 +1,11 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import authReducer from "./authReducer";
 import gameReducer from "./gameReducer";
+import forumReducer from "./forumReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    forum: forumReducer,
     game: gameReducer,
 });
 

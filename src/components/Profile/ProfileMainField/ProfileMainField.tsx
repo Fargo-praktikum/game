@@ -1,9 +1,9 @@
 import React from "react";
-import { FloatingFormFieldProps } from "./types";
-import "./ProfileViewField.scss";
+import { ProfileMainFieldProps } from "./types";
+import "./ProfileMainField.scss";
 import "../ProfileFormField/ProfileFormField.scss";
 
-export const ProfileViewField = (props: FloatingFormFieldProps): JSX.Element => {
+export const ProfileMainField = (props: ProfileMainFieldProps): JSX.Element => {
 
 
     return (

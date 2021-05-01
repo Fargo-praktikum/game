@@ -4,7 +4,7 @@ import { FloatingFormField } from "../FloatingFormField";
 import { Button } from "../Button/Button";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import { emailRegexp, passwordMinLength } from "../../constants";
+import { emailRegexp, passwordMinLength, phoneRexep } from "../../constants";
 import { signup } from "../../services/authService";
 import { SignupFormValuesType } from "./types";
 
@@ -23,7 +23,7 @@ const formValidationSchema: Yup.SchemaOf<SignupFormValuesType> = Yup.object({
         .required("Введите фамилию"),
     phone: Yup.string()
         .required("Введите телефон")
-        .matches(emailRegexp, "Введите телефон в формате +12345678901 или 12345678901"),
+        .matches(phoneRexep, "Введите телефон в формате +12345678901 или 12345678901"),
     password: Yup.string()
         .required("Введите пароль")
         .min(passwordMinLength, "Длина пароля не менее ${min}"),

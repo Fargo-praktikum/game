@@ -1,3 +1,7 @@
-import SignupRequestData from "../../../models/signupRequestData";
-
-export type SignupFormValuesType = SignupRequestData & { passwordRepeat: string };
+export default interface ChangeRequestDataTypes {
+    email: string,
+    login: string,
+    firstName: string,
+    secondName: string,
+    phone: string,
+}

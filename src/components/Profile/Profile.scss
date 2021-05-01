@@ -25,12 +25,23 @@
 
 .profile-image {
     display: flex;
+    margin: auto auto 70px;
     justify-content: center;
-    margin-bottom: 70px;
+
+}
+
+.profile-avatar {
+    display: block;
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
 }
 
 .profile-image .profile-svg {
     display: block;
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
 }
 
 .profile-image .profile-svg-change {

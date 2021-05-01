@@ -1,0 +1,49 @@
+@import "../forumVar";
+
+.message__general {
+    width: 100%;
+    height: fit-content;
+    margin: auto;
+}
+
+
+.message {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-column-gap: 20px;
+    padding: 20px;
+    background-color: $gray;
+}
+
+.f-list__img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.f-list__list-title {
+    cursor: pointer;
+    transition: all 0.2s linear;
+
+    &:hover {
+        color: $lightblue;
+    }
+}
+
+.f-list__list-descr {
+    margin-top: 5px;
+}
+
+.f-list__list-topics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.f-list__topics-count {
+    font-size: 30px;
+}
+
+.f-list_text {
+    color: $font-dark-second;
+}

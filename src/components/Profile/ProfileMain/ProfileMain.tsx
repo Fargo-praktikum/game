@@ -1,15 +1,15 @@
 import React from "react";
 import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
-import ProfileNonePhotoHover from "../../../assets/profileNonePhotoHover.svg";
 
-import "../ProfileForm/ProfileForm.scss";
-import "./ProfileView.scss";
+import "../Profile.scss";
 import { useSelector } from "react-redux";
-import { ProfileViewField } from "../ProfileViewField";
+import { ProfileMainField } from "../ProfileMainField";
 import User from "../../../models/user";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 
-export const ProfileView = (): JSX.Element => {
+export const ProfileMain = (): JSX.Element => {
+
+    const { url } = useRouteMatch();
 
     //TODO типизировать, когда появится типизированный стор
     const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
@@ -18,48 +18,49 @@ export const ProfileView = (): JSX.Element => {
         <div className="registration__block">
             <div className="wraper">
                 <div className="profile-image">
-                    <img className="profile-svg" src={ userInfo.avatar ?? ProfileNonePhoto } alt="Аватар"/>
-                    <img className="profile-svg-change" src={ProfileNonePhotoHover} alt="Поменять аватар"/>
+                    <img className="profile-avatar"
+                        src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
+                        alt="Аватар"/>
                 </div>
                 <div className="floating-label-form__fields-block">
-                    <ProfileViewField
+                    <ProfileMainField
                         label="Email"
                         placeholder={userInfo.email}
                     />
-                    <ProfileViewField
+                    <ProfileMainField
                         label="Логин"
                         placeholder={userInfo.login}
                     />
-                    <ProfileViewField
+                    <ProfileMainField
                         label="Имя"
                         placeholder={userInfo.firstName}
                     />
-                    <ProfileViewField
+                    <ProfileMainField
                         label="Фамилия"
                         placeholder={userInfo.secondName}
                     />
-                    <ProfileViewField
+                    <ProfileMainField
                         label="Имя в чате"
                         placeholder={userInfo.displayName}
                     />
-                    <ProfileViewField
+                    <ProfileMainField
                         label="Телефон"
                         placeholder={userInfo.phone}
                     />
                 </div>
                 <div className="form__field">
-                    <Link to="/" className="link">
+                    <Link to={`${url}/change`} className="link">
                         Изменить данные
                     </Link>
                 </div>
                 <div className="form__field">
-                    <Link to="/" className="link">
+                    <Link to={`${url}/change_password`} className="link">
                         Изменить пароль
                     </Link>
                 </div>
                 <div className="form__field">
                     <Link to="/" className="link red">
-                        На главную
+                        Выйти
                     </Link>
                 </div>
             </div>
