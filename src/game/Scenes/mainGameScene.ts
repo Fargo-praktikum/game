@@ -1,6 +1,6 @@
+import { GameInfo } from "../gameInfo";
 import { SceneBase } from "../sceneBase";
 import { drawPlayCard } from "../utils/drawPlayCard";
-//import roundRect from "../utils/roundRect";
 
 interface Stage {
     question: string;
@@ -11,12 +11,15 @@ interface Stage {
 export class MainGameScene extends SceneBase {
 
     constructor(
-        nextSceneCallback: () => void,
-        needUpdateCallback: () => void
-        ) {
-        super(nextSceneCallback, needUpdateCallback);
+        gameInfo: GameInfo,
+        nextSceneCallback: (gameInfo: GameInfo) => void
+    ) {
+        super(gameInfo, nextSceneCallback);
 
         this._currentStageIndex = 0;
+
+        // пока выбранная тема не используется, просто выведем на консоль. чтобы проверить правильность установки
+        console.log(`Current game theme is ${gameInfo.currentTheme ?? ""}`);
     }
 
     private _currentStageIndex: number;
@@ -47,32 +50,51 @@ export class MainGameScene extends SceneBase {
         context.fillRect(0, 0, width, height);
     }
 
-    protected _drawGameObjects(context: CanvasRenderingContext2D, _width: number, height: number): void {
-        // const screenLocation = {
-        //     x: width - 550,
-        //     y: height - 650
-        // };
-        //const color = "#00c2ff";
+    protected _drawGameObjects(context: CanvasRenderingContext2D, width: number, height: number): void {
 
         const currentStage = this._stages[this._currentStageIndex];
 
         // плашка с вопросом
         drawPlayCard(context, 150, height / 2 - 95, currentStage.question);
+
+        // плашки с ответами
+        const answerCardGap = 15;
+        const answerCardHeight = 50;
+
+        drawPlayCard(
+            context,
+            width / 2,
+            (height / 2) - (answerCardHeight * 1.5) - answerCardGap,
+            currentStage.options[0],
+            "1",
+            { width: 200, height: answerCardHeight }
+        );
+        drawPlayCard(
+            context,
+            width / 2,
+            (height / 2) - (answerCardHeight / 2),
+            currentStage.options[1],
+            "2",
+            { width: 200, height: answerCardHeight }
+        );
+        drawPlayCard(
+            context,
+            width / 2,
+            (height / 2) + (answerCardHeight / 2) + answerCardGap,
+            currentStage.options[2],
+            "3",
+            { width: 200, height: answerCardHeight }
+        );
     }
 
     keyDownHandler(key: string): void {
-        console.log(`Your answer is ${key}`);
+        console.log(`Your answer is ${this._stages[this._currentStageIndex].options[parseInt(key) - 1]}`);
 
         this._currentStageIndex++;
 
-        if (this._currentStageIndex < this._stages.length) {
-            //this.needUpdate = true;
-            this._needUpdateCallback();
+        if (this._currentStageIndex >= this._stages.length) {
+            this._nextSceneCallback(this._gameInfo);
         }
-        else {
-            this._nextSceneCallback();
-        }
-
     }
 
 }

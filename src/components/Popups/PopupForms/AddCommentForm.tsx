@@ -22,7 +22,7 @@ const onSubmit = (values: any, { setSubmitting }: any) => {
     }, 400);
 };
 
-const AddCommentForm = () => (
+const AddCommentForm = (): JSX.Element => (
     <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}>

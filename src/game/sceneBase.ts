@@ -1,14 +1,21 @@
+import { GameInfo } from "./gameInfo";
+
 export abstract class SceneBase {
-    constructor(nextSceneCallback: () => void, needUpdateCallback: () => void) {
+    constructor(
+        gameInfo: GameInfo,
+        nextSceneCallback: (gameInfo: GameInfo) => void,
+        endGameCallback?: () => void
+    ) {
         this._nextSceneCallback = nextSceneCallback;
-        this._needUpdateCallback = needUpdateCallback;
+        this._endGameCallback = endGameCallback;
+        this._gameInfo = gameInfo;
     }
 
-    needUpdate: boolean = false;
-    protected _needUpdateCallback: () => void;
-    protected _nextSceneCallback: () => void;
+    protected _nextSceneCallback: (gameInfo: GameInfo) => void;
+    protected _endGameCallback?: () => void;
+    protected _gameInfo: GameInfo;
 
-    render(context: CanvasRenderingContext2D, width: number, height: number) {
+    render(context: CanvasRenderingContext2D, width: number, height: number): void {
         this._drawBackground(context, width, height);
 
         this._drawGameObjects(context, width, height);

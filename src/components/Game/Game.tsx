@@ -1,39 +1,40 @@
 import React, { useRef, useLayoutEffect, useState, useMemo, useEffect } from "react";
+import { useHistory } from "react-router";
+import { GameInfo } from "../../game/gameInfo";
 import { SceneBase } from "../../game/sceneBase";
+import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
-//import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
-//import { StartGameScene } from "../../game/Scenes/startGameScene";
-//import { drawPlayCard } from "../../game/drawPlayCard/drawPlayCard";
-//import { setGameInfo } from "../../scripts/redux/gameReducer";
-//import store from "../../scripts/redux/store";
 
 export const Game = (): JSX.Element => {
 
-    //const [currentScene] = useState(new MainGameScene());//(new StartGameScene());
-    const [currentSceneName, setCurrentSceneName] = useState("start");
-    const [ ,setNeedUpdate] = useState(false);
-    //const [currentGameTheme, setCurrentGameTheme] = useState(null);
+    const history = useHistory();
 
     const sceneFactory = useMemo(() => {
-        return (sceneName: string): SceneBase => {
+        return (sceneName: string, initialGameInfo: GameInfo): SceneBase => {
             switch (sceneName) {
                 case "start":
                     return new StartGameScene(
-                        () => {
-                            setCurrentSceneName("main");
-                        },
-                        () => {
-                            setNeedUpdate(true);
+                        initialGameInfo,
+                        (gameInfo: GameInfo) => {
+                            setCurrentScene(sceneFactory("main", gameInfo));
                         }
                     );
                 case "main":
                     return new MainGameScene(
-                        () => {
-                            setCurrentSceneName("start");
+                        initialGameInfo,
+                        (gameInfo: GameInfo) => {
+                            setCurrentScene(sceneFactory("end", gameInfo));
+                        }
+                    );
+                case "end":
+                    return new EndGameScene(
+                        initialGameInfo,
+                        (gameInfo: GameInfo) => {
+                            setCurrentScene(sceneFactory("start", gameInfo));
                         },
                         () => {
-                            setNeedUpdate(true);
+                            history.push("/leaderboard");
                         }
                     );
                 default:
@@ -42,17 +43,13 @@ export const Game = (): JSX.Element => {
         };
     }, []);
 
-    const [currentScene, setCurrentScene] = useState(sceneFactory(currentSceneName));
+    const [currentScene, setCurrentScene] = useState(sceneFactory("start", { currentTheme: null }));
 
     useEffect(() => {
 
-        const scene = sceneFactory(currentSceneName);
-
-        setCurrentScene(scene);
-
         const handler = ({ key }: { key: string }) => {
-            scene.keyDownHandler(key);
-        }
+            currentScene.keyDownHandler(key);
+        };
 
         window.addEventListener("keydown", handler);
         // Remove event listeners on cleanup
@@ -60,7 +57,7 @@ export const Game = (): JSX.Element => {
             window.removeEventListener("keydown", handler);
         };
 
-    }, [currentSceneName]);
+    }, [currentScene]);
 
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -71,14 +68,21 @@ export const Game = (): JSX.Element => {
     useWindowSize();
 
     useLayoutEffect(() => {
-
-        console.log("CURRENT SCENE", currentSceneName);
-
         if (canvas.current === null) throw new Error("Could not get current canvas");
         const context = canvas.current.getContext("2d");
         if (context === null) throw new Error("Could not get context");
 
-        currentScene.render(context, width, height);
+        let animationFrameId: number;
+        const render = () => {
+            currentScene.render(context, width, height);
+            animationFrameId = window.requestAnimationFrame(render);
+        };
+
+        render();
+
+        return () => {
+            window.cancelAnimationFrame(animationFrameId);
+        };
     });
 
     const dw = Math.floor(pixelRatio * width);

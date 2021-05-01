@@ -24,7 +24,7 @@ export class PopupboxContainer extends Component<Partial<defaultConfigType>, def
         this.closeImagebox = Manager.close.bind(Manager);
     }
 
-    getConfig({ params, isInit }: getConfigType) {
+    getConfig({ params, isInit }: getConfigType): defaultConfigType {
         const defaultConfig: defaultConfigType = {
             overlayOpacity: 0.75,
             show: false,
@@ -44,31 +44,27 @@ export class PopupboxContainer extends Component<Partial<defaultConfigType>, def
         return merge(isInit ? defaultConfig : this._defaultState, params);
     }
 
-    onKeyDown(e: KeyboardEvent) {
+    onKeyDown(e: KeyboardEvent): void {
         if (!this.state.escClose) return;
         if (this.state.show && (e.code === "Escape")) {
             this.closeImagebox(e as any);
         }
     }
 
-    // componentWillMount() {
-    //   Manager.addChangeListener(this.handleStoreChange)
-    // }
-
-    componentDidMount = () => {
+    componentDidMount = (): void => {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         Manager.addChangeListener(this.handleStoreChange);
 
         document.addEventListener("keydown", this.onKeyDown.bind(this));
     };
 
-    componentWillUnmount = () => {
+    componentWillUnmount = (): void => {
         document.removeEventListener("keydown", this.onKeyDown.bind(this));
         // eslint-disable-next-line @typescript-eslint/unbound-method
         Manager.removeChangeListener(this.handleStoreChange);
     };
 
-    handleStoreChange(params: handleStoreChangeType) {
+    handleStoreChange(params: handleStoreChangeType): void {
         this.cleanUp();
 
         const { children, show, config } = params;
@@ -100,17 +96,17 @@ export class PopupboxContainer extends Component<Partial<defaultConfigType>, def
     }
 
 
-    onClosed() {
+    onClosed(): void {
         const { onClosed } = this.state;
         onClosed && onClosed();
         this.setState(this._defaultState);
     }
 
-    cleanUp() {
+    cleanUp(): void {
         if (this.state.callback) clearTimeout(this.state.callback);
     }
 
-    render() {
+    render(): JSX.Element {
         const {
             overlayOpacity,
             show,

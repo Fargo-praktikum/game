@@ -12,7 +12,7 @@ const redirectToUserPage = () => {
     console.log("Редирект на страницу пользователя");
 };
 
-const ForumHeader = () => {
+const ForumHeader = (): JSX.Element => {
     const userInfo = useSelector((state: rootStateType) => state.auth.userInfo);
     const { firstName, secondName } = userInfo;
 

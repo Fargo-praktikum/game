@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
 import { openPopupAddTopic } from "../../Popups/PopupFuncs/PopupFuncs";
 
-export const getTopicsOrCommentsCount = (topics: IMessage[] | Comment[] | null) => {
+export const getTopicsOrCommentsCount = (topics: IMessage[] | Comment[] | null): number => {
     return topics ? topics.length : 0;
 };
 
@@ -21,7 +21,7 @@ const createTopic = () => {
     openPopupAddTopic();
 };
 
-const TopicsList = () => {
+const TopicsList = (): JSX.Element => {
     const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
     const history = useHistory();
 

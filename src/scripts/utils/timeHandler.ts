@@ -1,6 +1,6 @@
 import { isEmpty } from "./myDash/isEmpty";
 
-export const getTimeInfo = (date: string | undefined) => {
+export const getTimeInfo = (date: string | undefined): string | undefined => {
     if (isEmpty(date)) return;
 
     const dateNew = new Date(date as string);

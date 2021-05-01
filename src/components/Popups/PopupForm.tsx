@@ -8,7 +8,7 @@ type PopupFormType = {
     form?: JSX.Element,
 };
 
-const PopupForm = ({ title, form }: PopupFormType) => {
+const PopupForm = ({ title, form }: PopupFormType): JSX.Element => {
     return (
         <div className="popupform__common">
             <h1 className="popupform__title">{title}</h1>

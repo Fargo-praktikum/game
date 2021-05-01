@@ -13,7 +13,7 @@ import CoolButton from "../../common/FormElements/Button/CoolButton";
 import { openPopupAddMessage } from "../../Popups/PopupFuncs/PopupFuncs";
 
 
-const MessagesList = () => {
+const MessagesList = (): JSX.Element => {
     const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
     const { topicId } = useParams<{ topicId: string }>();
     // TODO: СРЕДНЕ. В дальнейшем будем делать запрос по конкретному форуму

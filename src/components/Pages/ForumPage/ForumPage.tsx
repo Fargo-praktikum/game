@@ -118,7 +118,7 @@ const topicsList: ITopic[] = [
 ];
 
 
-const ForumPage = () => {
+const ForumPage = (): JSX.Element => {
     const dispatch = useDispatch();
 
     useEffect(() => {
