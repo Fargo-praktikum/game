@@ -4,12 +4,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "../../assets/vendor/normalize.scss";
 import "./App.scss";
 
-import LeaderboardPage from "../Pages/LeaderboardPage";
-import { SignupPage } from "../Pages/SignupPage/SignupPage";
-import { NotFoundPage } from "../Pages/NotFoundPage";
+import LeaderboardPage from "../pages/LeaderboardPage";
+import { SignupPage } from "../pages/SignupPage/SignupPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
 import { PrivateRoute } from "../PrivateRoute";
-import { GamePage } from "../Pages/GamePage";
-import ForumPage from "../Pages/ForumPage/ForumPage";
+import { GamePage } from "../pages/GamePage";
+import ForumPage from "../pages/ForumPage/ForumPage";
 
 
 class App extends Component {
