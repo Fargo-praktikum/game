@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./SidebarProfile.scss";
-import ProfileArrowButton from "../../assets/profileArrowButton.svg";
+import ProfileArrowButton from "../../../assets/profileArrowButton.svg";
 
 export const SidebarProfile = (): JSX.Element => {
 

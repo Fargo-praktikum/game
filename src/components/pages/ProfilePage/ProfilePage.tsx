@@ -1,16 +1,16 @@
 import React from "react";
-import { ProfileForm } from "../../ProfileForm/ProfileForm";
-import { SidebarProfile } from "../../SidebarProfile/SidebarProfile";
+import { SidebarProfile } from "../../Profile/SidebarProfile/SidebarProfile";
 
 import "../../../styles/page.scss";
 import "./ProfilePage.scss";
+import { ProfileView } from "../../Profile/ProfileView/ProfileView";
 
 export const ProfilePage = (): JSX.Element => {
     return (
         <main className="page page_centered">
             <div className="wrap">
                 <SidebarProfile />
-                <ProfileForm />
+                <ProfileView />
             </div>
         </main>
     );

@@ -1,0 +1,40 @@
+.form__field {
+    position: relative;
+    padding: 0;
+    margin: 20px 0 0;
+    width: 510px;
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.form__field-name {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    color: #1e1e1e;
+}
+
+
+.textinput-profile {
+    border-style: none;
+    display: block;
+    background: transparent;
+    padding: 0;
+
+}
+
+.right {
+    text-align: right;
+    width: 330px;
+}
+
+.registration__invalid {
+    visibility: visible;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(2px);
+    transition: 0.2s ease-in-out transform;
+}

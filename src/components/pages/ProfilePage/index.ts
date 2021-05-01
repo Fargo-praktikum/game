@@ -1,3 +1,3 @@
-import { SidebarProfile } from "../../SidebarProfile/SidebarProfile";
+import { SidebarProfile } from "../../Profile/SidebarProfile/SidebarProfile";
 
 export { SidebarProfile };

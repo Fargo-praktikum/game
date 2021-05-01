@@ -1,0 +1,46 @@
+.registration__block {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.wraper {
+    padding: 30px;
+}
+
+.profile {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 30px;
+}
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+}
+
+.profile-image .profile-svg {
+    display: block;
+}
+
+.profile-image .profile-svg-change {
+    display: none;
+}
+
+.profile-image:hover .profile-svg,
+.profile-image:active .profile-svg {
+    display: none;
+}
+
+.profile-image:hover .profile-svg-change,
+.profile-image:active .profile-svg-change {
+    display: block;
+}
