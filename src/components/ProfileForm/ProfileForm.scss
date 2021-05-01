@@ -8,7 +8,7 @@
 }
 
 .wraper {
-    padding: 30px 30px;
+    padding: 30px;
 }
 
 .profile {
@@ -30,15 +30,17 @@
 .profile-image .profile-svg {
     display: block;
 }
+
 .profile-image .profile-svg-change {
     display: none;
 }
 
 .profile-image:hover .profile-svg,
-.profile-image:active .profile-svg{
+.profile-image:active .profile-svg {
     display: none;
 }
+
 .profile-image:hover .profile-svg-change,
-.profile-image:active .profile-svg-change{
+.profile-image:active .profile-svg-change {
     display: block;
 }

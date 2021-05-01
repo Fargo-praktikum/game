@@ -2,7 +2,6 @@ import { Form, Formik, FormikHelpers } from "formik";
 import React from "react";
 import { FloatingFormField } from "../FloatingFormField";
 import { Button } from "../Button/Button";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { emailRegexp, passwordMinLength } from "../../constants";
 import { signup } from "../../services/authService";
@@ -84,7 +83,7 @@ export const ProfileForm = (): JSX.Element => {
                     onSubmit={handleSubmit}
                     validationSchema={formValidationSchema}
                 >
-                    {({status}) => (
+                    {({ status }) => (
                         <Form className="floating-label-form__form">
                             <div className="floating-label-form__fields-block">
                                 <FloatingFormField
