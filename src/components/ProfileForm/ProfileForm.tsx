@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import { emailRegexp, passwordMinLength } from "../../constants";
 import { signup } from "../../services/authService";
 import { SignupFormValuesType } from "./types";
+import ProfileNonePhoto from "../../assets/profileNonePhoto.svg";
+import ProfileNonePhotoHover from "../../assets/profileNonePhotoHover.svg";
 
 import "./ProfileForm.scss";
 import DataFieldError from "../../models/errors/dataFieldError";
@@ -63,74 +65,77 @@ const handleSubmit =
 export const ProfileForm = (): JSX.Element => {
 
     return (
-        <div className="profile">
-            <Formik<SignupFormValuesType>
-                initialValues={{
-                    email: "",
-                    login: "",
-                    firstName: "",
-                    secondName: "",
-                    phone: "",
-                    password: "",
-                    passwordRepeat: ""
-                }}
-                onSubmit={handleSubmit}
-                validationSchema={formValidationSchema}
-            >
-                {({ status }) => (
-                    <Form className="floating-label-form__form">
-                        <div className="floating-label-form__fields-block">
-                            <FloatingFormField
-                                name="email"
-                                label="Email"
-                                type="email"
-                            />
+        <div className="registration__block">
+            <div className="wraper">
+                <div className="profile-image">
+                    <img className="profile-svg" src={ProfileNonePhoto} alt="Аватар"/>
+                    <img className="profile-svg-change" src={ProfileNonePhotoHover} alt="Поменять аватар"/>
+                </div>
+                <Formik<SignupFormValuesType>
+                    initialValues={{
+                        email: "",
+                        login: "",
+                        firstName: "",
+                        secondName: "",
+                        phone: "",
+                        password: "",
+                        passwordRepeat: ""
+                    }}
+                    onSubmit={handleSubmit}
+                    validationSchema={formValidationSchema}
+                >
+                    {({status}) => (
+                        <Form className="floating-label-form__form">
+                            <div className="floating-label-form__fields-block">
+                                <FloatingFormField
+                                    name="email"
+                                    label="Email"
+                                    type="email"
+                                />
 
-                            <FloatingFormField
-                                name="login"
-                                label="Логин"
-                            />
+                                <FloatingFormField
+                                    name="login"
+                                    label="Логин"
+                                />
 
-                            <FloatingFormField
-                                name="firstName"
-                                label="Имя"
-                            />
+                                <FloatingFormField
+                                    name="firstName"
+                                    label="Имя"
+                                />
 
-                            <FloatingFormField
-                                name="secondName"
-                                label="Фамилия"
-                            />
+                                <FloatingFormField
+                                    name="secondName"
+                                    label="Фамилия"
+                                />
 
-                            <FloatingFormField
-                                name="phone"
-                                label="Телефон"
-                            />
+                                <FloatingFormField
+                                    name="phone"
+                                    label="Телефон"
+                                />
 
-                            <FloatingFormField
-                                name="password"
-                                label="Пароль"
-                                type="password"
-                            />
+                                <FloatingFormField
+                                    name="password"
+                                    label="Пароль"
+                                    type="password"
+                                />
 
-                            <FloatingFormField
-                                name="passwordRepeat"
-                                label="Пароль (ещё раз)"
-                                type="password"
-                            />
+                                <FloatingFormField
+                                    name="passwordRepeat"
+                                    label="Пароль (ещё раз)"
+                                    type="password"
+                                />
 
-                        </div>
-                        <div className="floating-label-form__action-block">
-                            <div className="floating-label-form__error-message">{status}</div>
-                            <Button className="floating-label-form__button" type="submit">
-                                Зарегистрироваться
-                            </Button>
-                            <Link className="floating-label-form__link" to="/login">
-                                Войти
-                            </Link>
-                        </div>
-                    </Form>
-                )}
-            </Formik>
+                            </div>
+                            <div className="floating-label-form__action-block">
+                                <div className="floating-label-form__error-message">{status}</div>
+                                <Button className="floating-label-form__button" type="submit">
+                                    Сохранить
+                                </Button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
         </div>
     );
 };

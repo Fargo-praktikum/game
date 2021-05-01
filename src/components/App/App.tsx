@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import LeaderboardPage from "../Pages/LeaderboardPage";
-import { NotFoundPage } from "../Pages/NotFoundPage";
-import { SignupPage } from "../Pages/SignupPage/SignupPage";
-import { ProfilePage } from "../Pages/ProfilePage/ProfilePage";
+import LeaderboardPage from "../pages/LeaderboardPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
+import { SignupPage } from "../pages/SignupPage/SignupPage";
+import { ProfilePage } from "../pages/ProfilePage/ProfilePage";
 import { PrivateRoute } from "../PrivateRoute";
-import { GamePage } from "../Pages/GamePage";
+import { GamePage } from "../pages/GamePage";
 
 import "./App.scss";
 

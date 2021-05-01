@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./SidebarProfile.scss";
-import { ProfileArrowButton } from "../../assets/profileArrowButton.svg";
+import ProfileArrowButton from "../../assets/profileArrowButton.svg";
 
 export const SidebarProfile = (): JSX.Element => {
 
@@ -9,7 +9,7 @@ export const SidebarProfile = (): JSX.Element => {
         <div className="profile-sidebar">
             <div className="profile-sidebar__arrow">
                 <button className="profile-button">
-                    <ProfileArrowButton />
+                    <img src={ProfileArrowButton} alt="назад"/>
                 </button>
             </div>
         </div>
