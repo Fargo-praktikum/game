@@ -6,6 +6,8 @@
     display: block;
     background: $main-blue;
     color: #fff;
+    margin: auto;
+    max-width: 280px;
 
     &:focus {
         outline: 0;
