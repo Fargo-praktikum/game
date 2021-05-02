@@ -1,26 +1,21 @@
-import DataFieldError from "../models/errors/dataFieldError";
 import SignupRequestData from "../models/signupRequestData";
 import SigninRequestData from "../models/signinRequestData";
 import User from "../models/user";
-import { fromSnakeCase, fromSnakeCaseString } from "../utils/fromSnakeCase";
-import HTTPTransport from "../utils/http/http";
-import HttpError from "../utils/http/httpError";
+import { fromSnakeCase } from "../utils/fromSnakeCase";
 import toSnakeCase from "../utils/toSnakeCase";
-import { getApiBaseUrl } from "./apiSettings";
+import { BaseApi } from "./baseApi";
 
-const http: HTTPTransport = new HTTPTransport(getApiBaseUrl());
-
-export default class AuthAPI {
+export default class AuthAPI extends BaseApi {
 
     async signup(data: SignupRequestData): Promise<{ id: number }> {
         try {
-            return await http.post<{ id: number}>(
+            return await this._http.post<{ id: number}>(
                 "/auth/signup",
                 { data: toSnakeCase(data) }
             );
         }
         catch (e) {
-            const error = AuthAPI._processError(e);
+            const error = this._processError(e);
 
             throw error;
         }
@@ -28,13 +23,13 @@ export default class AuthAPI {
 
     async signin(data: SigninRequestData): Promise<void> {
         try {
-            return await http.post<void>(
+            return await this._http.post<void>(
                 "/auth/signin",
                 { data: toSnakeCase(data) }
             );
         }
         catch (e) {
-            const error = AuthAPI._processError(e);
+            const error = this._processError(e);
 
             throw error;
         }
@@ -42,60 +37,38 @@ export default class AuthAPI {
 
     async getUser(): Promise<User> {
         try {
-            return await http.get<User>(
+            return await this._http.get<User>(
                 "/auth/user",
                 { responseTransformer: fromSnakeCase }
             );
         }
         catch (e) {
-            const error = AuthAPI._processError(e);
+            const error = this._processError(e);
 
             throw error;
         }
     }
 
-    private static _processError(e: Error): Error {
-        if (e instanceof HttpError) {
+    logout(): Promise<unknown> {
+        return this._http.post(
+            "/auth/logout"
+        );
+    }
 
-            // тут нужно попытаться получить имя поля
-            if ("error" in e.response && e.response.error.toLowerCase() === "bad format") {
-                const fieldNameExec = /^([a-z_]+)\s/.exec(e.response.reason);
-
-                if (fieldNameExec) {
-                    return new DataFieldError(
-                        "Некорректное значение",
-                        fromSnakeCaseString(fieldNameExec[1])
-                    );
-                }
-            }
-            else if ("reason" in e.response) {
-
-                let errorText;
-
-                switch (e.response.reason.toLowerCase()) {
-                    case "login already exists":
-                        errorText = "Логин уже используется";
-                        break;
-                    case "email already exists":
-                        errorText = "Email уже используется";
-                        break;
-                    case "user already in system":
-                        errorText = "Пользователь уже в системе";
-                        break;
-                    case "login or password is incorrect":
-                        errorText = "Введен неверный логин или пароль";
-                        break;
-                    case "cookie is not valid":
-                        errorText = "Необходима авторизация";
-                        break;
-                    default:
-                        errorText = e.response.reason;
-                }
-
-                return new Error(errorText);
-            }
+    protected _processApiErrorTexts(apiErrorReason: string): string | null {
+        switch (apiErrorReason.toLowerCase()) {
+            case "login already exists":
+                return "Логин уже используется";
+            case "email already exists":
+                return "Email уже используется";
+            case "user already in system":
+                return "Пользователь уже в системе";
+            case "login or password is incorrect":
+                return "Введен неверный логин или пароль";
+            case "cookie is not valid":
+                return "Необходима авторизация";
+            default:
+                return null;
         }
-
-        return e;
     }
 }

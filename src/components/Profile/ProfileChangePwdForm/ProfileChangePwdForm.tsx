@@ -11,8 +11,11 @@ import "../Profile.scss";
 import DataFieldError from "../../../models/errors/dataFieldError";
 import { useSelector } from "react-redux";
 import User from "../../../models/user";
+import { changePassword } from "../../../services/userService";
 
 const formValidationSchema: Yup.SchemaOf<ChangePwdFormValuesType> = Yup.object({
+    oldPassword: Yup.string()
+        .required("Введите пароль"),
     password: Yup.string()
         .required("Введите пароль")
         .min(passwordMinLength, "Длина пароля не менее ${min}"),
@@ -27,8 +30,7 @@ const handleSubmit =
         actions.setStatus(null);
 
         try {
-            // TODO когда будет API добавить
-            console.log(values.password);
+            await changePassword(values.oldPassword, values.password);
         }
         catch (e) {
             if (e instanceof DataFieldError) {
@@ -64,6 +66,7 @@ export const ProfileChangePwdForm = (): JSX.Element => {
                 </div>
                 <Formik<ChangePwdFormValuesType>
                     initialValues={{
+                        oldPassword: "",
                         password: "",
                         passwordRepeat: ""
                     }}

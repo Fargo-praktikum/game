@@ -11,10 +11,10 @@ import "../Profile.scss";
 import DataFieldError from "../../../models/errors/dataFieldError";
 import { useSelector } from "react-redux";
 import User from "../../../models/user";
-import ChangeRequestData from "../../../models/changeRequestData";
-import ChangeRequestDataTypes from "./types";
+import UserProfile from "../../../models/userProfile";
+import { changeUserProfile } from "../../../services/userService";
 
-const formValidationSchema: Yup.SchemaOf<ChangeRequestDataTypes> = Yup.object({
+const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
     email: Yup.string()
         .required("Введите email")
         .matches(emailRegexp, "Некорректный email"),
@@ -26,24 +26,18 @@ const formValidationSchema: Yup.SchemaOf<ChangeRequestDataTypes> = Yup.object({
         .required("Введите фамилию"),
     phone: Yup.string()
         .required("Введите телефон")
-        .matches(phoneRexep, "Введите телефон в формате +12345678901 или 12345678901")
+        .matches(phoneRexep, "Введите телефон в формате +12345678901 или 12345678901"),
+    displayName: Yup.string()
+        .required("Введите имя в чате")
 });
 
 const handleSubmit =
-    async (values: ChangeRequestData, actions: FormikHelpers<ChangeRequestData>) => {
+    async (values: UserProfile, actions: FormikHelpers<UserProfile>) => {
 
         actions.setStatus(null);
 
         try {
-            // TODO когда будет API добавить
-            console.log({
-                email: values.email,
-                login: values.login,
-                firstName: values.firstName,
-                secondName: values.secondName,
-                displayName: values.displayName,
-                phone: values.phone,
-            });
+            await changeUserProfile(values);
         }
         catch (e) {
             if (e instanceof DataFieldError) {
@@ -78,13 +72,13 @@ export const ProfileForm = (): JSX.Element => {
                         <input id="file-input" type="file" />
                     </div>
                 </div>
-                <Formik<ChangeRequestData>
+                <Formik<UserProfile>
                     initialValues={{
                         email: userInfo.email,
                         login: userInfo.login,
                         firstName: userInfo.firstName,
                         secondName: userInfo.secondName,
-                        displayName: userInfo?.displayName? userInfo.displayName : "",
+                        displayName: userInfo?.displayName ? userInfo.displayName : "",
                         phone: userInfo.phone
                     }}
                     onSubmit={handleSubmit}
