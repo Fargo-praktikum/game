@@ -9,6 +9,8 @@ import { GamePage } from "../pages/GamePage";
 
 import "./App.scss";
 import "../../assets/vendor/normalize.scss";
+import ForumPage from "../pages/ForumPage/ForumPage";
+import { SigninPage } from "../pages/SigninPage/SigninPage";
 
 class App extends Component {
     render(): JSX.Element {
@@ -19,7 +21,7 @@ class App extends Component {
                         <div>main</div>
                     </Route>
                     <Route path="/login">
-                        <div>login</div>
+                        <SigninPage />
                     </Route>
                     <Route path="/signup">
                         <SignupPage />
@@ -31,7 +33,7 @@ class App extends Component {
                         <LeaderboardPage />
                     </PrivateRoute>
                     <PrivateRoute path="/forum">
-                        <div>forum</div>
+                        <ForumPage />
                     </PrivateRoute>
                     <PrivateRoute path="/game">
                         <GamePage />
