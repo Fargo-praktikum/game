@@ -33,9 +33,9 @@ export const SigninForm = (): JSX.Element => {
                 await signin({
                     login: values.login,
                     password: values.password,
-                }).then(() => {
-                    history.push("/game");
                 });
+
+                history.push("/game");
 
             }
             catch (e) {
