@@ -18,7 +18,7 @@ const initialValues: FormValues = {
     description: "",
 };
 
-const AddTopicForm = () => (
+const AddTopicForm = (): JSX.Element => (
     <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}>

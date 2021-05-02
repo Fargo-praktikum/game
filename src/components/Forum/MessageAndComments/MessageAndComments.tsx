@@ -10,7 +10,7 @@ import Message from "../Message/Message";
 import AddCommentForm from "../../Popups/PopupForms/AddCommentForm";
 
 
-const MessageAndComments = () => {
+const MessageAndComments = (): JSX.Element => {
     const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
     const { topicId, messageId } = useParams<{ topicId: string, messageId: string }>();
 
@@ -20,12 +20,6 @@ const MessageAndComments = () => {
     })?.messages?.find((message) => {
         return message.id === Number(messageId);
     });
-
-    // const createComment = () => {
-    //     console.log('нажал createComment!!!');
-    //     openPopupAddComment()
-    // }
-
 
     return (
         <section className="MC__general">

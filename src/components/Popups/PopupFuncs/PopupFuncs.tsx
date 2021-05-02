@@ -11,16 +11,14 @@ const popupOpen = (content: JSX.Element) => {
     PopupboxManager.open({
         content,
         config: {
-            // overlayOpacity: 0.6,
             fadeIn: true,
             fadeInSpeed: 200,
-            padding: false,
-            // closeBtn: false
+            padding: false
         }
     });
 };
 
-const openPopupAddTopic = () => {
+const openPopupAddTopic = (): void => {
     const content = (
         <PopupForm {...{
             title: "Создать новый топик",

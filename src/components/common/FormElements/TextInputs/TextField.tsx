@@ -3,7 +3,7 @@ import React from "react";
 import "./TextInputs.scss";
 
 
-export const TextField = ({ touched, error, ...restProps }: any) => {
+export const TextField = ({ touched, error, ...restProps }: any): JSX.Element => {
     const hasError = touched && error;
 
     return (

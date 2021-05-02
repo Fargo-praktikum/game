@@ -81,5 +81,5 @@ const forumReducer: Reducer<forumReducerType> = (state = initialState, action: A
 
 export default forumReducer;
 
-
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const setTopicsList = (forumData: ITopic[]) => ({ type: SET_FORUM_LIST, forumData });
