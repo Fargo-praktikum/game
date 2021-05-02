@@ -1,7 +1,7 @@
 import React from "react";
 import { ErrorInfo } from "../ErrorInfo";
 
-export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
+export class ErrorBoundary extends React.Component<unknown, { hasError: boolean }> {
     constructor(props = {}) {
         super(props);
         this.state = { hasError: false };

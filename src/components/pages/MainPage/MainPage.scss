@@ -1,0 +1,10 @@
+.main-page {
+    &__link {
+        display: block;
+    }
+
+    &__links {
+        display: flex;
+        flex-direction: column;
+    }
+}

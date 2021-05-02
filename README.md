@@ -1,2 +1,8 @@
-# game
-123456
+# FargoCards
+
+Игра по мотивам TinyCards
+
+# Поиграть
+
+[На Heroku](https://fargocards.herokuapp.com/)
+
