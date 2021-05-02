@@ -17,37 +17,36 @@ class App extends Component {
 
     render(): JSX.Element {
         return (
-                <BrowserRouter>
-                    <Switch>
-                        <ErrorBoundary>
-                            <Route path="/" exact>
-                                <div>main</div>
-                            </Route>
-                            <Route path="/login">
-                                <SigninPage />
-                            </Route>
-                            <Route path="/signup">
-                                <SignupPage />
-                            </Route>
-                            <PrivateRoute path="/profile">
-                                <ProfilePage />
-                            </PrivateRoute>
-                            <PrivateRoute path="/leaderboard">
-                                <LeaderboardPage />
-                            </PrivateRoute>
-                            <PrivateRoute path="/forum">
-                                <ForumPage />
-                            </PrivateRoute>
-                            <PrivateRoute path="/game">
-                                <GamePage />
-                            </PrivateRoute>
-                        </ErrorBoundary>
-                        <Route path="*">
-                            <NotFoundPage />
+            <BrowserRouter>
+                <Switch>
+                    <ErrorBoundary>
+                        <Route path="/" exact>
+                            <div>main</div>
                         </Route>
-                    </Switch>
-                </BrowserRouter>
-
+                        <Route path="/login">
+                            <SigninPage />
+                        </Route>
+                        <Route path="/signup">
+                            <SignupPage />
+                        </Route>
+                        <PrivateRoute path="/profile">
+                            <ProfilePage />
+                        </PrivateRoute>
+                        <PrivateRoute path="/leaderboard">
+                            <LeaderboardPage />
+                        </PrivateRoute>
+                        <PrivateRoute path="/forum">
+                            <ForumPage />
+                        </PrivateRoute>
+                        <PrivateRoute path="/game">
+                            <GamePage />
+                        </PrivateRoute>
+                    </ErrorBoundary>
+                    <Route path="*">
+                        <NotFoundPage />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
         );
     }
 }

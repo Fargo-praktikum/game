@@ -1,23 +1,25 @@
 import React from "react";
 import { ErrorInfo } from "../ErrorInfo";
 
-export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
+export class ErrorBoundary extends React.Component<unknown, { hasError: boolean }> {
     constructor(props = {}) {
         super(props);
         this.state = { hasError: false };
     }
 
-    static getDerivedStateFromError(_error: any) {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    static getDerivedStateFromError(_error: any): { hasError: boolean } {
         // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
         return { hasError: true };
     }
 
-    componentDidCatch(error: any, errorInfo: any) {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    componentDidCatch(error: any, errorInfo: any): void {
         // делаем вид, что логируем
         console.error(error, errorInfo);
     }
 
-    render() {
+    render(): React.ReactNode {
         if (this.state.hasError) {
             // Можно отрендерить запасной UI произвольного вида
             return (
