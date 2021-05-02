@@ -23,3 +23,20 @@ export async function getUserAndSetToStore(): Promise<void> {
     const userInfo = setUserInfoAC(user);
     store.dispatch(userInfo);
 }
+
+export async function logout(): Promise<void> {
+    await authApi.logout();
+
+    // TODO после нормльной типизации стора сделать тут просто передачу null
+    const userInfo = setUserInfoAC({
+        id: null,
+        login: null,
+        displayName: null,
+        firstName: null,
+        secondName: null,
+        email: null,
+        avatar: null,
+        phone: null,
+    });
+    store.dispatch(userInfo);
+}

@@ -6,7 +6,7 @@ import { FieldProps } from "formik";
 type OwnProps = FieldProps<string, any>;
 // FIXME: Так линтер не пропускает, наверное стоит отплючить это правило
 // export const TextAreaField: React.FC<OwnProps> = ({ field, form, meta, ...props }) => {
-export const TextAreaField = ({ field, form, meta, ...props }: OwnProps) => {
+export const TextAreaField = ({ field, form, meta, ...props }: OwnProps): JSX.Element => {
     const { name } = field;
     const hasError = form.touched[name] && form.errors[name];
 

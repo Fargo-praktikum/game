@@ -1,18 +1,26 @@
-import React from "react";
+import React, { MouseEvent, useCallback } from "react";
 import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 
 import "../Profile.scss";
 import { useSelector } from "react-redux";
 import { ProfileMainField } from "../ProfileMainField";
 import User from "../../../models/user";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { logout } from "../../../services/authService";
 
 export const ProfileMain = (): JSX.Element => {
 
     const { url } = useRouteMatch();
+    const history = useHistory();
 
     //TODO типизировать, когда появится типизированный стор
     const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
+
+    const handleLogoutClick = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        await logout();
+        history.push("/login");
+    }, []);
 
     return (
         <div className="profile__block">
@@ -59,9 +67,9 @@ export const ProfileMain = (): JSX.Element => {
                     </Link>
                 </div>
                 <div className="form__field">
-                    <Link to="/" className="link red">
+                    <a className="link red" href="#" onClick={handleLogoutClick}>
                         Выйти
-                    </Link>
+                    </a>
                 </div>
             </div>
         </div>
