@@ -1,4 +1,4 @@
-export type ChangePswFormValuesType = {
+export type ChangePwdFormValuesType = {
     password: string,
     passwordRepeat: string
 };

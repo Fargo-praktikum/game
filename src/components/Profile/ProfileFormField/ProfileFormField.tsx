@@ -1,21 +1,21 @@
 import { useField } from "formik";
 import React from "react";
 import { TextBox } from "../../TextBox";
-import { FloatingFormFieldProps } from "./types";
+import { ProfileFormFieldProps } from "./types";
 import "./ProfileFormField.scss";
 
-export const ProfileFormField = (props: FloatingFormFieldProps): JSX.Element => {
+export const ProfileFormField = (props: ProfileFormFieldProps): JSX.Element => {
 
     const [field, meta] = useField(props);
 
     return (
         <div className="form__field">
-            <span className="form__field-name">{props.label}</span>
+            <label className="form__name">{props.label}</label>
             <div>
                 <TextBox
                     type={props.type ?? "text"}
                     placeholder={props.placeholder ?? props.label}
-                    className="textinput-profile right"
+                    className="form__textinput-profile right"
                     {...field}
                 />
                 {meta.touched && meta.error ? (

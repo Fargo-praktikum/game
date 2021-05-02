@@ -15,10 +15,10 @@ export const ProfileMain = (): JSX.Element => {
     const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
 
     return (
-        <div className="registration__block">
-            <div className="wraper">
-                <div className="profile-image">
-                    <img className="profile-avatar"
+        <div className="profile__block">
+            <div className="profile__wrapper">
+                <div className="profile__image">
+                    <img className="profile__avatar"
                         src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
                         alt="Аватар"/>
                 </div>

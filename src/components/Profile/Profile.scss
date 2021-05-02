@@ -1,6 +1,6 @@
 @import "src/styles/variables";
 
-.registration__block {
+.profile__block {
     display: flex;
     align-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
     width: 100vw;
 }
 
-.wraper {
+.profile__wrapper {
     padding: 30px;
 }
 
@@ -23,38 +23,38 @@
     padding: 30px;
 }
 
-.profile-image {
+.profile__image {
     display: flex;
     margin: auto auto 70px;
     justify-content: center;
 
 }
 
-.profile-avatar {
+.profile__avatar {
     display: block;
     border-radius: 50%;
     width: 130px;
     height: 130px;
 }
 
-.profile-image .profile-svg {
+.profile__image .profile-svg {
     display: block;
     border-radius: 50%;
     width: 130px;
     height: 130px;
 }
 
-.profile-image .profile-svg-change {
+.profile__image .profile-svg-change {
     display: none;
 }
 
-.profile-image:hover .profile-svg,
-.profile-image:active .profile-svg {
+.profile__image:hover .profile-svg,
+.profile__image:active .profile-svg {
     display: none;
 }
 
-.profile-image:hover .profile-svg-change,
-.profile-image:active .profile-svg-change {
+.profile__image:hover .profile-svg-change,
+.profile__image:active .profile-svg-change {
     display: block;
 }
 

@@ -6,7 +6,7 @@ import "./ProfilePage.scss";
 import { ProfileMain } from "../../Profile/ProfileMain/ProfileMain";
 import { ProfileForm } from "../../Profile/ProfileForm/ProfileForm";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import { ProfileChangePswForm } from "../../Profile/ProfileChangePswForm/ProfileChangePswForm";
+import { ProfileChangePwdForm } from "../../Profile/ProfileChangePwdForm/ProfileChangePwdForm";
 
 export const ProfilePage = (): JSX.Element => {
     const { path } = useRouteMatch();
@@ -23,7 +23,7 @@ export const ProfilePage = (): JSX.Element => {
                         <ProfileForm />
                     </Route>
                     <Route path={`${path}/change_password`}>
-                        <ProfileChangePswForm />
+                        <ProfileChangePwdForm />
                     </Route>
                 </Switch>
             </div>

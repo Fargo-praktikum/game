@@ -4,7 +4,7 @@ import { ProfileFormField } from "../ProfileFormField";
 import { Button } from "../../Button/Button";
 import * as Yup from "yup";
 import { passwordMinLength } from "../../../constants";
-import { ChangePswFormValuesType } from "./types";
+import { ChangePwdFormValuesType } from "./types";
 import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 
 import "../Profile.scss";
@@ -12,7 +12,7 @@ import DataFieldError from "../../../models/errors/dataFieldError";
 import { useSelector } from "react-redux";
 import User from "../../../models/user";
 
-const formValidationSchema: Yup.SchemaOf<ChangePswFormValuesType> = Yup.object({
+const formValidationSchema: Yup.SchemaOf<ChangePwdFormValuesType> = Yup.object({
     password: Yup.string()
         .required("Введите пароль")
         .min(passwordMinLength, "Длина пароля не менее ${min}"),
@@ -22,7 +22,7 @@ const formValidationSchema: Yup.SchemaOf<ChangePswFormValuesType> = Yup.object({
 });
 
 const handleSubmit =
-    async (values: ChangePswFormValuesType, actions: FormikHelpers<ChangePswFormValuesType>) => {
+    async (values: ChangePwdFormValuesType, actions: FormikHelpers<ChangePwdFormValuesType>) => {
 
         actions.setStatus(null);
 
@@ -43,18 +43,18 @@ const handleSubmit =
         }
     };
 
-export const ProfileChangePswForm = (): JSX.Element => {
+export const ProfileChangePwdForm = (): JSX.Element => {
 
     //TODO типизировать, когда появится типизированный стор
     const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
 
     return (
-        <div className="registration__block">
-            <div className="wraper">
-                <div className="profile-image">
+        <div className="profile__block">
+            <div className="profile__wrapper">
+                <div className="profile__image">
                     <div className="image-upload">
                         <label className="file-input">
-                            <img className="profile-avatar"
+                            <img className="profile__avatar"
                                 src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
                                 alt="Аватар"/>
                         </label>
@@ -62,7 +62,7 @@ export const ProfileChangePswForm = (): JSX.Element => {
                         <input id="file-input" type="file" />
                     </div>
                 </div>
-                <Formik<ChangePswFormValuesType>
+                <Formik<ChangePwdFormValuesType>
                     initialValues={{
                         password: "",
                         passwordRepeat: ""

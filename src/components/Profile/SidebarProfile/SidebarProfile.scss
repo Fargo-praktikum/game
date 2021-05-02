@@ -1,4 +1,4 @@
-.profile-sidebar {
+.profile__sidebar {
     width: 64px;
     height: 100vh;
     background: #fbfbfb;
@@ -10,11 +10,11 @@
     align-items: center;
 }
 
-.profile-button {
+.profile__button {
     background-color: transparent;
     border-style: none;
 }
 
-.profile-button:focus {
+.profile__button:focus {
     outline: none;
 }

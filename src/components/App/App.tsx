@@ -8,6 +8,7 @@ import { PrivateRoute } from "../PrivateRoute";
 import { GamePage } from "../pages/GamePage";
 
 import "./App.scss";
+import "../../assets/vendor/normalize.scss";
 
 class App extends Component {
     render(): JSX.Element {

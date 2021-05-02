@@ -64,9 +64,9 @@ export const ProfileForm = (): JSX.Element => {
     const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
 
     return (
-        <div className="registration__block">
-            <div className="wraper">
-                <div className="profile-image">
+        <div className="profile__block">
+            <div className="profile__wrapper">
+                <div className="profile__image">
                     <div className="image-upload">
                         <label htmlFor="file-input">
                             <img className="profile-svg"
