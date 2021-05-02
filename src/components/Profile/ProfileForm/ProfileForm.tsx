@@ -80,12 +80,12 @@ export const ProfileForm = (): JSX.Element => {
                 </div>
                 <Formik<ChangeRequestData>
                     initialValues={{
-                        email: "",
-                        login: "",
-                        firstName: "",
-                        secondName: "",
-                        displayName: "",
-                        phone: ""
+                        email: userInfo.email,
+                        login: userInfo.login,
+                        firstName: userInfo.firstName,
+                        secondName: userInfo.secondName,
+                        displayName: userInfo?.displayName? userInfo.displayName : "",
+                        phone: userInfo.phone
                     }}
                     onSubmit={handleSubmit}
                     validationSchema={formValidationSchema}
@@ -97,37 +97,31 @@ export const ProfileForm = (): JSX.Element => {
                                     name="email"
                                     label="Email"
                                     type="email"
-                                    placeholder={userInfo.email}
                                 />
 
                                 <ProfileFormField
                                     name="login"
                                     label="Логин"
-                                    placeholder={userInfo.login}
                                 />
 
                                 <ProfileFormField
                                     name="firstName"
                                     label="Имя"
-                                    placeholder={userInfo.firstName}
                                 />
 
                                 <ProfileFormField
                                     name="secondName"
                                     label="Фамилия"
-                                    placeholder={userInfo.secondName}
                                 />
 
                                 <ProfileFormField
                                     name="displayName"
                                     label="Имя в чате"
-                                    placeholder={userInfo?.displayName? userInfo.displayName : ""}
                                 />
 
                                 <ProfileFormField
                                     name="phone"
                                     label="Телефон"
-                                    placeholder={userInfo.phone}
                                 />
 
                             </div>

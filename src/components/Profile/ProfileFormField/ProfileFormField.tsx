@@ -14,7 +14,6 @@ export const ProfileFormField = (props: ProfileFormFieldProps): JSX.Element => {
             <div>
                 <TextBox
                     type={props.type ?? "text"}
-                    placeholder={props.placeholder ?? props.label}
                     className="form__textinput-profile right"
                     {...field}
                 />
