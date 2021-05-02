@@ -13,6 +13,7 @@ import ForumPage from "../pages/ForumPage/ForumPage";
 import { SigninPage } from "../pages/SigninPage/SigninPage";
 
 class App extends Component {
+
     render(): JSX.Element {
         return (
             <BrowserRouter>
