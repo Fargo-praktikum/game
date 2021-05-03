@@ -12,6 +12,7 @@ import "../../assets/vendor/normalize.scss";
 import ForumPage from "../pages/ForumPage/ForumPage";
 import { SigninPage } from "../pages/SigninPage/SigninPage";
 import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
+import { MainPage } from "../pages/MainPage";
 
 class App extends Component {
 
@@ -21,7 +22,7 @@ class App extends Component {
                 <Switch>
                     <ErrorBoundary>
                         <Route path="/" exact>
-                            <div>main</div>
+                            <MainPage />
                         </Route>
                         <Route path="/login">
                             <SigninPage />
