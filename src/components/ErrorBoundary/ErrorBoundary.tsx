@@ -7,14 +7,12 @@ export class ErrorBoundary extends React.Component<unknown, { hasError: boolean 
         this.state = { hasError: false };
     }
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    static getDerivedStateFromError(_error: any): { hasError: boolean } {
+    static getDerivedStateFromError(): { hasError: boolean } {
         // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
         return { hasError: true };
     }
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    componentDidCatch(error: any, errorInfo: any): void {
+    componentDidCatch(error: unknown, errorInfo: unknown): void {
         // делаем вид, что логируем
         console.error(error, errorInfo);
     }
