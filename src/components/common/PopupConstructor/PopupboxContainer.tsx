@@ -141,7 +141,6 @@ export class PopupboxContainer extends Component<Partial<defaultConfigType>, def
                 <div
                     className="popupbox-overlay"
                     style={{ opacity: overlayOpacity }}
-                    // style={{ opacity: 0.5 }}
                     onClick={this.state.overlayClose ? this.closeImagebox : undefined}
                 />
             </div>
