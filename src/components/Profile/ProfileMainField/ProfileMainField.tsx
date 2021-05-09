@@ -4,8 +4,6 @@ import "./ProfileMainField.scss";
 import "../ProfileFormField/ProfileFormField.scss";
 
 export const ProfileMainField = (props: ProfileMainFieldProps): JSX.Element => {
-
-
     return (
         <div className="form__field">
             <span className="form__name">{props.label}</span>

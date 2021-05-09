@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { rootStateType } from "../../../scripts/redux/store";
+import { useAppSelector } from "../../../hooks/storeHooks";
+import { TRootState } from "../../../store/store";
 
 import "./ForumHeader.scss";
 
@@ -13,8 +13,8 @@ const redirectToUserPage = () => {
 };
 
 const ForumHeader = (): JSX.Element => {
-    const userInfo = useSelector((state: rootStateType) => state.auth.userInfo);
-    const { firstName, secondName } = userInfo;
+    const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
+    const { firstName = null, secondName = null } = { ...userInfo };
 
     return (
         <header className="f-header">

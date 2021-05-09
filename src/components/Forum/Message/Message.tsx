@@ -5,12 +5,12 @@ import "./Message.scss";
 
 import { getTimeInfo } from "../../../scripts/utils/timeHandler";
 import Avatar from "../../common/Avatar/Avatar";
-import { IUser } from "../../../scripts/redux/forumReducer";
+import { UserForumInfo } from "../../../store/forumReducer";
 
 type MessageType = {
     message: string | undefined
     date: string | undefined
-    user: IUser | undefined
+    user: UserForumInfo | undefined
 };
 
 const Message: React.FC<MessageType> = ({

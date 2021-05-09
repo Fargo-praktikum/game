@@ -2,19 +2,21 @@ import React, { MouseEvent, useCallback } from "react";
 import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 
 import "../Profile.scss";
-import { useSelector } from "react-redux";
 import { ProfileMainField } from "../ProfileMainField";
 import User from "../../../models/user";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { logout } from "../../../services/authService";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 export const ProfileMain = (): JSX.Element => {
 
     const { url } = useRouteMatch();
     const history = useHistory();
 
-    //TODO типизировать, когда появится типизированный стор
-    const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
+    const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
+    if (!userInfo) {
+        throw new Error("User is undefined");
+    }
 
     const handleLogoutClick = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();

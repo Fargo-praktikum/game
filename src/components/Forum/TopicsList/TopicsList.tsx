@@ -1,18 +1,18 @@
 import React, { useCallback } from "react";
-import { useSelector } from "react-redux";
-import { rootStateType } from "../../../scripts/redux/store";
+import { TRootState } from "../../../store/store";
 
 import "./TopicsList.scss";
 
 import { setStyle } from "../../../scripts/utils/setStyle";
 import topicImg from "../../../assets/chat.png";
-import { Comment, IMessage } from "../../../scripts/redux/forumReducer";
+import { Comment, Message } from "../../../store/forumReducer";
 import { getTimeInfo } from "../../../scripts/utils/timeHandler";
 import { useHistory } from "react-router-dom";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
 import { openPopupAddTopic } from "../../Popups/PopupFuncs/PopupFuncs";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
-export const getTopicsOrCommentsCount = (topics: IMessage[] | Comment[] | null): number => {
+export const getTopicsOrCommentsCount = (topics: Message[] | Comment[] | null): number => {
     return topics ? topics.length : 0;
 };
 
@@ -22,7 +22,7 @@ const createTopic = () => {
 };
 
 const TopicsList = (): JSX.Element => {
-    const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
+    const topicsList = useAppSelector((state: TRootState) => state.forum.topicsList);
     const history = useHistory();
 
     const openForumItem = useCallback((id: number) => {
