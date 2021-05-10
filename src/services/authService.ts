@@ -1,8 +1,8 @@
 import AuthAPI from "../api/authApi";
 import SignupRequestData from "../models/signupRequestData";
 import SigninRequestData from "../models/signinRequestData";
-import { setUserInfoAC } from "../scripts/redux/authReducer";
-import store from "../scripts/redux/store";
+import store from "../store/store";
+import { setUser, clearUser } from "../store/authReducer";
 
 const authApi: AuthAPI = new AuthAPI();
 
@@ -20,7 +20,7 @@ export async function signin(data: SigninRequestData): Promise<void> {
 
 export async function getUserAndSetToStore(): Promise<void> {
     const user = await authApi.getUser();
-    const userInfo = setUserInfoAC(user);
+    const userInfo = setUser(user);
     store.dispatch(userInfo);
 }
 
@@ -28,15 +28,6 @@ export async function logout(): Promise<void> {
     await authApi.logout();
 
     // TODO после нормльной типизации стора сделать тут просто передачу null
-    const userInfo = setUserInfoAC({
-        id: null,
-        login: null,
-        displayName: null,
-        firstName: null,
-        secondName: null,
-        email: null,
-        avatar: null,
-        phone: null,
-    });
+    const userInfo = clearUser();
     store.dispatch(userInfo);
 }

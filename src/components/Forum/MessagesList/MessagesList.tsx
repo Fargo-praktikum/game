@@ -1,20 +1,20 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import "./MessagesList.scss";
 
-import { rootStateType } from "../../../scripts/redux/store";
+import { TRootState } from "../../../store/store";
 import { setStyle } from "../../../scripts/utils/setStyle";
 import { getTimeInfo } from "../../../scripts/utils/timeHandler";
 import { getTopicsOrCommentsCount } from "../TopicsList/TopicsList";
 import { lastElem } from "../../../scripts/utils/myDash/last";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
 import { openPopupAddMessage } from "../../Popups/PopupFuncs/PopupFuncs";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 
 const MessagesList = (): JSX.Element => {
-    const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
+    const topicsList = useAppSelector((state: TRootState) => state.forum.topicsList);
     const { topicId } = useParams<{ topicId: string }>();
     // TODO: СРЕДНЕ. В дальнейшем будем делать запрос по конкретному форуму
     const messages = topicsList?.find((topic) => topic.id === Number(topicId))?.messages;

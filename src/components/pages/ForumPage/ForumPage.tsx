@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import "./Forum.scss";
 
@@ -10,10 +9,11 @@ import MessagesList from "../../Forum/MessagesList/MessagesList";
 import { PopupboxContainer } from "../../common/PopupConstructor/PopupboxContainer";
 import MessageAndComments from "../../Forum/MessageAndComments/MessageAndComments";
 
-import { ITopic, setTopicsList } from "../../../scripts/redux/forumReducer";
+import { Topic, setTopicsList } from "../../../store/forumReducer";
+import { useAppDispatch } from "../../../hooks/storeHooks";
 
 // для теста
-const topicsList: ITopic[] = [
+const topicsList: Topic[] = [
     {
         id: 1,
         title: "Глобальная тема №1",
@@ -119,7 +119,7 @@ const topicsList: ITopic[] = [
 
 
 const ForumPage = (): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         // в дальнейшем перенесем в redux-thunk
