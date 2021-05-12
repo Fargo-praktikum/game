@@ -33,8 +33,12 @@ export const Game = (): JSX.Element => {
                         (gameInfo: GameInfo) => {
                             setCurrentScene(sceneFactory("start", gameInfo));
                         },
-                        () => {
-                            history.push("/leaderboard");
+                        (currentTheme?: string) => {
+                            if(typeof currentTheme === "undefined"){
+                                history.push(`/leaderboard`);
+                            } else {
+                                history.push(`/leaderboard/${currentTheme}`);
+                            }
                         }
                     );
                 default:
@@ -48,23 +52,22 @@ export const Game = (): JSX.Element => {
     useEffect(() => {
 
         const handler = ({ key }: { key: string }) => {
-            currentScene.keyDownHandler(key);
+            currentScene.keyUpHandler(key);
         };
 
-        window.addEventListener("keydown", handler);
+        window.addEventListener("keyup", handler);
         // Remove event listeners on cleanup
         return () => {
-            window.removeEventListener("keydown", handler);
+            window.removeEventListener("keyup", handler);
         };
 
     }, [currentScene]);
 
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const pixelRatio = window.devicePixelRatio;
-
     const canvas = useRef<HTMLCanvasElement>(null);
 
+    //update canvas size if window resize happen
     useWindowSize();
 
     useLayoutEffect(() => {
@@ -75,19 +78,17 @@ export const Game = (): JSX.Element => {
         let animationFrameId: number;
         const render = () => {
             currentScene.render(context, width, height);
-            animationFrameId = window.requestAnimationFrame(render);
+            animationFrameId = requestAnimationFrame(render);
         };
-
+        //requestAnimationFrame(render);
         render();
-
+        //TODO запускать и останавливать рендер только когда происходит событие ?
         return () => {
-            window.cancelAnimationFrame(animationFrameId);
+            cancelAnimationFrame(animationFrameId);
         };
     });
 
-    const dw = Math.floor(pixelRatio * width);
-    const dh = Math.floor(pixelRatio * height);
-    return <canvas ref={canvas} width={dw} height={dh} />;
+    return <canvas ref={canvas} width={width} height={height} />;
 };
 
 function useWindowSize() {

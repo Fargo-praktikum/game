@@ -2,6 +2,7 @@ import { GameInfo } from "../gameInfo";
 import { SceneBase } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
+import { cardsData } from "../cardsData/cardsData";
 
 export class StartGameScene extends SceneBase {
 
@@ -16,7 +17,7 @@ export class StartGameScene extends SceneBase {
     // TODO должно будет либо приходить снаружи, либо откуда-то вытаскиваться здесь
     private _gameThemes: Record<string, string> = {
         1: "capitals",
-        2: "periodic",
+        2: "chemistry",
         3: "history",
         4: "english"
     };
@@ -48,13 +49,13 @@ export class StartGameScene extends SceneBase {
         context.shadowBlur = 2;
         context.fillText("Выберите тему, чтобы начать играть", screenLocation.x + 190, screenLocation.y - 20);
 
-        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 20, "Столицы", "1");
-        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 20, "Химические элементы", "2");
-        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 240, "История", "3");
-        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 240, "Английский язык", "4");
+        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 20, cardsData.capitals.themeName, "1");
+        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 20, cardsData.chemistry.themeName, "2");
+        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 240, cardsData.history.themeName, "3");
+        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 240, cardsData.english.themeName, "4");
     }
 
-    keyDownHandler(key: string): void {
+    keyUpHandler(key: string): void {
         if (key in this._gameThemes){
             // TODO пока закоментил, непонятно, нужен ли нам стор для игры
             //Добавляю в стейт "тему"

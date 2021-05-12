@@ -7,7 +7,7 @@ export class EndGameScene extends SceneBase {
     constructor(
         gameInfo: GameInfo,
         nextSceneCallback: (gameInfo: GameInfo) => void,
-        endGameCallback?: () => void
+        endGameCallback?: (currentTheme?: string) => void
     ) {
         super(gameInfo, nextSceneCallback, endGameCallback);
     }
@@ -39,7 +39,10 @@ export class EndGameScene extends SceneBase {
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.shadowBlur = 2;
-        context.fillText("Игра завершена, хотите начать заново?", screenLocation.x, screenLocation.y - 90);
+        if(typeof this._gameInfo.score !== "undefined" && typeof this._gameInfo.gameLength !== "undefined"){
+            context.fillText(`Вы набрали - ${this._gameInfo.score * 10} очков (${Math.floor(100 / (this._gameInfo.gameLength / this._gameInfo.score)) }% правильных ответов)`, screenLocation.x, screenLocation.y - 100);
+        }
+        context.fillText("Игра завершена, хотите начать заново?", screenLocation.x, screenLocation.y - 50);
 
         drawPlayCard(context, screenLocation.x - 300, screenLocation.y,
             "Завершить (esc)", undefined, { width: 250, height: 80, radius: 20, color: "#B7B7B7" });
@@ -47,9 +50,9 @@ export class EndGameScene extends SceneBase {
             "Начать (enter)", undefined, { width: 250, height: 80, radius: 20, color: "#B7B7B7" });
     }
 
-    keyDownHandler(key: string): void {
+    keyUpHandler(key: string): void {
         if (key === "Escape") {
-            this._endGameCallback?.();
+            this._endGameCallback?.(this._gameInfo.currentTheme);
         } else if (key === "Enter") {
             this._nextSceneCallback({
                 ...this._gameInfo,

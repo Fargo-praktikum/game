@@ -3,6 +3,8 @@
 export interface UserScore {
     id: number,
     name: string,
-    theme: string,
+    date: number,
     score: number
+    userID?: number,
+    theme?: string,
 }
