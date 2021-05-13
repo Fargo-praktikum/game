@@ -57,7 +57,7 @@ export const ProfileChangePwdForm = (): JSX.Element => {
                     <div className="image-upload">
                         <label className="file-input">
                             <img className="profile__avatar"
-                                src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
+                                src={ userInfo?.avatar? userInfo.avatar : ProfileNonePhoto }
                                 alt="Аватар"/>
                         </label>
 

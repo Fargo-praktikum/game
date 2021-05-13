@@ -21,6 +21,7 @@ export async function signin(data: SigninRequestData): Promise<void> {
 export async function getUserAndSetToStore(): Promise<void> {
     const user = await authApi.getUser();
     const userInfo = setUserInfoAC(user);
+    console.log(userInfo, "getgetgetgetget");
     store.dispatch(userInfo);
 }
 

@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { ProfileFormField } from "../ProfileFormField";
 import { Button } from "../../Button/Button";
 import * as Yup from "yup";
@@ -12,7 +12,7 @@ import DataFieldError from "../../../models/errors/dataFieldError";
 import { useSelector } from "react-redux";
 import User from "../../../models/user";
 import UserProfile from "../../../models/userProfile";
-import { changeUserProfile } from "../../../services/userService";
+import { changeUserAvatar, changeUserProfile } from "../../../services/userService";
 
 const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
     email: Yup.string()
@@ -54,6 +54,16 @@ const handleSubmit =
 
 export const ProfileForm = (): JSX.Element => {
 
+    function onChange(e: ChangeEvent<HTMLInputElement>) {
+        const target = e.target;
+        fileUpload((target.files as FileList)[0]);
+    }
+    function fileUpload(file: File){
+        const formData = new FormData();
+        formData.append("avatar",file);
+        return changeUserAvatar(formData);
+    }
+
     //TODO типизировать, когда появится типизированный стор
     const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
 
@@ -64,12 +74,11 @@ export const ProfileForm = (): JSX.Element => {
                     <div className="image-upload">
                         <label htmlFor="file-input">
                             <img className="profile-svg"
-                                src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
+                                src={ userInfo?.avatar? userInfo.avatar : ProfileNonePhoto }
                                 alt="Аватар"/>
                             <img className="profile-svg-change" src={ProfileNonePhotoHover} alt="Поменять аватар"/>
                         </label>
-
-                        <input id="file-input" type="file" />
+                        <input id="file-input" type="file" onChange={onChange} />
                     </div>
                 </div>
                 <Formik<UserProfile>
