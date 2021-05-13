@@ -11,7 +11,6 @@ export async function changePassword(oldPassword: string, newPassword: string): 
 
 export async function changeUserProfile(data: UserProfile): Promise<void> {
     const user = await usersApi.changeProfile(data);
-
     const userInfo = setUserInfoAC(user);
     store.dispatch(userInfo);
 }
@@ -19,6 +18,5 @@ export async function changeUserProfile(data: UserProfile): Promise<void> {
 export async function changeUserAvatar(data: FormData): Promise<void> {
     const user = await usersApi.changeAvatar(data);
     const userInfo = setUserInfoAC(user);
-    console.log(userInfo, "userInfouserInfouserInfouserInfo");
     store.dispatch(userInfo);
 }
