@@ -15,7 +15,7 @@ const authSlice = createSlice({
     reducers: {
         setUser(state, action: PayloadAction<User>) {
             if (typeof action.payload.avatar === "string") {
-                action.payload.avatar = `https://ya-praktikum.tech/api/v2/resources${action.payload.avatar as string}`;
+                action.payload.avatar = `https://ya-praktikum.tech/api/v2/resources${action.payload.avatar }`;
             }
             state.userInfo = action.payload;
         },
