@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LeaderboardPage from "../pages/LeaderboardPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -13,11 +13,18 @@ import ForumPage from "../pages/ForumPage/ForumPage";
 import { SigninPage } from "../pages/SigninPage/SigninPage";
 import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
 import { MainPage } from "../pages/MainPage";
+import { useAppSelector } from "../../hooks/storeHooks";
+import { OfflineNotification } from "../OfflineNotification";
 
-class App extends Component {
+export const App = (): JSX.Element => {
 
-    render(): JSX.Element {
-        return (
+    const isOnline = useAppSelector((state) => {
+        return state.app.isOnline;
+    });
+
+    return (
+        <>
+            { !isOnline && <OfflineNotification /> }
             <BrowserRouter>
                 <Switch>
                     <ErrorBoundary>
@@ -48,8 +55,8 @@ class App extends Component {
                     </Route>
                 </Switch>
             </BrowserRouter>
-        );
-    }
-}
+        </>
+    );
+};
 
 export default App;
