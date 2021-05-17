@@ -3,10 +3,11 @@ import { SceneBase } from "../sceneBase";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import LeaderboardApi from "../../api/leaderboardApi";
-import store from "../../store/store";
+import { TRootState } from "../../store/store";
 import { merge } from "../../scripts/utils/myDash/merge";
 import { shuffle } from "../utils/shuffle";
 import scoreData from "../../models/scoreData";
+import { useAppSelector } from "../../hooks/storeHooks";
 
 interface Stage {
     question: string;
@@ -127,6 +128,13 @@ export class MainGameScene extends SceneBase {
         }
 
         const nextPage = () => {
+            const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
+
+            if (!userInfo) {
+                throw new Error("User is undefined");
+            }
+
+
             this._currentPressedCard = undefined;
             this._currentStageIndex++;
 
@@ -135,12 +143,12 @@ export class MainGameScene extends SceneBase {
                 const leaderboard = new LeaderboardApi();
                 leaderboard.getLeaderboard().then((res ) => {
 
-                    const userId = store.getState().auth.userInfo.id;
+                    const userId = userInfo.id;
 
                     const currentScore = {
                         date: new Date().getTime(),
                         userId: userId,
-                        name: store.getState().auth.userInfo.firstName,
+                        name: userInfo.firstName,
                         themes: {
                             [this._gameInfo.currentTheme as string]: {
                                 score: this._currentScore * 10,

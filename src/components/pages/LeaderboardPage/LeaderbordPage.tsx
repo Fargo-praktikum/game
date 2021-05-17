@@ -7,11 +7,14 @@ import LeaderboardApi from "../../../api/leaderboardApi";
 import ScoreData from "../../../models/scoreData";
 import { Link } from "react-router-dom";
 import { cardsData } from "../../../game/cardsData/cardsData";
-import store from "../../../scripts/redux/store";
+import { TRootState } from "../../../store/store";
 import { UserScore } from "../../../models/userScore";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 export const LeaderboardPage = (): JSX.Element => {
     const [usersScore, setUsersScore] = useState<{ data: ScoreData}[]>([]);
+
+    const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
 
     const leaderboard = new LeaderboardApi();
     const { currentTheme } = useParams<{ currentTheme: string }>();
@@ -59,7 +62,7 @@ export const LeaderboardPage = (): JSX.Element => {
                     Рейтинг
                 </div>
                 <div className="leaderboard__subheader">
-                    Пользователь: {store.getState().auth.userInfo.firstName}. {typeof currentTheme !== "undefined" ? `Тема: ${cardsData[currentTheme].themeName}` : "Количество очков за все игры"}
+                    Пользователь: {userInfo ? userInfo.firstName : ""}. {typeof currentTheme !== "undefined" ? `Тема: ${cardsData[currentTheme].themeName}` : "Количество очков за все игры"}
                 </div>
                 <LeaderboardTable usersScore={usersScore}/>
                 <div className="navigate">
