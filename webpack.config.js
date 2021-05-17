@@ -73,6 +73,7 @@ module.exports = {
     historyApiFallback: true,
   },
     stats: {
-        children: true,
+        // хочешь больше логов - расскоменти
+        //children: true,
     }
 };

@@ -1,17 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import "./MessageAndComments.scss";
 
-import { rootStateType } from "../../../scripts/redux/store";
+import { TRootState } from "../../../store/store";
 
 import Message from "../Message/Message";
 import AddCommentForm from "../../Popups/PopupForms/AddCommentForm";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 
 const MessageAndComments = (): JSX.Element => {
-    const topicsList = useSelector((state: rootStateType) => state.forum.topicsList);
+    const topicsList = useAppSelector((state: TRootState) => state.forum.topicsList);
     const { topicId, messageId } = useParams<{ topicId: string, messageId: string }>();
 
     // TODO: СРЕДНЕ. В дальнейшем будем делать запрос по конкретному форуму

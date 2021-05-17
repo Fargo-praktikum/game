@@ -9,9 +9,9 @@ import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 
 import "../Profile.scss";
 import DataFieldError from "../../../models/errors/dataFieldError";
-import { useSelector } from "react-redux";
 import User from "../../../models/user";
 import { changePassword } from "../../../services/userService";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 const formValidationSchema: Yup.SchemaOf<ChangePwdFormValuesType> = Yup.object({
     oldPassword: Yup.string()
@@ -47,8 +47,11 @@ const handleSubmit =
 
 export const ProfileChangePwdForm = (): JSX.Element => {
 
-    //TODO типизировать, когда появится типизированный стор
-    const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
+    const userInfo = useAppSelector((state): User | null => state.auth.userInfo );
+
+    if (!userInfo) {
+        throw new Error("User is undefined");
+    }
 
     return (
         <div className="profile__block">

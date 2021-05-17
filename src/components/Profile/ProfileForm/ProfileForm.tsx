@@ -9,9 +9,9 @@ import ProfileNonePhotoHover from "../../../assets/profileNonePhotoHover.svg";
 
 import "../Profile.scss";
 import DataFieldError from "../../../models/errors/dataFieldError";
-import { useSelector } from "react-redux";
 import User from "../../../models/user";
 import UserProfile from "../../../models/userProfile";
+import { useAppSelector } from "../../../hooks/storeHooks";
 import { changeUserAvatar, changeUserProfile } from "../../../services/userService";
 
 const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
@@ -65,7 +65,10 @@ export const ProfileForm = (): JSX.Element => {
     }
 
     //TODO типизировать, когда появится типизированный стор
-    const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
+    const userInfo = useAppSelector((state): User | null => state.auth.userInfo );
+    if (!userInfo) {
+        throw new Error("User is undefined");
+    }
 
     return (
         <div className="profile__block">
@@ -87,7 +90,7 @@ export const ProfileForm = (): JSX.Element => {
                         login: userInfo.login,
                         firstName: userInfo.firstName,
                         secondName: userInfo.secondName,
-                        displayName: userInfo?.displayName ? userInfo.displayName : "",
+                        displayName: userInfo.displayName ? userInfo.displayName : "",
                         phone: userInfo.phone
                     }}
                     onSubmit={handleSubmit}

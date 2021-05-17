@@ -3,7 +3,7 @@ import { SceneBase } from "../sceneBase";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import LeaderboardApi from "../../api/leaderboardApi";
-import store from "../../scripts/redux/store";
+import store from "../../store/store";
 import { merge } from "../../scripts/utils/myDash/merge";
 import { shuffle } from "../utils/shuffle";
 import scoreData from "../../models/scoreData";

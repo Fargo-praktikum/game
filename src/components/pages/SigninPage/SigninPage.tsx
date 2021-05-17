@@ -2,16 +2,16 @@ import React from "react";
 import { SigninForm } from "../../SigninForm/SigninForm";
 
 import "../../../styles/page.scss";
-import { useSelector } from "react-redux";
-import { rootStateType } from "../../../scripts/redux/store";
+import { TRootState } from "../../../store/store";
 import { useHistory } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 export const SigninPage = (): JSX.Element => {
 
-    const userInfo = useSelector((state: rootStateType) => state.auth.userInfo);
+    const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
     const history = useHistory();
 
-    if (userInfo.login != null) {
+    if ( userInfo.login != null ) {
         history.push("/game");
     }
 
