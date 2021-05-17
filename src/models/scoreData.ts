@@ -1,8 +1,8 @@
 export default interface ScoreData {
-    id: number,
+    rating: number,
     score: number,
     date: number,
-    userID: number,
+    userId: number,
     name: string,
     themes: {[key: string]: string},
 }

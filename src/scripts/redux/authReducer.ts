@@ -24,7 +24,7 @@ const authReducer: Reducer<authReducerType> = (state = initialState, action: Any
     switch (action.type) {
     // TODO: СРЕДНИЙ. В дальнейшем здесь опишем корректную логику для пользователя
         case SET_AUTH_INFO:
-            if(typeof action.userInfoData.avatar === "string"){
+            if (typeof action.userInfoData.avatar === "string") {
                 action.userInfoData.avatar = `https://ya-praktikum.tech/api/v2/resources${action.userInfoData.avatar as string}`;
             }
             return {

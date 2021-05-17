@@ -39,7 +39,7 @@ export class EndGameScene extends SceneBase {
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.shadowBlur = 2;
-        if(typeof this._gameInfo.score !== "undefined" && typeof this._gameInfo.gameLength !== "undefined"){
+        if (typeof this._gameInfo.score !== "undefined" && typeof this._gameInfo.gameLength !== "undefined") {
             context.fillText(`Вы набрали - ${this._gameInfo.score * 10} очков (${Math.floor(100 / (this._gameInfo.gameLength / this._gameInfo.score)) }% правильных ответов)`, screenLocation.x, screenLocation.y - 100);
         }
         context.fillText("Игра завершена, хотите начать заново?", screenLocation.x, screenLocation.y - 50);

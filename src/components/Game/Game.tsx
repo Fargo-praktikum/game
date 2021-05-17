@@ -34,7 +34,7 @@ export const Game = (): JSX.Element => {
                             setCurrentScene(sceneFactory("start", gameInfo));
                         },
                         (currentTheme?: string) => {
-                            if(typeof currentTheme === "undefined"){
+                            if (typeof currentTheme === "undefined") {
                                 history.push(`/leaderboard`);
                             } else {
                                 history.push(`/leaderboard/${currentTheme}`);
@@ -80,7 +80,6 @@ export const Game = (): JSX.Element => {
             currentScene.render(context, width, height);
             animationFrameId = requestAnimationFrame(render);
         };
-        //requestAnimationFrame(render);
         render();
         //TODO запускать и останавливать рендер только когда происходит событие ?
         return () => {

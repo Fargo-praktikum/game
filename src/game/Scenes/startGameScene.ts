@@ -56,7 +56,7 @@ export class StartGameScene extends SceneBase {
     }
 
     keyUpHandler(key: string): void {
-        if (key in this._gameThemes){
+        if (key in this._gameThemes) {
             // TODO пока закоментил, непонятно, нужен ли нам стор для игры
             //Добавляю в стейт "тему"
             // const gameInfo = setGameInfo( { theme: `${ targetKey[key] }` } );

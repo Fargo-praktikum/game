@@ -1,4 +1,6 @@
-export const english = [
+import { CardsData } from "./types";
+
+export const english: CardsData[] = [
     {
         question: "Remain",
         answer: "Оставаться",

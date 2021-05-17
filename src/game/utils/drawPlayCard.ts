@@ -64,7 +64,7 @@ export const drawPlayCard = (
         context.textBaseline = "middle";
         context.textAlign = "center";
         const textTest: string[] = divideTextIntoLines(context, text, width - 20);
-        if( textTest.length > 1 ) {
+        if ( textTest.length > 1 ) {
             for (let i = 0; i<textTest.length; i++)
                 context.fillText(textTest[i], x + (width / 2),
                     y + (i * fontSize) + (height / 2) - ((fontSize * (textTest.length - 1)) / 2));

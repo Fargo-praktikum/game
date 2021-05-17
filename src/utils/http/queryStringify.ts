@@ -19,7 +19,7 @@ function getKey(key: string, parentKey?: string) {
 function getParams(data: PlainObject | [], parentKey?: string) {
     const result: [string, string][] = [];
 
-    for(const [key, value] of Object.entries(data)) {
+    for (const [key, value] of Object.entries(data)) {
         if (isArrayOrObject(value)) {
             result.push(...getParams(value, getKey(key, parentKey)));
         } else {

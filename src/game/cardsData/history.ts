@@ -1,4 +1,6 @@
-export const history = [
+import { CardsData } from "./types";
+
+export const history: CardsData[] = [
     {
         question: "Год основания Москвы",
         answer: "1147",

@@ -1,4 +1,6 @@
-export const capitals = [
+import { CardsData } from "./types";
+
+export const capitals: CardsData[] = [
     {
         question: "Россия",
         answer: "Москва",

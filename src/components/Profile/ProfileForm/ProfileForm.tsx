@@ -58,7 +58,7 @@ export const ProfileForm = (): JSX.Element => {
         const target = e.target;
         fileUpload((target.files as FileList)[0]);
     }
-    function fileUpload(file: File){
+    function fileUpload(file: File) {
         const formData = new FormData();
         formData.append("avatar",file);
         return changeUserAvatar(formData);

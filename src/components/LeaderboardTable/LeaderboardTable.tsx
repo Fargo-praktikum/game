@@ -2,10 +2,11 @@ import React from "react";
 import "./LeaderboardTable.scss";
 import LeaderboardTableRow from "../LeaderboardTableRow";
 import { UserScore } from "../../models/userScore";
+import { LeaderboardTableProps } from "./types";
 
-export const LeaderboardTable = (props: {usersScore: { data: UserScore}[] }): JSX.Element => {
+export const LeaderboardTable = (props: LeaderboardTableProps): JSX.Element => {
     const rows = props.usersScore.map((el: { data: UserScore }, i: number) => {
-        const userData = { ...el.data, id: i + 1 };
+        const userData = { ...el.data, rating: i + 1 };
         return <LeaderboardTableRow key={el.data.date} userData={userData}/>;
     });
 

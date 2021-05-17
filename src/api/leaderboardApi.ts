@@ -5,7 +5,7 @@ import { BaseApi } from "./baseApi";
 
 export default class LeaderboardApi extends BaseApi {
 
-    async addScore(scoreData: scoreData ): Promise<unknown> {
+    async addScore(scoreData: scoreData ): Promise<void> {
         try {
             return await this._http.post(
                 "/leaderboard",

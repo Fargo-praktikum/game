@@ -6,6 +6,7 @@ import LeaderboardApi from "../../api/leaderboardApi";
 import store from "../../scripts/redux/store";
 import { merge } from "../../scripts/utils/myDash/merge";
 import { shuffle } from "../utils/shuffle";
+import scoreData from "../../models/scoreData";
 
 interface Stage {
     question: string;
@@ -18,6 +19,10 @@ type cardParametersType = {
     height?: number,
     radius?: number,
     color?: string,
+};
+
+type Indexed<T = unknown> = {
+    [key in string]: T;
 };
 
 export class MainGameScene extends SceneBase {
@@ -66,15 +71,15 @@ export class MainGameScene extends SceneBase {
         const answerCardHeight = 50;
         let cardParameters: cardParametersType = { width: 200, height: answerCardHeight };
 
-        if(isCorrect){
-            if(isCorrect.card === cardNumber && isCorrect.answer){
+        if (isCorrect) {
+            if (isCorrect.card === cardNumber && isCorrect.answer) {
                 cardParameters = { ...cardParameters, color: "green" };
-            } else if (isCorrect.card === cardNumber){
+            } else if (isCorrect.card === cardNumber) {
                 cardParameters = { ...cardParameters, color: "red" };
             }
         }
 
-        if(cardNumber === 1){
+        if (cardNumber === 1) {
             drawPlayCard(
                 context,
                 width / 2,
@@ -84,7 +89,7 @@ export class MainGameScene extends SceneBase {
                 cardParameters
             );
         }
-        if(cardNumber === 2){
+        if (cardNumber === 2) {
             drawPlayCard(
                 context,
                 width / 2,
@@ -95,7 +100,7 @@ export class MainGameScene extends SceneBase {
             );
         }
 
-        if(cardNumber === 3){
+        if (cardNumber === 3) {
             drawPlayCard(
                 context,
                 width / 2,
@@ -112,7 +117,7 @@ export class MainGameScene extends SceneBase {
         const userAnswer = this._stages[this._currentStageIndex].options[parseInt(key) - 1];
         const questionAnswer = this._stages[this._currentStageIndex].answer;
 
-        if (userAnswer === questionAnswer){
+        if (userAnswer === questionAnswer) {
             console.log("Correct!");
             this._currentPressedCard = { card: parseInt(key), answer: true };
             this._currentScore++;
@@ -130,11 +135,11 @@ export class MainGameScene extends SceneBase {
                 const leaderboard = new LeaderboardApi();
                 leaderboard.getLeaderboard().then((res ) => {
 
-                    const userID = store.getState().auth.userInfo.id;
+                    const userId = store.getState().auth.userInfo.id;
 
                     const currentScore = {
                         date: new Date().getTime(),
-                        userID: userID,
+                        userId: userId,
                         name: store.getState().auth.userInfo.firstName,
                         themes: {
                             [this._gameInfo.currentTheme as string]: {
@@ -144,14 +149,13 @@ export class MainGameScene extends SceneBase {
                     };
 
                     let sendScore;
-                    if(typeof res === "undefined" || typeof res[0].data === "undefined" || typeof res[0].data.userID === "undefined"){
+                    if (typeof res === "undefined" || typeof res[0].data === "undefined" || typeof res[0].data.userId === "undefined") {
                         sendScore = currentScore;
                     } else {
-                        const oldScore = res.find(el => el.data.userID === userID);
-                        sendScore = merge(oldScore?.data as any, currentScore);
+                        const oldScore = res.find(el => el.data.userId === userId);
+                        sendScore = merge(oldScore?.data as unknown as Indexed<scoreData>, currentScore);
                     }
-
-                    leaderboard.addScore(sendScore as any);
+                    leaderboard.addScore(sendScore as unknown as scoreData);
                 });
 
 
@@ -169,12 +173,12 @@ export class MainGameScene extends SceneBase {
 
 }
 
-function shuffleCards(cardsData: any, theme: string | number | null | undefined){
-    if(typeof theme === "string"){
+function shuffleCards(cardsData: any, theme: string | number | null | undefined) {
+    if (typeof theme === "string") {
         const shuffleCardsData = { ...cardsData };
         shuffleCardsData[theme].questions = shuffle(shuffleCardsData[theme].questions);
         shuffleCardsData[theme].questions.forEach((key: {[key: string]: string[]}) => {
-            key.options = shuffle(key.options);
+            key.options = <string[]>shuffle(key.options);
         });
 
         return shuffleCardsData[theme];

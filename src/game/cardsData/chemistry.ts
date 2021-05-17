@@ -1,4 +1,6 @@
-export const chemistry = [
+import { CardsData } from "./types";
+
+export const chemistry: CardsData[] = [
     {
         question: "H",
         answer: "Водород",

@@ -1,6 +1,6 @@
 export default interface LeaderboardScoreUserData {
     date: number,
-    userID: number,
+    userId: number,
     name: string,
     theme: string,
     score: number,

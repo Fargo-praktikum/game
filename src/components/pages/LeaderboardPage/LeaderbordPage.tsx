@@ -22,7 +22,7 @@ export const LeaderboardPage = (): JSX.Element => {
                 const result = await leaderboard.getLeaderboard();
                 let scoresByTheme;
 
-                if(typeof currentTheme === "undefined"){
+                if (typeof currentTheme === "undefined") {
                     scoresByTheme = [...result];
                     scoresByTheme.forEach((el: any) => {
                         el.data.theme = currentTheme;
@@ -43,7 +43,7 @@ export const LeaderboardPage = (): JSX.Element => {
                 const leaderboardScore: any = [...scoresByTheme];
                 leaderboardScore.sort((a: {data: UserScore},b: {data: UserScore}) => b.data.score - a.data.score);
                 setUsersScore(scoresByTheme);
-            } catch(err) {
+            } catch (err) {
                 // error handling code
             }
         };

@@ -1,4 +1,4 @@
-export function shuffle(array: any[]) {
+export function shuffle(array: unknown[]) {
     const shuffleArray = [...array];
 
     for (let i = shuffleArray.length - 1; i > 0; i--) {
