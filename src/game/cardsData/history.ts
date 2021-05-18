@@ -18,5 +18,14 @@ export const history: CardsData[] = [
             "1703",
             "1861"
         ]
+    },
+    {
+        question: "Первый полёт человека в космос",
+        answer: "1961",
+        options: [
+            "1961",
+            "1956",
+            "1969"
+        ]
     }
 ];

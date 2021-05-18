@@ -4,5 +4,7 @@ export default interface ScoreData {
     date: number,
     userId: number,
     name: string,
-    themes: {[key: string]: string},
+    themes: {[key: string]:
+            { score: number }
+    },
 }

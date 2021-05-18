@@ -2,12 +2,8 @@ import { GameInfo } from "../gameInfo";
 import { SceneBase } from "../sceneBase";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
-import LeaderboardApi from "../../api/leaderboardApi";
-import { TRootState } from "../../store/store";
-import { merge } from "../../scripts/utils/myDash/merge";
 import { shuffle } from "../utils/shuffle";
-import scoreData from "../../models/scoreData";
-import { useAppSelector } from "../../hooks/storeHooks";
+import { updateScore } from "../../services/leaderboardService";
 
 interface Stage {
     question: string;
@@ -22,9 +18,6 @@ type cardParametersType = {
     color?: string,
 };
 
-type Indexed<T = unknown> = {
-    [key in string]: T;
-};
 
 export class MainGameScene extends SceneBase {
     private _currentPressedCard?: { answer: boolean; card: number };
@@ -114,58 +107,31 @@ export class MainGameScene extends SceneBase {
     }
 
     keyUpHandler(key: string): void {
-        console.log(`Your answer is ${this._stages[this._currentStageIndex].options[parseInt(key) - 1]}`);
-        const userAnswer = this._stages[this._currentStageIndex].options[parseInt(key) - 1];
+        const keyNumber = parseInt(key);
+        console.log(`Your answer is ${this._stages[this._currentStageIndex].options[keyNumber - 1]}`);
+        const userAnswer = this._stages[this._currentStageIndex].options[keyNumber - 1];
         const questionAnswer = this._stages[this._currentStageIndex].answer;
 
         if (userAnswer === questionAnswer) {
             console.log("Correct!");
-            this._currentPressedCard = { card: parseInt(key), answer: true };
+            this._currentPressedCard = { card: keyNumber, answer: true };
             this._currentScore++;
 
-        } else if (parseInt(key) === 1 || parseInt(key) === 2 || parseInt(key) === 3) {
-            this._currentPressedCard = { card: parseInt(key), answer: false };
+        } else if (keyNumber === 1 || keyNumber === 2 || keyNumber === 3) {
+            this._currentPressedCard = { card: keyNumber, answer: false };
         }
 
         const nextPage = () => {
-            const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
-
-            if (!userInfo) {
-                throw new Error("User is undefined");
-            }
-
 
             this._currentPressedCard = undefined;
             this._currentStageIndex++;
 
             if (this._currentStageIndex >= this._stages.length) {
-
-                const leaderboard = new LeaderboardApi();
-                leaderboard.getLeaderboard().then((res ) => {
-
-                    const userId = userInfo.id;
-
-                    const currentScore = {
-                        date: new Date().getTime(),
-                        userId: userId,
-                        name: userInfo.firstName,
-                        themes: {
-                            [this._gameInfo.currentTheme as string]: {
-                                score: this._currentScore * 10,
-                            }
-                        },
-                    };
-
-                    let sendScore;
-                    if (typeof res === "undefined" || typeof res[0].data === "undefined" || typeof res[0].data.userId === "undefined") {
-                        sendScore = currentScore;
-                    } else {
-                        const oldScore = res.find(el => el.data.userId === userId);
-                        sendScore = merge(oldScore?.data as unknown as Indexed<scoreData>, currentScore);
-                    }
-                    leaderboard.addScore(sendScore as unknown as scoreData);
-                });
-
+                if (this._gameInfo.currentTheme) {
+                    updateScore(this._gameInfo.currentTheme, this._currentScore);
+                } else {
+                    console.log("CurrentTheme undefined");
+                }
 
                 this._gameInfo = { ...this._gameInfo,
                     gameLength: this._stages.length,
