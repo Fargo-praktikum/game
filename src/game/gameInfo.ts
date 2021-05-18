@@ -1,3 +1,5 @@
 export interface GameInfo {
-    currentTheme: string | null;
+    currentTheme?: string | null;
+    gameLength?: number;
+    score?: number;
 }

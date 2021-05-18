@@ -1,8 +1,10 @@
 // Тестовый тип данных, потом заменить на то, что будет приходить с api
 
 export interface UserScore {
-    id: number,
+    rating: number,
     name: string,
-    theme: string,
+    date: number,
     score: number
+    userId?: number,
+    theme?: string,
 }

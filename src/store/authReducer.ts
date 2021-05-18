@@ -14,6 +14,9 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setUser(state, action: PayloadAction<User>) {
+            if (typeof action.payload.avatar === "string") {
+                action.payload.avatar = `https://ya-praktikum.tech/api/v2/resources${action.payload.avatar }`;
+            }
             state.userInfo = action.payload;
         },
         clearUser(state) {

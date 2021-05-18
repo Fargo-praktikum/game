@@ -33,7 +33,7 @@ class App extends Component {
                         <PrivateRoute path="/profile">
                             <ProfilePage />
                         </PrivateRoute>
-                        <PrivateRoute path="/leaderboard">
+                        <PrivateRoute path="/leaderboard/:currentTheme?">
                             <LeaderboardPage />
                         </PrivateRoute>
                         <PrivateRoute path="/forum">

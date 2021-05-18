@@ -39,6 +39,24 @@ export default class UserAPI extends BaseApi {
         }
     }
 
+    async changeAvatar(data: FormData): Promise<User> {
+        try {
+            return await this._http.put<User>(
+                "/user/profile/avatar",
+                {
+                    data: data,
+                    requestType: "file",
+                    responseTransformer: fromSnakeCase
+                }
+            );
+        }
+        catch (e) {
+            const error = this._processError(e);
+
+            throw error;
+        }
+    }
+
     protected _processApiErrorTexts(apiErrorReason: string): string | null {
         switch (apiErrorReason.toLowerCase()) {
             case "password is incorrect":

@@ -11,7 +11,7 @@ export const SigninPage = (): JSX.Element => {
     const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
     const history = useHistory();
 
-    if(userInfo && userInfo.login !== null) {
+    if (userInfo && userInfo.login !== null) {
         history.push("/game");
     }
 

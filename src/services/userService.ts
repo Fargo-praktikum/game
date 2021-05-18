@@ -15,3 +15,9 @@ export async function changeUserProfile(data: UserProfile): Promise<void> {
     const userInfo = setUser(user);
     store.dispatch(userInfo);
 }
+
+export async function changeUserAvatar(data: FormData): Promise<void> {
+    const user = await usersApi.changeAvatar(data);
+    const userInfo = setUser(user);
+    store.dispatch(userInfo);
+}

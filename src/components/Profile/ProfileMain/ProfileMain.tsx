@@ -29,7 +29,7 @@ export const ProfileMain = (): JSX.Element => {
             <div className="profile__wrapper">
                 <div className="profile__image">
                     <img className="profile__avatar"
-                        src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
+                        src={ userInfo?.avatar? userInfo.avatar : ProfileNonePhoto }
                         alt="Аватар"/>
                 </div>
                 <div className="floating-label-form__fields-block">

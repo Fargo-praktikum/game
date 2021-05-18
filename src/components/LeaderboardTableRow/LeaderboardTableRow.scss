@@ -6,6 +6,8 @@
     border-radius: 2px;
 
     &__img {
+        height: 50px;
+        width: 50px;
         border-radius: 50%;
         fill: #999;
     }
@@ -19,6 +21,13 @@
     &__name {
         padding-left: 10px;
     }
+
+    &__scoreNumber {
+        padding-left: 20px;
+    }
 }
 
+.scoreNumber {
+    width: 100px;
+}
 
