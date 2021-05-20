@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка TextField2 корректная отрисовка 1`] = `
+<div
+  className="formControl "
+>
+  <input
+    className="textField"
+  />
+  <div
+    className="errorContainer"
+  />
+</div>
+`;
+
+exports[`Проверка TextField2 наличие всех свойств 1`] = `
+<div
+  className="formControl "
+>
+  <input
+    className="textField"
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="testValue"
+  />
+  <div
+    className="errorContainer"
+  />
+</div>
+`;
