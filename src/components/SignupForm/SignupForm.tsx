@@ -5,11 +5,12 @@ import { Button } from "../Button/Button";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { emailRegexp, passwordMinLength, phoneRexep } from "../../constants";
-import { signup } from "../../services/authService";
 import { SignupFormValuesType } from "./types";
 
 import "../../styles/forms/floatingLabelForm.scss";
 import DataFieldError from "../../models/errors/dataFieldError";
+import { useAppDispatch } from "../../hooks/storeHooks";
+import { signUp } from "../../store/authReducer";
 
 const formValidationSchema: Yup.SchemaOf<SignupFormValuesType> = Yup.object({
     email: Yup.string()
@@ -36,20 +37,23 @@ export const SignupForm = (): JSX.Element => {
 
     const history = useHistory();
 
+    const dispatch = useAppDispatch();
+
     const handleSubmit = useCallback(
         async (values: SignupFormValuesType, actions: FormikHelpers<SignupFormValuesType>) => {
 
             actions.setStatus(null);
 
             try {
-                await signup({
+
+                await dispatch(signUp({
                     email: values.email,
                     login: values.login,
                     firstName: values.firstName,
                     secondName: values.secondName,
                     phone: values.phone,
                     password: values.password,
-                });
+                }));
 
                 history.push("/game");
             }

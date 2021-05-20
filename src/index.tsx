@@ -5,10 +5,13 @@ import App from "./components/App/App";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import "./global.scss";
-import { getUserAndSetToStore } from "./services/authService";
+import { getUser } from "./store/authReducer";
 
+const auth = async () => {
+    return store.dispatch(getUser());
+};
 
-getUserAndSetToStore()
+auth()
     .catch((e: Error) =>{
         console.error(e);
     })
