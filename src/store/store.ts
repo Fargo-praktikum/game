@@ -1,4 +1,5 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import appStateReducer from "./appStateReducer";
 import authReducer from "./authReducer";
 import forumReducer from "./forumReducer";
 import gameReducer from "./gameReducer";
@@ -13,7 +14,8 @@ const store = configureStore({
     reducer: {
         auth: authReducer,
         forum: forumReducer,
-        game: gameReducer
+        game: gameReducer,
+        app: appStateReducer
     },
     middleware,
     devTools: process.env.NODE_ENV !=="production"

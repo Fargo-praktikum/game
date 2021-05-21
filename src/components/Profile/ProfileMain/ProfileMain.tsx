@@ -5,13 +5,14 @@ import "../Profile.scss";
 import { ProfileMainField } from "../ProfileMainField";
 import User from "../../../models/user";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
-import { logout } from "../../../services/authService";
-import { useAppSelector } from "../../../hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
+import { logout } from "../../../store/authReducer";
 
 export const ProfileMain = (): JSX.Element => {
 
     const { url } = useRouteMatch();
     const history = useHistory();
+    const dispatch = useAppDispatch();
 
     const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
     if (!userInfo) {
@@ -20,7 +21,9 @@ export const ProfileMain = (): JSX.Element => {
 
     const handleLogoutClick = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        await logout();
+
+        await dispatch(logout());
+
         history.push("/login");
     }, []);
 
