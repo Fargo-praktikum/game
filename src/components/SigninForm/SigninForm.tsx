@@ -5,11 +5,12 @@ import { Button } from "../Button/Button";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { passwordMinLength } from "../../constants";
-import { signin } from "../../services/authService";
 
 import "../../styles/forms/floatingLabelForm.scss";
 import DataFieldError from "../../models/errors/dataFieldError";
 import SigninRequestData from "../../models/signinRequestData";
+import { useAppDispatch } from "../../hooks/storeHooks";
+import { signIn } from "../../store/authReducer";
 
 const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
     login: Yup.string()
@@ -24,16 +25,18 @@ export const SigninForm = (): JSX.Element => {
 
     const history = useHistory();
 
+    const dispatch = useAppDispatch();
+
     const handleSubmit =
         async (values: SigninRequestData, actions: FormikHelpers<SigninRequestData>) => {
 
             actions.setStatus(null);
 
             try {
-                await signin({
+                await dispatch(signIn({
                     login: values.login,
                     password: values.password,
-                });
+                }));
 
                 history.push("/game");
 

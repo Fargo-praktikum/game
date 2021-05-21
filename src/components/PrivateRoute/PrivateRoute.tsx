@@ -1,16 +1,14 @@
 import React from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
-import { useAppSelector } from "../../hooks/storeHooks";
+import { useAuth } from "../../hooks/authHook";
 
 export const PrivateRoute = (props: RouteProps): JSX.Element => {
 
-    const userId = useAppSelector(
-        (state) => {
-            return state.auth?.userInfo?.id;
-        }
-    );
+    const user = useAuth();
 
-    if (!userId) return <Redirect to={{ pathname: "/login" }} />;
+    if (!user) {
+        return <Redirect to={{ pathname: "/login" }} />;
+    }
 
     return (
         <Route {...props}/>

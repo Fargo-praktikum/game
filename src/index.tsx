@@ -5,7 +5,7 @@ import App from "./components/App/App";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import "./global.scss";
-import { getUserAndSetToStore } from "./services/authService";
+import { getUser } from "./store/authReducer";
 import { setOnline } from "./store/appStateReducer";
 
 function startServiceWorker() {
@@ -25,7 +25,11 @@ function startServiceWorker() {
 
 startServiceWorker();
 
-getUserAndSetToStore()
+const auth = async () => {
+    return store.dispatch(getUser());
+};
+
+auth()
     .catch((e: Error) =>{
         console.error(e);
     })
