@@ -3,7 +3,8 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     "lib": [
         "dom",
-        "es2017"
+        "es2017",
+        "WebWorker"
     ],
     "target": "es6",
     "module": "ESNext",

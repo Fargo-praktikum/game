@@ -32,6 +32,9 @@ export abstract class BaseApi {
                 return new Error(errorText);
             }
         }
+        else if (e instanceof TypeError && e.message.toLowerCase() === "failed to fetch") {
+            return new Error("Не удалось отправить запрос");
+        }
 
         return e;
     }
