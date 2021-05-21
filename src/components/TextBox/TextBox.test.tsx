@@ -12,7 +12,7 @@ describe("Проверка TextBox", () => {
 
     it("отрисовка с пропсами", () => {
         const field = {
-            value1: "test",
+            value: "test",
             name: "testName",
             multiple: true,
             checked: false,
