@@ -10,7 +10,7 @@ const Constants = {
 
 type openType = {
     content: JSX.Element,
-    config: Partial<defaultConfigType>,
+    config?: Partial<defaultConfigType>,
 };
 
 
@@ -47,7 +47,7 @@ class PopupboxManager extends EventEmitter {
         this.emitChange();
     }
 
-    update({ content = null, config = {} }) {
+    update({ content, config = {} }: openType) {
         this.content = content || this.content;
         this.config = merge(this.config, config);
         this.emitChange();

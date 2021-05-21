@@ -3,7 +3,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { ErrorInfo } from "./ErrorInfo";
 // здесь используем StaticRouter вместо BrowserRouter, иначе будет ошибка
-import { StaticRouter  } from "react-router-dom";
+import { StaticRouter } from "react-router-dom";
 
 describe("Проверка ErrorInfo", () => {
     it("отрисовка", () => {
