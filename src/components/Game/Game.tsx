@@ -5,10 +5,13 @@ import { SceneBase } from "../../game/sceneBase";
 import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
+import { useAppSelector } from "../../hooks/storeHooks";
 
 export const Game = (): JSX.Element => {
 
     const history = useHistory();
+
+    const isOnline = useAppSelector((state) => state.app.isOnline);
 
     const sceneFactory = useMemo(() => {
         return (sceneName: string, initialGameInfo: GameInfo): SceneBase => {
@@ -17,21 +20,21 @@ export const Game = (): JSX.Element => {
                     return new StartGameScene(
                         initialGameInfo,
                         (gameInfo: GameInfo) => {
-                            setCurrentScene(sceneFactory("main", gameInfo));
+                            setCurrentScene(sceneFactory("main", { ...gameInfo, needUpdateScore: isOnline }));
                         }
                     );
                 case "main":
                     return new MainGameScene(
                         initialGameInfo,
                         (gameInfo: GameInfo) => {
-                            setCurrentScene(sceneFactory("end", gameInfo));
+                            setCurrentScene(sceneFactory("end", { ...gameInfo, needUpdateScore: isOnline }));
                         }
                     );
                 case "end":
                     return new EndGameScene(
                         initialGameInfo,
                         (gameInfo: GameInfo) => {
-                            setCurrentScene(sceneFactory("start", gameInfo));
+                            setCurrentScene(sceneFactory("start", { ...gameInfo, needUpdateScore: isOnline }));
                         },
                         (currentTheme?: string) => {
                             if (typeof currentTheme === "undefined") {
@@ -45,9 +48,9 @@ export const Game = (): JSX.Element => {
                     throw new Error("Invalid scene name");
             }
         };
-    }, []);
+    }, [isOnline]);
 
-    const [currentScene, setCurrentScene] = useState(sceneFactory("start", { currentTheme: null }));
+    const [currentScene, setCurrentScene] = useState(sceneFactory("start", { currentTheme: null, needUpdateScore: isOnline }));
 
     useEffect(() => {
 
