@@ -2,6 +2,8 @@ import { GameInfo } from "../gameInfo";
 import { SceneBase } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
+import { drawFullScreenButton } from "../utils/drawFullScreenButton";
+import { toggleFullScreen } from "../utils/toggleFullScreen";
 
 export class EndGameScene extends SceneBase {
     constructor(
@@ -13,6 +15,7 @@ export class EndGameScene extends SceneBase {
     }
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
+    private _toggleFullScreenKey = "0";
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
@@ -52,6 +55,8 @@ export class EndGameScene extends SceneBase {
             "Завершить (esc)", undefined, { width: 250, height: 80, radius: 20, color: "#B7B7B7" });
         drawPlayCard(context, screenLocation.x + 50, screenLocation.y,
             "Начать (enter)", undefined, { width: 250, height: 80, radius: 20, color: "#B7B7B7" });
+
+        drawFullScreenButton(context,10, 10, "0", 0.3, "white");
     }
 
     keyUpHandler(key: string): void {
@@ -62,6 +67,10 @@ export class EndGameScene extends SceneBase {
                 ...this._gameInfo,
                 currentTheme: null
             });
+        }
+
+        if (key === this._toggleFullScreenKey) {
+            toggleFullScreen();
         }
 
     }

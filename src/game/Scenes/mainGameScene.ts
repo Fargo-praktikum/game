@@ -4,6 +4,8 @@ import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
+import { drawFullScreenButton } from "../utils/drawFullScreenButton";
+import { toggleFullScreen } from "../utils/toggleFullScreen";
 
 interface Stage {
     question: string;
@@ -39,6 +41,7 @@ export class MainGameScene extends SceneBase {
 
     private _currentStageIndex: number;
     private _stages: Stage[] = shuffleCards(cardsData, this._gameInfo.currentTheme).questions;
+    private _toggleFullScreenKey = "0";
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         context.fillStyle = "white";
@@ -54,6 +57,8 @@ export class MainGameScene extends SceneBase {
         this._drawAnswerCards(context, width, height, 1, this._currentPressedCard);
         this._drawAnswerCards(context, width, height, 2, this._currentPressedCard);
         this._drawAnswerCards(context, width, height, 3, this._currentPressedCard);
+
+        drawFullScreenButton(context,10, 10, "0", 0.3, "black");
     }
 
     private _drawAnswerCards(context: CanvasRenderingContext2D, width: number, height: number, cardNumber: number, isCorrect?: any): void {
@@ -143,6 +148,9 @@ export class MainGameScene extends SceneBase {
 
         setTimeout(nextPage, 500);
 
+        if (key === this._toggleFullScreenKey) {
+            toggleFullScreen();
+        }
     }
 
 }
