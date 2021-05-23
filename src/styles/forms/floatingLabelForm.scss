@@ -1,0 +1,116 @@
+@import "../variables";
+
+.floating-label-form {
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+    min-height: 460px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 50px;
+    width: 340px;
+    box-sizing: border-box;
+
+    &__header {
+        margin-bottom: 40px;
+        font-family: inherit;
+        line-height: 1;
+        text-align: center;
+        font-size: $font-size-h1;
+        font-weight: $font-weight-semi-bold;
+    }
+
+    &__action-block {
+        margin-top: auto;
+    }
+
+    &__action-block > * {
+        margin-bottom: 14px;
+    }
+
+    &__action-block > *:last-child {
+        margin-bottom: 0;
+    }
+
+    &__fields-block {
+        margin-bottom: 47px;
+    }
+
+    &__form {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__field {
+        display: block;
+        position: relative;
+    }
+
+    &__field ~ &__field {
+        margin-top: 32px;
+    }
+
+    &__text-box {
+        border-bottom: 1px solid $main-blue;
+        padding-bottom: 6px;
+        padding-left: 0;
+        padding-top: 1em;
+
+        &:placeholder-shown:not(:focus) + .floating-label-form__label {
+            font-size: 13px;
+            pointer-events: none;
+            top: 1em;
+        }
+
+        &::placeholder {
+            opacity: 0;
+        }
+
+        &:placeholder-shown:not(:focus)::placeholder {
+            opacity: 0;
+        }
+    }
+
+    &__label {
+        color: $form-grey;
+        cursor: text;
+        font-size: 9px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: all 0.2s;
+    }
+
+    &__error-message {
+        margin-top: 7px;
+        color: $main-red;
+        font-size: 8px;
+    }
+
+    &__button {
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: $font-weight-semi-bold;
+        height: 37px;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__link {
+        color: $main-blue;
+        cursor: pointer;
+        font-size: 11px;
+        line-height: 1;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+            color: $main-red;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+.tablerow {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+
+    &__img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        fill: #999;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__name {
+        padding-left: 10px;
+    }
+
+    &__scoreNumber {
+        padding-left: 20px;
+    }
+}
+
+.scoreNumber {
+    width: 100px;
+}
+

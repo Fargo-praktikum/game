@@ -1,0 +1,32 @@
+@import "../../../Forum/forumVar";
+
+.cool-button {
+    padding: 5px 30px;
+    border: 0;
+    border-radius: 8px;
+    color: $white;
+    font-weight: 500;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 24px;
+    background: $blue;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    user-select: none;
+
+    &:hover {
+        background: $lightblue;
+    }
+
+    &:disabled {
+        color: $dark-gray;
+        background: $gray-locked;
+        cursor: default;
+    }
+
+    &:active {
+        background: $darkblue;
+        transition: all 0s linear;
+    }
+}

@@ -1,0 +1,29 @@
+@import "../../../styles/variables";
+
+.leaderboard {
+    margin: 50px 70px;
+    width: 80%;
+
+    &__header {
+        font-size: 16px;
+        color: $main-blue;
+        font-weight: bold;
+    }
+
+    &__subheader {
+        font-size: 13px;
+        margin: 10px 0 20px;
+        font-weight: normal;
+    }
+}
+
+.navigate {
+    display: flex;
+    flex-direction: column;
+
+    &__link {
+        margin-top: 10px;
+    }
+}
+
+
