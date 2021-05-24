@@ -8,7 +8,7 @@ import { PrivateRoute } from "../PrivateRoute";
 import { GamePage } from "../pages/GamePage";
 
 import "./App.scss";
-import "../../assets/vendor/normalize.scss";
+import "../../styles/normalize.scss";
 import ForumPage from "../pages/ForumPage/ForumPage";
 import { SigninPage } from "../pages/SigninPage/SigninPage";
 import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
