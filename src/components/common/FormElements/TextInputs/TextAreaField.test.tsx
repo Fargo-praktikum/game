@@ -5,10 +5,6 @@ import { TextAreaField } from "./TextAreaField";
 
 describe("Проверка TextAreaField", () => {
     it("корректная отрисовка", () => {
-        // const form = { values: [], errors: {}, touched: {}, isSubmitting: false, isValidating: true, submitCount: 1,
-        //     setStatus: () => {return;}, setErrors: () => {return;}, setSubmitting: () => {return;}, setTouched: () => {return;}};
-        // const form2 = { touched: { [field.name]: { value: true } }, errors: { [field.name]: {} } };
-        // const meta = {};
         const tree = renderer
             .create(<TextAreaField/>)
             .toJSON();
