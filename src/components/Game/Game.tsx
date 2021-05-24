@@ -5,6 +5,7 @@ import { SceneBase } from "../../game/sceneBase";
 import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
+import { useAppSelector } from "../../hooks/storeHooks";
 
 const sceneOptions = {
     fullScreen: {
@@ -21,6 +22,8 @@ const sceneOptions = {
 export const Game = (): JSX.Element => {
 
     const history = useHistory();
+
+    const isOnline = useAppSelector((state) => state.app.isOnline);
 
     const sceneFactory = useMemo(() => {
         return (sceneName: string, initialGameInfo: GameInfo): SceneBase => {
@@ -60,9 +63,9 @@ export const Game = (): JSX.Element => {
                     throw new Error("Invalid scene name");
             }
         };
-    }, []);
+    }, [isOnline]);
 
-    const [currentScene, setCurrentScene] = useState(sceneFactory("start", { currentTheme: null }));
+    const [currentScene, setCurrentScene] = useState(sceneFactory("start", { currentTheme: null, needUpdateScore: isOnline }));
 
     useEffect(() => {
 

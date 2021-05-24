@@ -130,7 +130,9 @@ export class MainGameScene extends SceneBase {
 
             if (this._currentStageIndex >= this._stages.length) {
                 if (this._gameInfo.currentTheme) {
-                    updateScore(this._gameInfo.currentTheme, this._currentScore);
+                    if (this._gameInfo.needUpdateScore) {
+                        updateScore(this._gameInfo.currentTheme, this._currentScore);
+                    }
                 } else {
                     console.log("CurrentTheme undefined");
                 }
