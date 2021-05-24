@@ -3,7 +3,6 @@ import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
-import { drawFullScreenButton } from "../utils/drawFullScreenButton";
 
 
 interface Stage {
@@ -52,8 +51,6 @@ export class MainGameScene extends SceneBase {
         this._drawAnswerCards(context, width, height, 1, this._currentPressedCard);
         this._drawAnswerCards(context, width, height, 2, this._currentPressedCard);
         this._drawAnswerCards(context, width, height, 3, this._currentPressedCard);
-
-        drawFullScreenButton(context,10, 10, "0", 0.3, "black");
     }
 
     private _drawAnswerCards(context: CanvasRenderingContext2D, width: number, height: number, cardNumber: number, isCorrect?: any): void {
