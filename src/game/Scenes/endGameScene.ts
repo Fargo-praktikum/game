@@ -1,21 +1,15 @@
-import { GameInfo } from "../gameInfo";
-import { SceneBase } from "../sceneBase";
+import { SceneBase, SceneBaseConstructor } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { drawFullScreenButton } from "../utils/drawFullScreenButton";
-import { toggleFullScreen } from "../utils/toggleFullScreen";
+
 
 export class EndGameScene extends SceneBase {
-    constructor(
-        gameInfo: GameInfo,
-        nextSceneCallback: (gameInfo: GameInfo) => void,
-        endGameCallback?: (currentTheme?: string) => void
-    ) {
-        super(gameInfo, nextSceneCallback, endGameCallback);
+    constructor({ gameInfo, nextSceneCallback, endGameCallback, sceneOptions }: SceneBaseConstructor) {
+        super({ gameInfo, nextSceneCallback, endGameCallback, sceneOptions });
     }
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
-    private _toggleFullScreenKey = "0";
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
@@ -60,6 +54,8 @@ export class EndGameScene extends SceneBase {
     }
 
     keyUpHandler(key: string): void {
+        super.keyUpHandler(key);
+
         if (key === "Escape") {
             this._endGameCallback?.(this._gameInfo.currentTheme);
         } else if (key === "Enter") {
@@ -68,11 +64,6 @@ export class EndGameScene extends SceneBase {
                 currentTheme: null
             });
         }
-
-        if (key === this._toggleFullScreenKey) {
-            toggleFullScreen();
-        }
-
     }
 
 }

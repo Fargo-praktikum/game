@@ -1,18 +1,12 @@
-import { GameInfo } from "../gameInfo";
-import { SceneBase } from "../sceneBase";
+import { SceneBase, SceneBaseConstructor } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
-import { drawFullScreenButton } from "../utils/drawFullScreenButton";
-import { toggleFullScreen } from "../utils/toggleFullScreen";
 
 export class StartGameScene extends SceneBase {
 
-    constructor(
-        gameInfo: GameInfo,
-        nextSceneCallback: (gameInfo: GameInfo) => void
-    ) {
-        super(gameInfo, nextSceneCallback);
+    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructor) {
+        super({ gameInfo, nextSceneCallback, sceneOptions });
     }
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
@@ -23,8 +17,6 @@ export class StartGameScene extends SceneBase {
         3: "history",
         4: "english"
     };
-    // FIXME: Вездесь повторяется кнопка и событые, надо винести в hoc в дальнейшем
-    private _toggleFullScreenKey = "0";
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
@@ -57,11 +49,11 @@ export class StartGameScene extends SceneBase {
         drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 20, cardsData.chemistry.themeName, "2");
         drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 240, cardsData.history.themeName, "3");
         drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 240, cardsData.english.themeName, "4");
-
-        drawFullScreenButton(context,10, 10, this._toggleFullScreenKey, 0.3, "white");
     }
 
     keyUpHandler(key: string): void {
+        super.keyUpHandler(key);
+
         if (key in this._gameThemes) {
             // TODO пока закоментил, непонятно, нужен ли нам стор для игры
             //Добавляю в стейт "тему"
@@ -75,8 +67,6 @@ export class StartGameScene extends SceneBase {
                 currentTheme: this._gameThemes[key]
             });
         }
-        if (key === this._toggleFullScreenKey) {
-            toggleFullScreen();
-        }
+
     }
 }

@@ -6,6 +6,18 @@ import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 
+const sceneOptions = {
+    fullScreen: {
+        key: "0",
+        parameters: {
+            x: 10,
+            y: 10,
+            scale: 0.3,
+            strokeColor: "white",
+        }
+    }
+};
+
 export const Game = (): JSX.Element => {
 
     const history = useHistory();
@@ -14,33 +26,36 @@ export const Game = (): JSX.Element => {
         return (sceneName: string, initialGameInfo: GameInfo): SceneBase => {
             switch (sceneName) {
                 case "start":
-                    return new StartGameScene(
-                        initialGameInfo,
-                        (gameInfo: GameInfo) => {
+                    return new StartGameScene({
+                        gameInfo: initialGameInfo,
+                        nextSceneCallback: (gameInfo: GameInfo) => {
                             setCurrentScene(sceneFactory("main", gameInfo));
-                        }
-                    );
+                        },
+                        sceneOptions
+                    });
                 case "main":
-                    return new MainGameScene(
-                        initialGameInfo,
-                        (gameInfo: GameInfo) => {
+                    return new MainGameScene({
+                        gameInfo: initialGameInfo,
+                        nextSceneCallback: (gameInfo: GameInfo) => {
                             setCurrentScene(sceneFactory("end", gameInfo));
-                        }
-                    );
+                        },
+                        sceneOptions
+                    });
                 case "end":
-                    return new EndGameScene(
-                        initialGameInfo,
-                        (gameInfo: GameInfo) => {
+                    return new EndGameScene({
+                        gameInfo: initialGameInfo,
+                        nextSceneCallback: (gameInfo: GameInfo) => {
                             setCurrentScene(sceneFactory("start", gameInfo));
                         },
-                        (currentTheme?: string) => {
-                            if (typeof currentTheme === "undefined") {
+                        endGameCallback: (currentTheme) => {
+                            if (typeof currentTheme === "undefined" || currentTheme === null) {
                                 history.push(`/leaderboard`);
                             } else {
                                 history.push(`/leaderboard/${currentTheme}`);
                             }
-                        }
-                    );
+                        },
+                        sceneOptions
+                    });
                 default:
                     throw new Error("Invalid scene name");
             }
