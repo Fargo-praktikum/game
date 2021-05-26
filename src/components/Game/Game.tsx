@@ -6,6 +6,21 @@ import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
+import { merge } from "../../scripts/utils/myDash/merge";
+
+const sceneOptions = {
+    fullScreen: {
+        key: "0",
+        parameters: {
+            x: 10,
+            y: 10,
+            scale: 0.3,
+            strokeColor: "white",
+        }
+    }
+};
+const sceneOptionsBlack = merge(sceneOptions, {});
+sceneOptionsBlack.fullScreen.parameters.strokeColor = "black";
 
 export const Game = (): JSX.Element => {
 
@@ -17,33 +32,36 @@ export const Game = (): JSX.Element => {
         return (sceneName: string, initialGameInfo: GameInfo): SceneBase => {
             switch (sceneName) {
                 case "start":
-                    return new StartGameScene(
-                        initialGameInfo,
-                        (gameInfo: GameInfo) => {
-                            setCurrentScene(sceneFactory("main", { ...gameInfo, needUpdateScore: isOnline }));
-                        }
-                    );
-                case "main":
-                    return new MainGameScene(
-                        initialGameInfo,
-                        (gameInfo: GameInfo) => {
-                            setCurrentScene(sceneFactory("end", { ...gameInfo, needUpdateScore: isOnline }));
-                        }
-                    );
-                case "end":
-                    return new EndGameScene(
-                        initialGameInfo,
-                        (gameInfo: GameInfo) => {
-                            setCurrentScene(sceneFactory("start", { ...gameInfo, needUpdateScore: isOnline }));
+                    return new StartGameScene({
+                        gameInfo: initialGameInfo,
+                        nextSceneCallback: (gameInfo: GameInfo) => {
+                            setCurrentScene(sceneFactory("main", gameInfo));
                         },
-                        (currentTheme?: string) => {
-                            if (typeof currentTheme === "undefined") {
+                        sceneOptions
+                    });
+                case "main":
+                    return new MainGameScene({
+                        gameInfo: initialGameInfo,
+                        nextSceneCallback: (gameInfo: GameInfo) => {
+                            setCurrentScene(sceneFactory("end", gameInfo));
+                        },
+                        sceneOptions: sceneOptionsBlack
+                    });
+                case "end":
+                    return new EndGameScene({
+                        gameInfo: initialGameInfo,
+                        nextSceneCallback: (gameInfo: GameInfo) => {
+                            setCurrentScene(sceneFactory("start", gameInfo));
+                        },
+                        endGameCallback: (currentTheme) => {
+                            if (typeof currentTheme === "undefined" || currentTheme === null) {
                                 history.push(`/leaderboard`);
                             } else {
                                 history.push(`/leaderboard/${currentTheme}`);
                             }
-                        }
-                    );
+                        },
+                        sceneOptions
+                    });
                 default:
                     throw new Error("Invalid scene name");
             }

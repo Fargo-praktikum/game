@@ -1,16 +1,12 @@
-import { GameInfo } from "../gameInfo";
-import { SceneBase } from "../sceneBase";
+import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 
 export class StartGameScene extends SceneBase {
 
-    constructor(
-        gameInfo: GameInfo,
-        nextSceneCallback: (gameInfo: GameInfo) => void
-    ) {
-        super(gameInfo, nextSceneCallback);
+    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
+        super({ gameInfo, nextSceneCallback, sceneOptions });
     }
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
@@ -56,6 +52,8 @@ export class StartGameScene extends SceneBase {
     }
 
     keyUpHandler(key: string): void {
+        super.keyUpHandler(key);
+
         if (key in this._gameThemes) {
             // TODO пока закоментил, непонятно, нужен ли нам стор для игры
             //Добавляю в стейт "тему"
@@ -69,5 +67,6 @@ export class StartGameScene extends SceneBase {
                 currentTheme: this._gameThemes[key]
             });
         }
+
     }
 }

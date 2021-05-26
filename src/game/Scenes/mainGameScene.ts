@@ -1,9 +1,9 @@
-import { GameInfo } from "../gameInfo";
-import { SceneBase } from "../sceneBase";
+import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
+
 
 interface Stage {
     question: string;
@@ -23,11 +23,8 @@ export class MainGameScene extends SceneBase {
     private _currentPressedCard?: { answer: boolean; card: number };
     private _currentScore: number;
 
-    constructor(
-        gameInfo: GameInfo,
-        nextSceneCallback: (gameInfo: GameInfo) => void
-    ) {
-        super(gameInfo, nextSceneCallback);
+    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
+        super({ gameInfo, nextSceneCallback, sceneOptions });
 
         this._currentStageIndex = 0;
         this._currentPressedCard = undefined;
@@ -107,6 +104,8 @@ export class MainGameScene extends SceneBase {
     }
 
     keyUpHandler(key: string): void {
+        super.keyUpHandler(key);
+
         const keyNumber = parseInt(key);
         console.log(`Your answer is ${this._stages[this._currentStageIndex].options[keyNumber - 1]}`);
         const userAnswer = this._stages[this._currentStageIndex].options[keyNumber - 1];
@@ -144,7 +143,6 @@ export class MainGameScene extends SceneBase {
         };
 
         setTimeout(nextPage, 500);
-
     }
 
 }

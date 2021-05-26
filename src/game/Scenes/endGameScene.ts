@@ -1,15 +1,11 @@
-import { GameInfo } from "../gameInfo";
-import { SceneBase } from "../sceneBase";
+import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
 
+
 export class EndGameScene extends SceneBase {
-    constructor(
-        gameInfo: GameInfo,
-        nextSceneCallback: (gameInfo: GameInfo) => void,
-        endGameCallback?: (currentTheme?: string) => void
-    ) {
-        super(gameInfo, nextSceneCallback, endGameCallback);
+    constructor({ gameInfo, nextSceneCallback, endGameCallback, sceneOptions }: SceneBaseConstructorInterface) {
+        super({ gameInfo, nextSceneCallback, endGameCallback, sceneOptions });
     }
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
@@ -55,6 +51,8 @@ export class EndGameScene extends SceneBase {
     }
 
     keyUpHandler(key: string): void {
+        super.keyUpHandler(key);
+
         if (key === "Escape") {
             this._endGameCallback?.(this._gameInfo.currentTheme);
         } else if (key === "Enter") {
@@ -63,7 +61,6 @@ export class EndGameScene extends SceneBase {
                 currentTheme: null
             });
         }
-
     }
 
 }
