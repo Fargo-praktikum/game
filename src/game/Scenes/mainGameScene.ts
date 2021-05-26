@@ -1,4 +1,4 @@
-import { SceneBase, SceneBaseConstructor } from "../sceneBase";
+import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
@@ -23,7 +23,7 @@ export class MainGameScene extends SceneBase {
     private _currentPressedCard?: { answer: boolean; card: number };
     private _currentScore: number;
 
-    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructor) {
+    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
         super({ gameInfo, nextSceneCallback, sceneOptions });
 
         this._currentStageIndex = 0;

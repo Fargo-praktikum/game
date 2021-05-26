@@ -1,20 +1,27 @@
-type Indexed<T = unknown> = {
-    [key in string]: T;
-};
+type objectType = Record<string, unknown>;
 
-export function merge(lhs: Indexed, rhs: Indexed): Indexed {
-    const res: Indexed = {};
-    for (const leftKey in lhs) {
+type IsObject<T> = T extends objectType ? T extends any[] ? false : true : false;
+
+function isObject<T>(v: T): IsObject<T> {
+    return (typeof v === "object" && !Array.isArray(v)) as IsObject<T>;
+}
+
+type Merge<T, U> = IsObject<T> & IsObject<U> extends true ? {
+    [K in keyof T]: K extends keyof U ? Merge<T[K], U[K]> : T[K];
+} & U : U;
+
+
+export function merge<T extends objectType, U extends objectType>(lhs: T, rhs: U): Merge<T, U> {
+    const res = {} as objectType;
+    for (const leftKey of Object.keys(lhs)) {
         const leftValue = lhs[leftKey];
         if (leftKey in rhs) {
             const rightValue = rhs[leftKey];
             if (isObject(leftValue) && isObject(rightValue)) {
-                res[leftKey] = merge(leftValue , rightValue );
-            }
-            else if (!isObject(rightValue)) {
+                res[leftKey] = merge(leftValue as objectType, rightValue as objectType);
+            } else if (!isObject(rightValue)) {
                 res[leftKey] = rightValue;
-            }
-            else {
+            } else {
                 res[leftKey] = rightValue;
                 for (const rightKey in rhs) {
                     if (!(rightKey in lhs)) {
@@ -22,18 +29,19 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
                     }
                 }
             }
-        }
-        else {
-            res[leftKey] = leftValue;
-            for (const rightKey in rhs) {
-                if (!(rightKey in lhs)) {
-                    res[rightKey] = rhs[rightKey];
+        } else {
+            if (isObject(leftValue)) {
+                res[leftKey] = merge(leftValue as objectType, {} as objectType);
+            } else {
+                res[leftKey] = leftValue;
+                for (const rightKey in rhs) {
+                    if (!(rightKey in lhs)) {
+                        res[rightKey] = rhs[rightKey];
+                    }
                 }
             }
         }
     }
-    return res;
+    return res as Merge<T, U>;
 }
-function isObject (variable: unknown): variable is any {
-    return Object.prototype.toString.call(variable) === "[object Object]";
-}
+

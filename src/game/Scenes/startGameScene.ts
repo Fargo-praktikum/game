@@ -1,11 +1,11 @@
-import { SceneBase, SceneBaseConstructor } from "../sceneBase";
+import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 
 export class StartGameScene extends SceneBase {
 
-    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructor) {
+    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
         super({ gameInfo, nextSceneCallback, sceneOptions });
     }
 

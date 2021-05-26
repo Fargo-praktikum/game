@@ -6,6 +6,7 @@ import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
+import { merge } from "../../scripts/utils/myDash/merge";
 
 const sceneOptions = {
     fullScreen: {
@@ -18,6 +19,8 @@ const sceneOptions = {
         }
     }
 };
+const sceneOptionsBlack = merge(sceneOptions, {});
+sceneOptionsBlack.fullScreen.parameters.strokeColor = "black";
 
 export const Game = (): JSX.Element => {
 
@@ -42,7 +45,7 @@ export const Game = (): JSX.Element => {
                         nextSceneCallback: (gameInfo: GameInfo) => {
                             setCurrentScene(sceneFactory("end", gameInfo));
                         },
-                        sceneOptions
+                        sceneOptions: sceneOptionsBlack
                     });
                 case "end":
                     return new EndGameScene({

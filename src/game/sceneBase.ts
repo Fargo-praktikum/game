@@ -17,7 +17,7 @@ export type SceneOptions = {
 export type endGameCallbackType = (currentTheme: GameInfo["currentTheme"]) => void;
 
 
-export interface SceneBaseConstructor {
+export interface SceneBaseConstructorInterface {
     gameInfo: GameInfo;
     nextSceneCallback: (gameInfo: GameInfo) => void;
     endGameCallback?: endGameCallbackType;
@@ -29,7 +29,7 @@ export abstract class SceneBase {
     width?: number;
     height?: number;
 
-    constructor({ gameInfo, nextSceneCallback, endGameCallback, sceneOptions }: SceneBaseConstructor) {
+    constructor({ gameInfo, nextSceneCallback, endGameCallback, sceneOptions }: SceneBaseConstructorInterface) {
         this._nextSceneCallback = nextSceneCallback;
         this._endGameCallback = endGameCallback;
         this._gameInfo = gameInfo;
