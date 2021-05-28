@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import AuthAPI from "../api/authApi";
 import UserAPI from "../api/userApi";
@@ -8,6 +8,7 @@ import SigninRequestData from "../models/signinRequestData";
 import SignupRequestData from "../models/signupRequestData";
 import ChangePasswordRequestData from "../models/changePasswordRequestData";
 import UserProfile from "../models/userProfile";
+import { TAppDispatch } from "./store";
 
 
 const authApi: AuthAPI = new AuthAPI();
@@ -43,96 +44,58 @@ const authSlice = createSlice({
 export const { setUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;
 
+export const getUser = () => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<User>> => {
+        const user = await authApi.getUser();
 
-export const getUser = createAsyncThunk(
-    `${sliceName}/getUser`,
-    async (_, thunkApi) => {
-        try {
-            const user = await authApi.getUser();
-            return thunkApi.dispatch(setUser(user));
-        } catch (e) {
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
+        return dispatch(setUser(user));
+    };
+};
 
-interface ValidationErrors {
-    message: string;
-    stack: string;
-}
+export const signUp = (data: SignupRequestData) => {
+    return async (dispatch: TAppDispatch) => {
+        await authApi.signup(data);
 
-export const signUp = createAsyncThunk<any, any, { rejectValue: ValidationErrors }>(
-    `${sliceName}/signUp`,
-    async (data: SignupRequestData, thunkApi) => {
-        try {
-            await authApi.signup(data);
-            return thunkApi.dispatch(getUser());
-        } catch (e) {
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
+        return dispatch(getUser());
+    };
+};
 
-export const signIn = createAsyncThunk<any, any, { rejectValue: ValidationErrors }>(
-    `${sliceName}/signIn`,
-    async (data: SigninRequestData, thunkApi) => {
-        try {
-            await authApi.signin(data);
-            return thunkApi.dispatch(getUser());
-        } catch (e) {
-            // throw e;
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
+export const signIn = (data: SigninRequestData) => {
+    return async (dispatch: TAppDispatch) => {
+        await authApi.signin(data);
 
-export const logout = createAsyncThunk(
-    `${sliceName}/logout`,
-    async (_, thunkApi) => {
-        try {
-            await authApi.logout();
-            return thunkApi.dispatch(clearUser());
-        } catch (e) {
-            // throw e;
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
+        return dispatch(getUser());
+    };
+};
 
-export const changePassword = createAsyncThunk<any, any, { rejectValue: ValidationErrors }>(
-    `${sliceName}/changePassword`,
-    async (data: ChangePasswordRequestData, thunkApi) => {
-        // в data можно передавать action из компоненты и всю логику здесь прописть например
+export const logout = () => {
+    return async (dispatch: TAppDispatch) => {
+        await authApi.logout();
+
+        return dispatch(clearUser());
+    };
+};
+
+export const changePassword = (data: ChangePasswordRequestData) => {
+    return async () => {
         const { oldPassword, newPassword } = data;
-        try {
-            const result = await usersApi.changePassword(oldPassword, newPassword);
-            return result;
-        } catch (e) {
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
 
-export const changeUserProfile = createAsyncThunk<any, any, { rejectValue: ValidationErrors }>(
-    `${sliceName}/changeUserProfile`,
-    async (data: UserProfile, thunkApi) => {
-        try {
-            const user = await usersApi.changeProfile(data);
-            return thunkApi.dispatch(setUser(user));
-        } catch (e) {
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
+        return usersApi.changePassword(oldPassword, newPassword);
+    };
+};
 
-export const changeUserAvatar = createAsyncThunk<any, any, { rejectValue: ValidationErrors }>(
-    `${sliceName}/changeUserAvatar`,
-    async (data: FormData, thunkApi) => {
-        try {
-            const user = await usersApi.changeAvatar(data);
-            return thunkApi.dispatch(setUser(user));
-        } catch (e) {
-            return thunkApi.rejectWithValue(e);
-        }
-    }
-);
+export const changeUserProfile = (data: UserProfile) => {
+    return async (dispatch: TAppDispatch) => {
+        const user = await usersApi.changeProfile(data);
+
+        dispatch(setUser(user));
+    };
+};
+
+export const changeUserAvatar =  (data: FormData) => {
+    return async (dispatch: TAppDispatch) => {
+        const user = await usersApi.changeAvatar(data);
+
+        dispatch(setUser(user));
+    };
+};

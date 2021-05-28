@@ -11,6 +11,7 @@ import "../../styles/forms/floatingLabelForm.scss";
 // import DataFieldError from "../../models/errors/dataFieldError";
 import { useAppDispatch } from "../../hooks/storeHooks";
 import { signUp } from "../../store/authReducer";
+import DataFieldError from "../../models/errors/dataFieldError";
 
 const formValidationSchema: Yup.SchemaOf<SignupFormValuesType> = Yup.object({
     email: Yup.string()
@@ -44,26 +45,29 @@ export const SignupForm = (): JSX.Element => {
 
             actions.setStatus(null);
 
-            const resultAction = await dispatch(signUp({
-                email: values.email,
-                login: values.login,
-                firstName: values.firstName,
-                secondName: values.secondName,
-                phone: values.phone,
-                password: values.password,
-            }));
-            if (signUp.fulfilled.match(resultAction)) {
-                history.push("/");
-            } else {
-                console.dir(resultAction);
-                if (resultAction.payload) {
-                    actions.setStatus(resultAction.payload.message);
-                } else {
-                    console.log("Что-то пошло не так");
-                }
-            }
+            try {
 
-            actions.setSubmitting(false);
+                await dispatch(signUp({
+                    email: values.email,
+                    login: values.login,
+                    firstName: values.firstName,
+                    secondName: values.secondName,
+                    phone: values.phone,
+                    password: values.password,
+                }));
+
+                history.push("/game");
+            }
+            catch (e) {
+                if (e instanceof DataFieldError) {
+                    actions.setFieldError(e.dataFieldName, e.message);
+                }
+                else {
+                    actions.setStatus(e.message);
+                }
+
+                actions.setSubmitting(false);
+            }
         },
         []
     );

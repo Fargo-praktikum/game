@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useCallback } from "react";
 import { ProfileFormField } from "../ProfileFormField";
 import { Button } from "../../Button/Button";
 import * as Yup from "yup";
@@ -12,9 +12,7 @@ import User from "../../../models/user";
 import UserProfile from "../../../models/userProfile";
 import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
 import { changeUserAvatar, changeUserProfile } from "../../../store/authReducer";
-import { TAppDispatch } from "../../../store/store";
-import { History } from "history";
-import { useHistory } from "react-router-dom";
+import DataFieldError from "../../../models/errors/dataFieldError";
 
 
 const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
@@ -34,61 +32,54 @@ const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
         .required("Введите имя в чате")
 });
 
-const handleSubmit = (dispatch: TAppDispatch, history: History) =>
-    async (values: UserProfile, actions: FormikHelpers<UserProfile>) => {
-
-        actions.setStatus(null);
-
-        const resultAction = await dispatch(changeUserProfile(values));
-        if (changeUserProfile.fulfilled.match(resultAction)) {
-            // можно отобразить popup например
-            console.log("Данные успешно поменялись");
-            history.goBack();
-        } else {
-            console.dir(resultAction);
-            if (resultAction.payload) {
-                actions.setStatus(resultAction.payload.message);
-            } else {
-                console.log("Что-то пошло не так");
-            }
-        }
-
-        actions.setSubmitting(false);
-    };
-
-const onChange = (dispatch: TAppDispatch, history: History ) =>
-    async (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-
-        if (!files) return;
-
-        const formData = new FormData();
-        formData.append("avatar", files[0]);
-
-        const resultAction = await dispatch(changeUserAvatar(formData));
-        if (changeUserAvatar.fulfilled.match(resultAction)) {
-        // проводим какую либо логику
-            console.log("Аватар успешно поменялся");
-            history.goBack();
-        } else {
-            console.dir(resultAction);
-            if (resultAction.payload) {
-                console.log("Что-то пошло не так");
-            } else {
-                console.log("Что-то пошло не так");
-            }
-        }
-    };
-
 export const ProfileForm = (): JSX.Element => {
     const dispatch = useAppDispatch();
-    const history = useHistory();
 
-    //TODO типизировать, когда появится типизированный стор
     const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
     if (!userInfo) {
         throw new Error("User is undefined");
     }
+
+    const handleSubmit = useCallback(
+        async (values: UserProfile, actions: FormikHelpers<UserProfile>) => {
+
+            actions.setStatus(null);
+
+            try {
+                await dispatch(changeUserProfile(values));
+            }
+            catch (e) {
+                if (e instanceof DataFieldError) {
+                    actions.setFieldError(e.dataFieldName, e.message);
+                }
+                else {
+                    actions.setStatus(e.message);
+                }
+
+                actions.setSubmitting(false);
+            }
+        },
+        []
+    );
+
+    const onChange = useCallback(
+        async (e: ChangeEvent<HTMLInputElement>) => {
+            const files = e.target.files;
+
+            if (!files) return;
+
+            const formData = new FormData();
+            formData.append("avatar", files[0]);
+
+            try {
+                await dispatch(changeUserAvatar(formData));
+            }
+            catch (e) {
+                console.error("Что-то пошло не так");
+            }
+        },
+        []
+    );
 
     return (
         <div className="profile__block">
@@ -101,7 +92,7 @@ export const ProfileForm = (): JSX.Element => {
                                 alt="Аватар"/>
                             <img className="profile-svg-change" src={ProfileNonePhotoHover} alt="Поменять аватар"/>
                         </label>
-                        <input id="file-input" type="file" onChange={onChange(dispatch, history)}/>
+                        <input id="file-input" type="file" onChange={onChange}/>
                     </div>
                 </div>
                 <Formik<UserProfile>
@@ -113,7 +104,7 @@ export const ProfileForm = (): JSX.Element => {
                         displayName: userInfo.displayName ? userInfo.displayName : "",
                         phone: userInfo.phone
                     }}
-                    onSubmit={handleSubmit(dispatch, history)}
+                    onSubmit={handleSubmit}
                     validationSchema={formValidationSchema}
                 >
                     {({ status }) => (
