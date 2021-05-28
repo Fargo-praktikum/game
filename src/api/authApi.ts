@@ -27,14 +27,10 @@ export default class AuthAPI extends BaseApi {
                 "/auth/signin",
                 { data: toSnakeCase(data) }
             );
-            console.log("успешно выполнился signin");
             return result;
         }
         catch (e) {
-            console.log("ошибка в signin");
             const error = this._processError(e);
-            console.log(error);
-            // debugger
             throw error;
         }
     }

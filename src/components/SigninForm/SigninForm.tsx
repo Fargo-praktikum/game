@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { passwordMinLength } from "../../constants";
 
 import "../../styles/forms/floatingLabelForm.scss";
-import DataFieldError from "../../models/errors/dataFieldError";
+// import DataFieldError from "../../models/errors/dataFieldError";
 import SigninRequestData from "../../models/signinRequestData";
 import { useAppDispatch } from "../../hooks/storeHooks";
 import { signIn } from "../../store/authReducer";
@@ -32,29 +32,22 @@ export const SigninForm = (): JSX.Element => {
 
             actions.setStatus(null);
 
-            try {
-                await dispatch(signIn({
-                    login: values.login,
-                    password: values.password,
-                }));
-
-                console.log("Успешное логирование!");
+            const resultAction = await dispatch(signIn({
+                login: values.login,
+                password: values.password,
+            }));
+            if (signIn.fulfilled.match(resultAction)) {
                 history.push("/");
+            } else {
+                console.dir(resultAction);
+                if (resultAction.payload) {
+                    actions.setStatus(resultAction.payload.message);
+                } else {
+                    console.log("Что-то пошло не так");
+                }
+            }
 
-            }
-            catch (e) {
-                console.log("Ошибка при логировании!");
-                // debugger;
-                if (e instanceof DataFieldError) {
-                    actions.setFieldError(e.dataFieldName, e.message);
-                }
-                else {
-                    actions.setStatus(e.message);
-                }
-            }
-            finally {
-                actions.setSubmitting(false);
-            }
+            actions.setSubmitting(false);
         };
 
 

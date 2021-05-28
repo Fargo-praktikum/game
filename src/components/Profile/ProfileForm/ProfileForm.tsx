@@ -8,11 +8,14 @@ import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 import ProfileNonePhotoHover from "../../../assets/profileNonePhotoHover.svg";
 
 import "../Profile.scss";
-import DataFieldError from "../../../models/errors/dataFieldError";
 import User from "../../../models/user";
 import UserProfile from "../../../models/userProfile";
-import { useAppSelector } from "../../../hooks/storeHooks";
-import { changeUserAvatar, changeUserProfile } from "../../../services/userService";
+import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
+import { changeUserAvatar, changeUserProfile } from "../../../store/authReducer";
+import { TAppDispatch } from "../../../store/store";
+import { History } from "history";
+import { useHistory } from "react-router-dom";
+
 
 const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
     email: Yup.string()
@@ -31,41 +34,58 @@ const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
         .required("Введите имя в чате")
 });
 
-const handleSubmit =
+const handleSubmit = (dispatch: TAppDispatch, history: History) =>
     async (values: UserProfile, actions: FormikHelpers<UserProfile>) => {
 
         actions.setStatus(null);
 
-        try {
-            await changeUserProfile(values);
-        }
-        catch (e) {
-            if (e instanceof DataFieldError) {
-                actions.setFieldError(e.dataFieldName, e.message);
+        const resultAction = await dispatch(changeUserProfile(values));
+        if (changeUserProfile.fulfilled.match(resultAction)) {
+            // можно отобразить popup например
+            console.log("Данные успешно поменялись");
+            history.goBack();
+        } else {
+            console.dir(resultAction);
+            if (resultAction.payload) {
+                actions.setStatus(resultAction.payload.message);
+            } else {
+                console.log("Что-то пошло не так");
             }
-            else {
-                actions.setStatus(e.message);
-            }
         }
-        finally {
-            actions.setSubmitting(false);
+
+        actions.setSubmitting(false);
+    };
+
+const onChange = (dispatch: TAppDispatch, history: History ) =>
+    async (e: ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+
+        if (!files) return;
+
+        const formData = new FormData();
+        formData.append("avatar", files[0]);
+
+        const resultAction = await dispatch(changeUserAvatar(formData));
+        if (changeUserAvatar.fulfilled.match(resultAction)) {
+        // проводим какую либо логику
+            console.log("Аватар успешно поменялся");
+            history.goBack();
+        } else {
+            console.dir(resultAction);
+            if (resultAction.payload) {
+                console.log("Что-то пошло не так");
+            } else {
+                console.log("Что-то пошло не так");
+            }
         }
     };
 
 export const ProfileForm = (): JSX.Element => {
-
-    function onChange(e: ChangeEvent<HTMLInputElement>) {
-        const target = e.target;
-        fileUpload((target.files as FileList)[0]);
-    }
-    function fileUpload(file: File) {
-        const formData = new FormData();
-        formData.append("avatar",file);
-        return changeUserAvatar(formData);
-    }
+    const dispatch = useAppDispatch();
+    const history = useHistory();
 
     //TODO типизировать, когда появится типизированный стор
-    const userInfo = useAppSelector((state): User | null => state.auth.userInfo );
+    const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
     if (!userInfo) {
         throw new Error("User is undefined");
     }
@@ -77,11 +97,11 @@ export const ProfileForm = (): JSX.Element => {
                     <div className="image-upload">
                         <label htmlFor="file-input">
                             <img className="profile-svg"
-                                src={ userInfo?.avatar? userInfo.avatar : ProfileNonePhoto }
+                                src={userInfo?.avatar ? userInfo.avatar : ProfileNonePhoto}
                                 alt="Аватар"/>
                             <img className="profile-svg-change" src={ProfileNonePhotoHover} alt="Поменять аватар"/>
                         </label>
-                        <input id="file-input" type="file" onChange={onChange} />
+                        <input id="file-input" type="file" onChange={onChange(dispatch, history)}/>
                     </div>
                 </div>
                 <Formik<UserProfile>
@@ -93,7 +113,7 @@ export const ProfileForm = (): JSX.Element => {
                         displayName: userInfo.displayName ? userInfo.displayName : "",
                         phone: userInfo.phone
                     }}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(dispatch, history)}
                     validationSchema={formValidationSchema}
                 >
                     {({ status }) => (

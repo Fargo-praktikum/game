@@ -8,9 +8,7 @@ import { ChangePwdFormValuesType } from "./types";
 import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 
 import "../Profile.scss";
-import DataFieldError from "../../../models/errors/dataFieldError";
 import User from "../../../models/user";
-// import { changePassword } from "../../../services/userService";
 import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
 import { changePassword } from "../../../store/authReducer";
 import { TAppDispatch } from "../../../store/store";
@@ -32,25 +30,23 @@ const handleSubmit = (dispatch: TAppDispatch) =>
 
         actions.setStatus(null);
 
-        try {
-            await dispatch(changePassword({
-                oldPassword: values.oldPassword,
-                newPassword: values.password
-            }));
-            console.log("ПАРОЛЬ поменялся успешно");
-        }
-        catch (e) {
-            console.log("Ошибка при смене пароля");
-            if (e instanceof DataFieldError) {
-                actions.setFieldError(e.dataFieldName, e.message);
+        const resultAction = await dispatch(changePassword({
+            oldPassword: values.oldPassword,
+            newPassword: values.password
+        }));
+        if (changePassword.fulfilled.match(resultAction)) {
+            // можно отобразить popup например
+            console.log("Пароль успешно поменялся");
+        } else {
+            console.dir(resultAction);
+            if (resultAction.payload) {
+                actions.setStatus(resultAction.payload.message);
+            } else {
+                console.log("Что-то пошло не так");
             }
-            else {
-                actions.setStatus(e.message);
-            }
         }
-        finally {
-            actions.setSubmitting(false);
-        }
+
+        actions.setSubmitting(false);
     };
 
 export const ProfileChangePwdForm = (): JSX.Element => {
