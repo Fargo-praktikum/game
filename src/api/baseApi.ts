@@ -12,6 +12,7 @@ export abstract class BaseApi {
     protected _http: HTTPTransport;
 
     protected _processError(e: Error): Error {
+        // debugger
         if (e instanceof HttpError) {
 
             // тут нужно попытаться получить имя поля

@@ -10,8 +10,11 @@ import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 import "../Profile.scss";
 import DataFieldError from "../../../models/errors/dataFieldError";
 import User from "../../../models/user";
-import { changePassword } from "../../../services/userService";
-import { useAppSelector } from "../../../hooks/storeHooks";
+// import { changePassword } from "../../../services/userService";
+import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
+import { changePassword } from "../../../store/authReducer";
+import { TAppDispatch } from "../../../store/store";
+
 
 const formValidationSchema: Yup.SchemaOf<ChangePwdFormValuesType> = Yup.object({
     oldPassword: Yup.string()
@@ -24,15 +27,20 @@ const formValidationSchema: Yup.SchemaOf<ChangePwdFormValuesType> = Yup.object({
         .oneOf([Yup.ref("password"), null], "Пароли должны совпадать")
 });
 
-const handleSubmit =
+const handleSubmit = (dispatch: TAppDispatch) =>
     async (values: ChangePwdFormValuesType, actions: FormikHelpers<ChangePwdFormValuesType>) => {
 
         actions.setStatus(null);
 
         try {
-            await changePassword(values.oldPassword, values.password);
+            await dispatch(changePassword({
+                oldPassword: values.oldPassword,
+                newPassword: values.password
+            }));
+            console.log("ПАРОЛЬ поменялся успешно");
         }
         catch (e) {
+            console.log("Ошибка при смене пароля");
             if (e instanceof DataFieldError) {
                 actions.setFieldError(e.dataFieldName, e.message);
             }
@@ -46,7 +54,7 @@ const handleSubmit =
     };
 
 export const ProfileChangePwdForm = (): JSX.Element => {
-
+    const dispatch = useAppDispatch();
     const userInfo = useAppSelector((state): User | null => state.auth.userInfo );
 
     if (!userInfo) {
@@ -73,7 +81,7 @@ export const ProfileChangePwdForm = (): JSX.Element => {
                         password: "",
                         passwordRepeat: ""
                     }}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(dispatch)}
                     validationSchema={formValidationSchema}
                 >
                     {({ status }) => (

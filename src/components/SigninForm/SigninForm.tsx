@@ -38,10 +38,13 @@ export const SigninForm = (): JSX.Element => {
                     password: values.password,
                 }));
 
-                history.push("/game");
+                console.log("Успешное логирование!");
+                history.push("/");
 
             }
             catch (e) {
+                console.log("Ошибка при логировании!");
+                // debugger;
                 if (e instanceof DataFieldError) {
                     actions.setFieldError(e.dataFieldName, e.message);
                 }
