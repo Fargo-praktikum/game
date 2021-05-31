@@ -13,6 +13,7 @@ import UserProfile from "../../../models/userProfile";
 import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
 import { changeUserAvatar, changeUserProfile } from "../../../store/authReducer";
 import DataFieldError from "../../../models/errors/dataFieldError";
+import { useHistory } from "react-router";
 
 
 const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
@@ -34,6 +35,7 @@ const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
 
 export const ProfileForm = (): JSX.Element => {
     const dispatch = useAppDispatch();
+    const history = useHistory();
 
     const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
     if (!userInfo) {
@@ -47,6 +49,7 @@ export const ProfileForm = (): JSX.Element => {
 
             try {
                 await dispatch(changeUserProfile(values));
+                history.goBack();
             }
             catch (e) {
                 if (e instanceof DataFieldError) {
@@ -73,6 +76,7 @@ export const ProfileForm = (): JSX.Element => {
 
             try {
                 await dispatch(changeUserAvatar(formData));
+                history.goBack();
             }
             catch (e) {
                 console.error("Что-то пошло не так");
