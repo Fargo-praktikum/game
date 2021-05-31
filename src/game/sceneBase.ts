@@ -1,6 +1,7 @@
 import { GameInfo } from "./gameInfo";
 import { drawFullScreenButton } from "./utils/drawFullScreenButton";
 import { toggleFullScreen } from "./utils/toggleFullScreen";
+import { sound } from "./utils/soundEffects";
 
 export type SceneOptions = {
     fullScreen?: {
@@ -11,6 +12,9 @@ export type SceneOptions = {
             scale: number;
             strokeColor: string;
         }
+    },
+    sound: {
+        key: string;
     }
 };
 
@@ -64,6 +68,9 @@ export abstract class SceneBase {
         if (this._sceneOptions?.fullScreen) {
             if (key === this._sceneOptions.fullScreen.key) {
                 toggleFullScreen();
+            }
+            if (key === this._sceneOptions.sound.key) {
+                sound.mute();
             }
         }
     }

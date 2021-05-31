@@ -3,7 +3,7 @@ import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
-
+import { sound } from "../utils/soundEffects";
 
 interface Stage {
     question: string;
@@ -110,15 +110,7 @@ export class MainGameScene extends SceneBase {
         console.log(`Your answer is ${this._stages[this._currentStageIndex].options[keyNumber - 1]}`);
         const userAnswer = this._stages[this._currentStageIndex].options[keyNumber - 1];
         const questionAnswer = this._stages[this._currentStageIndex].answer;
-
-        if (userAnswer === questionAnswer) {
-            console.log("Correct!");
-            this._currentPressedCard = { card: keyNumber, answer: true };
-            this._currentScore++;
-
-        } else if (keyNumber === 1 || keyNumber === 2 || keyNumber === 3) {
-            this._currentPressedCard = { card: keyNumber, answer: false };
-        }
+        const timeToNextPage = 500;
 
         const nextPage = () => {
 
@@ -142,7 +134,17 @@ export class MainGameScene extends SceneBase {
             }
         };
 
-        setTimeout(nextPage, 500);
+        if (userAnswer === questionAnswer) {
+            console.log("Correct!");
+            sound.playCorrect();
+            this._currentPressedCard = { card: keyNumber, answer: true };
+            this._currentScore++;
+            setTimeout(nextPage, timeToNextPage);
+        } else if (keyNumber === 1 || keyNumber === 2 || keyNumber === 3) {
+            sound.playIncorrect();
+            this._currentPressedCard = { card: keyNumber, answer: false };
+            setTimeout(nextPage, timeToNextPage);
+        }
     }
 
 }
