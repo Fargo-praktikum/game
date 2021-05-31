@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { FloatingFormField } from "../FloatingFormField";
 import { Button } from "../Button/Button";
 import { Link, useHistory } from "react-router-dom";
@@ -7,10 +7,10 @@ import * as Yup from "yup";
 import { passwordMinLength } from "../../constants";
 
 import "../../styles/forms/floatingLabelForm.scss";
-import DataFieldError from "../../models/errors/dataFieldError";
 import SigninRequestData from "../../models/signinRequestData";
 import { useAppDispatch } from "../../hooks/storeHooks";
 import { signIn } from "../../store/authReducer";
+import DataFieldError from "../../models/errors/dataFieldError";
 
 const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
     login: Yup.string()
@@ -27,7 +27,7 @@ export const SigninForm = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
 
-    const handleSubmit =
+    const handleSubmit = useCallback(
         async (values: SigninRequestData, actions: FormikHelpers<SigninRequestData>) => {
 
             actions.setStatus(null);
@@ -39,7 +39,6 @@ export const SigninForm = (): JSX.Element => {
                 }));
 
                 history.push("/game");
-
             }
             catch (e) {
                 if (e instanceof DataFieldError) {
@@ -48,12 +47,12 @@ export const SigninForm = (): JSX.Element => {
                 else {
                     actions.setStatus(e.message);
                 }
-            }
-            finally {
+
                 actions.setSubmitting(false);
             }
-        };
-
+        },
+        []
+    );
 
     return (
         <div className="floating-label-form">

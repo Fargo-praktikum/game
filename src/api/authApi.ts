@@ -23,14 +23,14 @@ export default class AuthAPI extends BaseApi {
 
     async signin(data: SigninRequestData): Promise<void> {
         try {
-            return await this._http.post<void>(
+            const result = await this._http.post<void>(
                 "/auth/signin",
                 { data: toSnakeCase(data) }
             );
+            return result;
         }
         catch (e) {
             const error = this._processError(e);
-
             throw error;
         }
     }

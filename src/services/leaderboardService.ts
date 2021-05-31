@@ -13,12 +13,14 @@ const leaderboardApi = new LeaderboardApi();
 
 export async function updateScore(currentTheme: string, updatedScore: number): Promise<void> {
     const leaderboadData = await leaderboardApi.getLeaderboard();
-    const userId = store?.getState().auth?.userInfo?.id;
+    const userInfo = store?.getState().auth?.userInfo;
+    const userId = userInfo?.id;
+    const firstName = userInfo?.firstName;
 
     const currentScore = {
         date: new Date().getTime(),
         userId: userId,
-        name: store.getState().auth?.userInfo?.firstName,
+        name: firstName,
         themes: {
             [currentTheme]: {
                 score: updatedScore * 10,
