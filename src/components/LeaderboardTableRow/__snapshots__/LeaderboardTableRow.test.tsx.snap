@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка отрисовки строки лидерборда Отрисовка строки лидерборда с данными 1`] = `
+<tr
+  className="table-wrapper__line"
+>
+  <td
+    className="tablerow"
+  >
+    <img
+      alt="1 place"
+      className="tablerow__img"
+      src="test-file-stub"
+    />
+  </td>
+  <td
+    align="left"
+    className="tablerow"
+  >
+    <a
+      className="tablerow__link"
+      target="_blank"
+    >
+      <img
+        alt="Image not found"
+        className="tablerow__img"
+        height="50"
+        src="test-file-stub"
+        width="50"
+      />
+      <span
+        className="tablerow__name"
+      >
+        test
+      </span>
+    </a>
+  </td>
+  <td
+    className="tablerow"
+  >
+    1/1/1970
+  </td>
+  <td
+    className="tablerow"
+  >
+    1
+  </td>
+</tr>
+`;

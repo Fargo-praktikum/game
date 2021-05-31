@@ -70,36 +70,34 @@ export class MainGameScene extends SceneBase {
             }
         }
 
-        if (cardNumber === 1) {
-            drawPlayCard(
-                context,
-                width / 2,
-                (height / 2) - (answerCardHeight * 1.5) - answerCardGap,
-                currentStage.options[0],
-                "1",
-                cardParameters
-            );
-        }
-        if (cardNumber === 2) {
-            drawPlayCard(
-                context,
-                width / 2,
-                (height / 2) - (answerCardHeight / 2),
-                currentStage.options[1],
-                "2",
-                cardParameters
-            );
-        }
-
-        if (cardNumber === 3) {
-            drawPlayCard(
-                context,
-                width / 2,
-                (height / 2) + (answerCardHeight / 2) + answerCardGap,
-                currentStage.options[2],
-                "3",
-                cardParameters
-            );
+        switch (cardNumber) {
+            case 1:
+                return drawPlayCard(
+                    context,
+                    width / 2,
+                    (height / 2) - (answerCardHeight * 1.5) - answerCardGap,
+                    currentStage.options[0],
+                    "1",
+                    cardParameters
+                );
+            case 2:
+                return drawPlayCard(
+                    context,
+                    width / 2,
+                    (height / 2) - (answerCardHeight / 2),
+                    currentStage.options[1],
+                    "2",
+                    cardParameters
+                );
+            case 3:
+                return drawPlayCard(
+                    context,
+                    width / 2,
+                    (height / 2) + (answerCardHeight / 2) + answerCardGap,
+                    currentStage.options[2],
+                    "3",
+                    cardParameters
+                );
         }
     }
 
