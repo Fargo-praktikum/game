@@ -1,4 +1,5 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import isServer from "../utils/isServer";
 import appStateReducer from "./appStateReducer";
 import authReducer from "./authReducer";
 import forumReducer from "./forumReducer";
@@ -18,7 +19,7 @@ const store = configureStore({
         app: appStateReducer
     },
     middleware,
-    devTools: process.env.NODE_ENV !=="production"
+    devTools: process.env.NODE_ENV !=="production" && !isServer
 });
 
 export type TRootState = ReturnType<typeof store.getState>;

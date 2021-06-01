@@ -7,6 +7,7 @@ import store from "./store/store";
 import "./global.scss";
 import { getUser } from "./store/authReducer";
 import { setOnline } from "./store/appStateReducer";
+import { BrowserRouter } from "react-router-dom";
 
 function startServiceWorker() {
     if ("serviceWorker" in navigator) {
@@ -34,10 +35,12 @@ auth()
         console.error(e);
     })
     .finally(() => {
-        ReactDOM.render(
+        ReactDOM.hydrate(
             <React.StrictMode>
                 <Provider store={store}>
-                    <App />
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
                 </Provider>
             </React.StrictMode>,
             document.getElementById("root"),
