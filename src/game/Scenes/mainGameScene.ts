@@ -3,7 +3,7 @@ import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
-
+import { sound } from "../utils/soundEffects";
 
 interface Stage {
     question: string;
@@ -70,36 +70,34 @@ export class MainGameScene extends SceneBase {
             }
         }
 
-        if (cardNumber === 1) {
-            drawPlayCard(
-                context,
-                width / 2,
-                (height / 2) - (answerCardHeight * 1.5) - answerCardGap,
-                currentStage.options[0],
-                "1",
-                cardParameters
-            );
-        }
-        if (cardNumber === 2) {
-            drawPlayCard(
-                context,
-                width / 2,
-                (height / 2) - (answerCardHeight / 2),
-                currentStage.options[1],
-                "2",
-                cardParameters
-            );
-        }
-
-        if (cardNumber === 3) {
-            drawPlayCard(
-                context,
-                width / 2,
-                (height / 2) + (answerCardHeight / 2) + answerCardGap,
-                currentStage.options[2],
-                "3",
-                cardParameters
-            );
+        switch (cardNumber) {
+            case 1:
+                return drawPlayCard(
+                    context,
+                    width / 2,
+                    (height / 2) - (answerCardHeight * 1.5) - answerCardGap,
+                    currentStage.options[0],
+                    "1",
+                    cardParameters
+                );
+            case 2:
+                return drawPlayCard(
+                    context,
+                    width / 2,
+                    (height / 2) - (answerCardHeight / 2),
+                    currentStage.options[1],
+                    "2",
+                    cardParameters
+                );
+            case 3:
+                return drawPlayCard(
+                    context,
+                    width / 2,
+                    (height / 2) + (answerCardHeight / 2) + answerCardGap,
+                    currentStage.options[2],
+                    "3",
+                    cardParameters
+                );
         }
     }
 
@@ -110,15 +108,7 @@ export class MainGameScene extends SceneBase {
         console.log(`Your answer is ${this._stages[this._currentStageIndex].options[keyNumber - 1]}`);
         const userAnswer = this._stages[this._currentStageIndex].options[keyNumber - 1];
         const questionAnswer = this._stages[this._currentStageIndex].answer;
-
-        if (userAnswer === questionAnswer) {
-            console.log("Correct!");
-            this._currentPressedCard = { card: keyNumber, answer: true };
-            this._currentScore++;
-
-        } else if (keyNumber === 1 || keyNumber === 2 || keyNumber === 3) {
-            this._currentPressedCard = { card: keyNumber, answer: false };
-        }
+        const timeToNextPage = 500;
 
         const nextPage = () => {
 
@@ -142,7 +132,17 @@ export class MainGameScene extends SceneBase {
             }
         };
 
-        setTimeout(nextPage, 500);
+        if (userAnswer === questionAnswer) {
+            console.log("Correct!");
+            sound.playCorrect();
+            this._currentPressedCard = { card: keyNumber, answer: true };
+            this._currentScore++;
+            setTimeout(nextPage, timeToNextPage);
+        } else if (keyNumber === 1 || keyNumber === 2 || keyNumber === 3) {
+            sound.playIncorrect();
+            this._currentPressedCard = { card: keyNumber, answer: false };
+            setTimeout(nextPage, timeToNextPage);
+        }
     }
 
 }

@@ -17,6 +17,9 @@ const sceneOptions = {
             scale: 0.3,
             strokeColor: "white",
         }
+    },
+    sound: {
+        key: "/"
     }
 };
 const sceneOptionsBlack = merge(sceneOptions, {});

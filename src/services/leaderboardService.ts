@@ -3,7 +3,7 @@ import { merge } from "../scripts/utils/myDash/merge";
 import scoreData from "../models/scoreData";
 import LeaderboardApi from "../api/leaderboardApi";
 import { UserScore } from "../models/userScore";
-import ScoreData from "../models/scoreData";
+import ScoreRequestData from "../models/scoreRequestData";
 
 type Indexed<T = unknown> = {
     [key in string]: T;
@@ -39,8 +39,7 @@ export async function updateScore(currentTheme: string, updatedScore: number): P
         if (currentTheme) {
             //Check if current score greater than previous
             const currentScoreNumber = currentScore.themes[currentTheme].score;
-            let oldScoreScoreNumber = oldScore?.data?.themes[currentTheme]?.score;
-            if (typeof oldScoreScoreNumber === "undefined") { oldScoreScoreNumber = 0; }
+            const oldScoreScoreNumber = oldScore?.data?.themes[currentTheme]?.score || 0;
 
             if (currentScoreNumber > oldScoreScoreNumber) {
                 sendScore = merge(oldScore?.data as unknown as Indexed<scoreData>, currentScore);
@@ -50,7 +49,7 @@ export async function updateScore(currentTheme: string, updatedScore: number): P
     }
 }
 
-export async function getLeaderboardData(currentTheme: string): Promise<{ data: ScoreData; }[]> {
+export async function getLeaderboardData(currentTheme: string): Promise<ScoreRequestData[]> {
     const result = await leaderboardApi.getLeaderboard();
     let scoresByTheme;
 

@@ -3,15 +3,15 @@ import { useParams } from "react-router-dom";
 import LeaderboardTable from "../../LeaderboardTable";
 import "./LeaderboardPage.scss";
 
-import ScoreData from "../../../models/scoreData";
 import { Link } from "react-router-dom";
 import { cardsData } from "../../../game/cardsData/cardsData";
 import { TRootState } from "../../../store/store";
 import { useAppSelector } from "../../../hooks/storeHooks";
 import { getLeaderboardData } from "../../../services/leaderboardService";
+import ScoreRequestData from "../../../models/scoreRequestData";
 
 export const LeaderboardPage = (): JSX.Element => {
-    const [usersScore, setUsersScore] = useState<{ data: ScoreData}[]>([]);
+    const [usersScore, setUsersScore] = useState<ScoreRequestData[]>([]);
 
     const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
 
