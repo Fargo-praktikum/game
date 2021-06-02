@@ -1,8 +1,16 @@
 import correctSound from "../../assets/correct.wav";
 import incorrectSound from "../../assets/incorrect.wav";
 import selectSound from "../../assets/select.wav";
+import isServer from "../../utils/isServer";
 
-class SoundEffects {
+interface SoundEffects {
+    playCorrect(): void;
+    playIncorrect(): void;
+    playSelect(): void;
+    mute(isMuted?: boolean): boolean | void;
+}
+
+class SoundEffectsClient implements SoundEffects {
     private _correct: HTMLAudioElement;
     private _incorrect: HTMLAudioElement;
     private _select: HTMLAudioElement;
@@ -46,4 +54,20 @@ class SoundEffects {
     }
 }
 
-export const sound = new SoundEffects();
+// TODO пока это быстрая залепа, чтобы смерджить, как-то завести и не задерживать процесс
+class SoundEffectsServer implements SoundEffects {
+
+    // eslint-disable-next-line
+    mute(_isMuted?: boolean | undefined): boolean | void {};
+
+    // eslint-disable-next-line
+    playCorrect() {}
+
+    // eslint-disable-next-line
+    playIncorrect() {}
+
+    // eslint-disable-next-line
+    playSelect() {}
+}
+
+export const sound = isServer ? new SoundEffectsServer() : new SoundEffectsClient();

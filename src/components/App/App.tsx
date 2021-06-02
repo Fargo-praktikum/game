@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import LeaderboardPage from "../pages/LeaderboardPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { SignupPage } from "../pages/SignupPage/SignupPage";
@@ -25,36 +25,34 @@ export const App = (): JSX.Element => {
     return (
         <>
             { !isOnline && <OfflineNotification /> }
-            <BrowserRouter>
+            <ErrorBoundary>
                 <Switch>
-                    <ErrorBoundary>
-                        <Route path="/" exact>
-                            <MainPage />
-                        </Route>
-                        <Route path="/login">
-                            <SigninPage />
-                        </Route>
-                        <Route path="/signup">
-                            <SignupPage />
-                        </Route>
-                        <PrivateRoute path="/profile">
-                            <ProfilePage />
-                        </PrivateRoute>
-                        <PrivateRoute path="/leaderboard/:currentTheme?">
-                            <LeaderboardPage />
-                        </PrivateRoute>
-                        <PrivateRoute path="/forum">
-                            <ForumPage />
-                        </PrivateRoute>
-                        <PrivateRoute path="/game">
-                            <GamePage />
-                        </PrivateRoute>
-                    </ErrorBoundary>
-                    <Route path="*">
+                    <Route path="/" exact>
+                        <MainPage />
+                    </Route>
+                    <Route path="/login">
+                        <SigninPage />
+                    </Route>
+                    <Route path="/signup">
+                        <SignupPage />
+                    </Route>
+                    <PrivateRoute path="/game">
+                        <GamePage />
+                    </PrivateRoute>
+                    <PrivateRoute path="/profile">
+                        <ProfilePage />
+                    </PrivateRoute>
+                    <PrivateRoute path="/leaderboard/:currentTheme?">
+                        <LeaderboardPage />
+                    </PrivateRoute>
+                    <PrivateRoute path="/forum">
+                        <ForumPage />
+                    </PrivateRoute>
+                    <Route>
                         <NotFoundPage />
                     </Route>
                 </Switch>
-            </BrowserRouter>
+            </ErrorBoundary>
         </>
     );
 };

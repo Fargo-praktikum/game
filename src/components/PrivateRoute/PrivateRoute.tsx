@@ -2,15 +2,24 @@ import React from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
 import { useAuth } from "../../hooks/authHook";
 
-export const PrivateRoute = (props: RouteProps): JSX.Element => {
+export const PrivateRoute = ({ children, ...rest }: RouteProps): JSX.Element => {
 
     const user = useAuth();
 
-    if (!user) {
-        return <Redirect to={{ pathname: "/login" }} />;
-    }
-
     return (
-        <Route {...props}/>
+        <Route
+            {...rest}
+            render={() =>
+                user ? (
+                    children
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/login"
+                        }}
+                    />
+                )
+            }
+        />
     );
 };

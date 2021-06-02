@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import isServer from "../utils/isServer";
 
 export interface AppState {
     isOnline: boolean;
 }
 
 const initialState: AppState = {
-    isOnline: navigator?.onLine
+    isOnline: isServer || navigator?.onLine
 };
 
 const appStateSlice = createSlice({
