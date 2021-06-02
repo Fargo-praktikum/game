@@ -66,11 +66,11 @@ export abstract class SceneBase {
 
     keyUpHandler(key: string): void {
         if (this._sceneOptions?.fullScreen) {
-            if (key === this._sceneOptions.fullScreen.key) {
-                toggleFullScreen();
-            }
-            if (key === this._sceneOptions.sound.key) {
-                sound.mute();
+            switch (key) {
+                case this._sceneOptions.fullScreen.key:
+                    return toggleFullScreen();
+                case this._sceneOptions.sound.key:
+                    sound.mute() ? sound.mute(true) : sound.mute(false);
             }
         }
     }

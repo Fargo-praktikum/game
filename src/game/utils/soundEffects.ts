@@ -3,42 +3,45 @@ import incorrectSound from "../../assets/incorrect.wav";
 import selectSound from "../../assets/select.wav";
 
 class SoundEffects {
-    private correct: HTMLAudioElement;
-    private incorrect: HTMLAudioElement;
-    private select: HTMLAudioElement;
-    private soundMuted: boolean;
+    private _correct: HTMLAudioElement;
+    private _incorrect: HTMLAudioElement;
+    private _select: HTMLAudioElement;
+    private _soundMuted: boolean;
 
     constructor() {
-        this.correct = new Audio(correctSound);
-        this.incorrect = new Audio(incorrectSound);
-        this.select = new Audio(selectSound);
-        this.soundMuted = true;
-        this.mute();
+        this._correct = new Audio(correctSound);
+        this._incorrect = new Audio(incorrectSound);
+        this._select = new Audio(selectSound);
+        this._soundMuted = true;
+        this.mute(true);
     }
 
     playCorrect() {
-        this.correct.play();
+        this._correct.play();
     }
 
     playIncorrect() {
-        this.incorrect.play();
+        this._incorrect.play();
     }
 
     playSelect() {
-        this.select.play();
+        this._select.play();
     }
 
-    mute() {
-        if (this.soundMuted) {
-            this.correct.muted = true;
-            this.incorrect.muted = true;
-            this.select.muted = true;
-            this.soundMuted = false;
+    mute(isMuted?: boolean): boolean | void {
+        if (typeof isMuted === "undefined") {
+            return  this._soundMuted;
         } else {
-            this.correct.muted = false;
-            this.incorrect.muted = false;
-            this.select.muted = false;
-            this.soundMuted = true;
+            if (this._soundMuted) {
+                this._correct.muted = true;
+                this._incorrect.muted = true;
+                this._select.muted = true;
+            } else {
+                this._correct.muted = false;
+                this._incorrect.muted = false;
+                this._select.muted = false;
+            }
+            this._soundMuted = !this._soundMuted;
         }
     }
 }
