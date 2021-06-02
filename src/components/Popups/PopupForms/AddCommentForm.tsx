@@ -31,7 +31,7 @@ const AddCommentForm = (): JSX.Element => (
                 <form onSubmit={handleSubmit}>
                     <Field
                         name="message"
-                        placeholder="Введите текс"
+                        placeholder="Введите текст"
                         validate={composeValidators(required, minLength(5), maxLength(300))}
                         rows="3"
                         component={TextAreaField}/>

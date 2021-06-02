@@ -25,8 +25,8 @@ export const App = (): JSX.Element => {
     return (
         <>
             { !isOnline && <OfflineNotification /> }
-            <Switch>
-                <ErrorBoundary>
+            <ErrorBoundary>
+                <Switch>
                     <Route path="/" exact>
                         <MainPage />
                     </Route>
@@ -48,11 +48,11 @@ export const App = (): JSX.Element => {
                     <PrivateRoute path="/forum">
                         <ForumPage />
                     </PrivateRoute>
-                    <Route path="*">
+                    <Route>
                         <NotFoundPage />
                     </Route>
-                </ErrorBoundary>
-            </Switch>
+                </Switch>
+            </ErrorBoundary>
         </>
     );
 };

@@ -2,6 +2,7 @@ import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
+import { sound } from "../utils/soundEffects";
 
 export class StartGameScene extends SceneBase {
 
@@ -62,6 +63,7 @@ export class StartGameScene extends SceneBase {
 
             //TODO Временно, чтобы было видно, что работает
             console.log(`Pressed ${key} go to ${this._gameThemes[key]} theme`);
+            sound.playSelect();
             this._nextSceneCallback({
                 ...this._gameInfo,
                 currentTheme: this._gameThemes[key]

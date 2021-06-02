@@ -1,6 +1,7 @@
 import scoreData from "../models/scoreData";
 import { fromSnakeCase } from "../utils/fromSnakeCase";
 import { BaseApi } from "./baseApi";
+import ScoreRequestData from "../models/scoreRequestData";
 
 
 export default class LeaderboardApi extends BaseApi {
@@ -24,15 +25,17 @@ export default class LeaderboardApi extends BaseApi {
         }
     }
 
-    async getLeaderboard(): Promise<{data: scoreData}[]> {
+    async getLeaderboard(): Promise<ScoreRequestData[]> {
         try {
+            const usersInTheLeaderboard = 15;
+
             return await this._http.post(
                 "/leaderboard/all",
                 {
                     data: {
                         "ratingFieldName": "date",
                         "cursor": 0,
-                        "limit": 15
+                        "limit": usersInTheLeaderboard
                     },
                     responseTransformer: fromSnakeCase
                 }
