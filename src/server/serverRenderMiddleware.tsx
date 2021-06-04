@@ -24,6 +24,7 @@ export default (req: Request, res: Response): void => {
     );
 
     const reactHtml = renderToString(jsx);
+    const reduxState = store.getState();
 
     if (context.url) {
         console.log(context.url);
@@ -32,11 +33,11 @@ export default (req: Request, res: Response): void => {
     }
 
     res.status(context.statusCode || 200).send(
-        getHtml(reactHtml)
+        getHtml(reactHtml, reduxState)
     );
 };
 
-function getHtml(reactHtml: string) {
+function getHtml(reactHtml: string, reduxState = {}) {
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -51,6 +52,9 @@ function getHtml(reactHtml: string) {
         </head>
         <body>
             <div id="root">${reactHtml}</div>
+            <script>
+                window.__INITIAL_STATE__ = ${JSON.stringify(reduxState)}
+            </script>
             <script src="/static/app-bundle.js"></script>
         </body>
         </html>
