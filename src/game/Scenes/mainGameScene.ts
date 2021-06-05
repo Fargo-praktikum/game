@@ -4,6 +4,7 @@ import { cardsData } from "../cardsData/cardsData";
 import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
 import { sound } from "../utils/soundEffects";
+import { drawProgressBar } from "../utils/drawProgressBar";
 
 interface Stage {
     question: string;
@@ -22,6 +23,8 @@ type cardParametersType = {
 export class MainGameScene extends SceneBase {
     private _currentPressedCard?: { answer: boolean; card: number };
     private _currentScore: number;
+    private _currentStageIndex: number;
+    private _answersHistory: boolean[] = [];
 
     constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
         super({ gameInfo, nextSceneCallback, sceneOptions });
@@ -34,7 +37,7 @@ export class MainGameScene extends SceneBase {
         console.log(`Current game theme is ${gameInfo.currentTheme ?? ""}`);
     }
 
-    private _currentStageIndex: number;
+
     private _stages: Stage[] = shuffleCards(cardsData, this._gameInfo.currentTheme).questions;
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
@@ -43,6 +46,17 @@ export class MainGameScene extends SceneBase {
     }
 
     protected _drawGameObjects(context: CanvasRenderingContext2D, width: number, height: number): void {
+        drawProgressBar({
+            context,
+            x: 150,
+            y: 50,
+            width: width * .65,
+            height: 20,
+            radius: 5,
+            answers: this._answersHistory,
+            commonCount: this._stages.length,
+            textColor: "black"
+        });
 
         const currentStage = this._stages[this._currentStageIndex];
         // плашка с вопросом
@@ -136,11 +150,15 @@ export class MainGameScene extends SceneBase {
             console.log("Correct!");
             sound.playCorrect();
             this._currentPressedCard = { card: keyNumber, answer: true };
+            // здесь можно пушить не только boolean, а сам еще и сам вопрос, чтобы потом показать,
+            // где были совершены ошибки, но пока ограничимся true/false
+            this._answersHistory.push(true);
             this._currentScore++;
             setTimeout(nextPage, timeToNextPage);
         } else if (keyNumber === 1 || keyNumber === 2 || keyNumber === 3) {
             sound.playIncorrect();
             this._currentPressedCard = { card: keyNumber, answer: false };
+            this._answersHistory.push(false);
             setTimeout(nextPage, timeToNextPage);
         }
     }
