@@ -5,6 +5,7 @@ import App from "../components/App/App";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
 import store from "../store/store";
+import { escapeObject } from "../utils/escapeObject";
 
 export default (req: Request, res: Response): void => {
 
@@ -53,7 +54,7 @@ function getHtml(reactHtml: string, reduxState = {}) {
         <body>
             <div id="root">${reactHtml}</div>
             <script>
-                window.__INITIAL_STATE__ = ${JSON.stringify(reduxState)}
+                window.__INITIAL_STATE__ = ${escapeObject(JSON.stringify(reduxState)) }
             </script>
             <script src="/static/app-bundle.js"></script>
         </body>
