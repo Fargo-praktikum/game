@@ -3,11 +3,23 @@ import ReactDOM from "react-dom";
 
 import App from "./components/App/App";
 import { Provider } from "react-redux";
-import store from "./store/store";
+import { storeWithInitState, TRootState } from "./store/store";
 import "./global.scss";
 import { getUser } from "./store/authReducer";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
+
+// global redeclared types
+declare global {
+    interface Window {
+        __INITIAL_STATE__?: TRootState;
+    }
+}
+
+const preloadedState = window.__INITIAL_STATE__ as TRootState;
+delete window.__INITIAL_STATE__;
+
+const store = storeWithInitState(preloadedState);
 
 function startServiceWorker() {
     if ("serviceWorker" in navigator) {
@@ -29,6 +41,8 @@ startServiceWorker();
 const auth = async () => {
     return store.dispatch(getUser());
 };
+
+
 
 auth()
     .catch((e: Error) =>{
