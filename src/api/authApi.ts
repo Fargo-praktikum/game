@@ -55,6 +55,18 @@ export default class AuthAPI extends BaseApi {
         );
     }
 
+    async oauthYandex(code: string): Promise<unknown> {
+        return this._http.post(
+            "/oauth/yandex",
+            {
+                data: {
+                    code,
+                    redirect_uri: " "
+                }
+            }
+        );
+    }
+
     protected _processApiErrorTexts(apiErrorReason: string): string | null {
         switch (apiErrorReason.toLowerCase()) {
             case "login already exists":
