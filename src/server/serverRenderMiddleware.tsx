@@ -6,14 +6,17 @@ import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
 import store from "../store/store";
 import { escapeObject } from "../utils/escapeObject";
-
+let i = 0;
 export default (req: Request, res: Response): void => {
 
     const location = req.url;
     const context: StaticRouterContext = {};
-
-    console.log(location);
-    console.log(req);
+    console.log(`i = ${i}`);
+    i++;
+    // eslint-disable-next-line no-debugger
+    debugger;
+    // console.log(location);
+    // console.log(req);
     const jsx = (
         <React.StrictMode>
             <Provider store={store}>
@@ -28,7 +31,7 @@ export default (req: Request, res: Response): void => {
     const reduxState = store.getState();
 
     if (context.url) {
-        console.log(context.url);
+        // console.log(context.url);
         res.redirect(context.url);
         return;
     }

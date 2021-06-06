@@ -13,7 +13,7 @@
         "webpack-dev": "webpack --mode development",
         "prepare": "husky install",
         "start:webpack": "webpack --mode=development --watch",
-        "start:server": "nodemon index.js --watch serverDist/server.js",
+        "start:server": "nodemon --inspect index.js --watch serverDist/server.js",
         "start": "SET NODE_ENV=development & npm-run-all --print-label --parallel start:*",
         "start-old": "webpack serve --mode development"
     },
