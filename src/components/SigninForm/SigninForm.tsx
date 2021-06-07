@@ -11,6 +11,7 @@ import SigninRequestData from "../../models/signinRequestData";
 import { useAppDispatch } from "../../hooks/storeHooks";
 import { signIn } from "../../store/authReducer";
 import DataFieldError from "../../models/errors/dataFieldError";
+import AuthAPI from "../../api/authApi";
 
 const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
     login: Yup.string()
@@ -54,6 +55,17 @@ export const SigninForm = (): JSX.Element => {
         []
     );
 
+    const handleOAuth = useCallback(
+        async () => {
+            const authApi = new AuthAPI();
+
+            const serviceId = await authApi.getOauthYandexServiceId();
+
+            window.location.href = ` https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=`;
+        },
+        []
+    );
+
     return (
         <div className="floating-label-form">
             <h1 className="floating-label-form__header">
@@ -86,6 +98,9 @@ export const SigninForm = (): JSX.Element => {
                             <div className="floating-label-form__error-message">{status}</div>
                             <Button className="floating-label-form__button" type="submit">
                                 Авторизоваться
+                            </Button>
+                            <Button className="floating-label-form__button" type="button" onClick={handleOAuth}>
+                                Авторизоваться через Я.OAuth
                             </Button>
                             <Link className="floating-label-form__link" to="/signup">
                                 Нет аккаунта ?
