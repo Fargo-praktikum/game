@@ -5,5 +5,5 @@ dist/
 .idea
 serverDist
 *.env
-pgadmin-data
-postgresdata
+pgadmin-data/*
+postgresdata/*

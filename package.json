@@ -15,7 +15,11 @@
         "start:webpack": "webpack --mode=development --watch",
         "start:server": "nodemon index.js --watch serverDist/server.js",
         "start": "SET NODE_ENV=development& npm-run-all --print-label --parallel start:*",
-        "start-old": "webpack serve --mode development"
+        "start-old": "webpack serve --mode development",
+        "docker:compose:build": "docker compose build",
+        "docker:compose:up": "docker compose up",
+        "start:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
+        "stop:container": "docker compose stop"
     },
     "repository": {
         "type": "git",
