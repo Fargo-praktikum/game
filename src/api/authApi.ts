@@ -4,6 +4,7 @@ import User from "../models/user";
 import { fromSnakeCase } from "../utils/fromSnakeCase";
 import toSnakeCase from "../utils/toSnakeCase";
 import { BaseApi } from "./baseApi";
+import { appUrl } from "../constants";
 
 export default class AuthAPI extends BaseApi {
 
@@ -61,7 +62,7 @@ export default class AuthAPI extends BaseApi {
             {
                 data: {
                     code,
-                    redirect_uri: " "
+                    redirect_uri: appUrl
                 }
             }
         );
@@ -72,7 +73,7 @@ export default class AuthAPI extends BaseApi {
             "/oauth/yandex/service-id",
             {
                 data: {
-                    redirect_uri: " "
+                    redirect_uri: appUrl
                 }
             }
         );
