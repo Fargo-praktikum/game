@@ -13,8 +13,8 @@ interface Stage {
 }
 
 type cardParametersType = {
-    width?: number,
-    height?: number,
+    width: number,
+    height: number,
     radius?: number,
     color?: string,
 };
@@ -84,35 +84,31 @@ export class MainGameScene extends SceneBase {
             }
         }
 
+        const answCard1 = { x: width / 2, y: (height / 2) - (answerCardHeight * 1.5) - answerCardGap };
+        const answCard2 = { x: width / 2, y: (height / 2) - (answerCardHeight / 2) };
+        const answCard3 = { x: width / 2, y: (height / 2) + (answerCardHeight / 2) + answerCardGap };
+
+        if (this.gameObjects.length < 3) {
+            this.gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: answCard1.x,
+                x2:answCard1.x + cardParameters.width, y1: answCard1.y, y2: answCard1.y + cardParameters.height });
+            this.gameObjects.push({ name: cardsData.chemistry.themeName, key: "2", x1: answCard2.x,
+                x2:answCard2.x + cardParameters.width, y1: answCard2.y, y2: answCard2.y + cardParameters.height });
+            this.gameObjects.push({ name: cardsData.history.themeName, key: "3", x1: answCard3.x,
+                x2: answCard3.x + cardParameters.width, y1: answCard3.y, y2: answCard3.y + cardParameters.height });
+        }
+
         switch (cardNumber) {
             case 1:
-                return drawPlayCard(
-                    context,
-                    width / 2,
-                    (height / 2) - (answerCardHeight * 1.5) - answerCardGap,
-                    currentStage.options[0],
-                    "1",
-                    cardParameters
-                );
+                return drawPlayCard(context, answCard1.x, answCard1.y,
+                    currentStage.options[0],"1", cardParameters);
             case 2:
-                return drawPlayCard(
-                    context,
-                    width / 2,
-                    (height / 2) - (answerCardHeight / 2),
-                    currentStage.options[1],
-                    "2",
-                    cardParameters
-                );
+                return drawPlayCard(context,answCard2.x,answCard2.y,
+                    currentStage.options[1],"2", cardParameters);
             case 3:
-                return drawPlayCard(
-                    context,
-                    width / 2,
-                    (height / 2) + (answerCardHeight / 2) + answerCardGap,
-                    currentStage.options[2],
-                    "3",
-                    cardParameters
-                );
+                return drawPlayCard(context,answCard3.x,answCard3.y,
+                    currentStage.options[2],"3", cardParameters);
         }
+
     }
 
     keyUpHandler(key: string): void {

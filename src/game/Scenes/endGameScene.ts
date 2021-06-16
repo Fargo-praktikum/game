@@ -10,6 +10,7 @@ export class EndGameScene extends SceneBase {
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
 
+
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
             const stars = generateStars(width, height);
@@ -44,10 +45,21 @@ export class EndGameScene extends SceneBase {
         }
         context.fillText("Игра завершена, хотите начать заново?", screenLocation.x, screenLocation.y - 50);
 
-        drawPlayCard(context, screenLocation.x - 300, screenLocation.y,
-            "Завершить (esc)", undefined, { width: 250, height: 80, radius: 20, color: "#B7B7B7" });
-        drawPlayCard(context, screenLocation.x + 50, screenLocation.y,
-            "Начать (enter)", undefined, { width: 250, height: 80, radius: 20, color: "#B7B7B7" });
+        const menuCardEnd = { x: screenLocation.x - 300, y: screenLocation.y };
+        const menuCardContinue = { x: screenLocation.x + 50, y: screenLocation.y };
+        const cardParameters = { width: 250, height: 80, radius: 20, color: "#B7B7B7" };
+
+        if (this.gameObjects.length < 2) {
+            this.gameObjects.push({ name: "Завершить (esc)", key: "Escape", x1: menuCardEnd.x,
+                x2:menuCardEnd.x + cardParameters.width, y1: menuCardEnd.y, y2: menuCardEnd.y + cardParameters.height });
+            this.gameObjects.push({ name: "Начать (enter)", key: "Enter", x1: menuCardContinue.x,
+                x2:menuCardContinue.x + cardParameters.width, y1: menuCardContinue.y, y2: menuCardContinue.y + cardParameters.height });
+        }
+
+        drawPlayCard(context, menuCardEnd.x, menuCardEnd.y,
+            "Завершить (esc)", undefined, cardParameters);
+        drawPlayCard(context, menuCardContinue.x, menuCardContinue.y,
+            "Начать (enter)", undefined, cardParameters);
     }
 
     keyUpHandler(key: string): void {
