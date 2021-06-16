@@ -2,6 +2,7 @@ import { GameInfo } from "./gameInfo";
 import { drawFullScreenButton } from "./utils/drawFullScreenButton";
 import { toggleFullScreen } from "./utils/toggleFullScreen";
 import { sound } from "./utils/soundEffects";
+import { gameObjects } from "./types";
 
 export type SceneOptions = {
     fullScreen?: {
@@ -44,6 +45,7 @@ export abstract class SceneBase {
     protected _endGameCallback?: endGameCallbackType;
     protected _gameInfo: GameInfo;
     private _sceneOptions?: SceneOptions;
+    public gameObjects: gameObjects = [];
 
     render(context: CanvasRenderingContext2D, width: number, height: number): void {
         this.context = context;

@@ -79,19 +79,19 @@ export const Game = (): JSX.Element => {
             currentScene.keyUpHandler(key);
         };
 
-        const clickHandler = (e: Event) => {
-            currentScene._gameObjects.forEach(el => {
+        const clickHandler = (e: MouseEvent) => {
+            currentScene.gameObjects.forEach(el => {
                 if (clickInObj({ x1: el.x1, x2: el.x2, y1: el.y1, y2: el.y2 },{ x: e.x, y: e.y })) {
                     currentScene.keyUpHandler(el.key);
                 }
             });
         };
-        window.addEventListener("click", clickHandler );
-        window.addEventListener("keyup", keyHandler);
+        document.addEventListener("click", clickHandler );
+        document.addEventListener("keyup", keyHandler);
         // Remove event listeners on cleanup
         return () => {
-            window.removeEventListener("click", clickHandler );
-            window.removeEventListener("keyup", keyHandler);
+            document.removeEventListener("click", clickHandler );
+            document.removeEventListener("keyup", keyHandler);
         };
 
     }, [currentScene]);

@@ -25,7 +25,6 @@ export class MainGameScene extends SceneBase {
     private _currentScore: number;
     private _currentStageIndex: number;
     private _answersHistory: boolean[] = [];
-    private _gameObjects: any = [];
 
     constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
         super({ gameInfo, nextSceneCallback, sceneOptions });
@@ -89,12 +88,12 @@ export class MainGameScene extends SceneBase {
         const answCard2 = { x: width / 2, y: (height / 2) - (answerCardHeight / 2) };
         const answCard3 = { x: width / 2, y: (height / 2) + (answerCardHeight / 2) + answerCardGap };
 
-        if (this._gameObjects.length < 3) {
-            this._gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: answCard1.x,
+        if (this.gameObjects.length < 3) {
+            this.gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: answCard1.x,
                 x2:answCard1.x + cardParameters.width, y1: answCard1.y, y2: answCard1.y + cardParameters.height });
-            this._gameObjects.push({ name: cardsData.chemistry.themeName, key: "2", x1: answCard2.x,
+            this.gameObjects.push({ name: cardsData.chemistry.themeName, key: "2", x1: answCard2.x,
                 x2:answCard2.x + cardParameters.width, y1: answCard2.y, y2: answCard2.y + cardParameters.height });
-            this._gameObjects.push({ name: cardsData.history.themeName, key: "3", x1: answCard3.x,
+            this.gameObjects.push({ name: cardsData.history.themeName, key: "3", x1: answCard3.x,
                 x2: answCard3.x + cardParameters.width, y1: answCard3.y, y2: answCard3.y + cardParameters.height });
         }
 

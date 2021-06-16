@@ -1,7 +1,6 @@
 import { SceneBase, SceneBaseConstructorInterface } from "../sceneBase";
 import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBackground";
 import { drawPlayCard } from "../utils/drawPlayCard";
-import { cardsData } from "../cardsData/cardsData";
 
 
 export class EndGameScene extends SceneBase {
@@ -10,7 +9,7 @@ export class EndGameScene extends SceneBase {
     }
 
     private backgroundStars: { width: number, height: number, stars: BackGroundStar[] } | null = null;
-    private _gameObjects: any = [];
+
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
@@ -50,10 +49,10 @@ export class EndGameScene extends SceneBase {
         const menuCardContinue = { x: screenLocation.x + 50, y: screenLocation.y };
         const cardParameters = { width: 250, height: 80, radius: 20, color: "#B7B7B7" };
 
-        if (this._gameObjects.length < 2) {
-            this._gameObjects.push({ name: "Завершить (esc)", key: "Escape", x1: menuCardEnd.x,
+        if (this.gameObjects.length < 2) {
+            this.gameObjects.push({ name: "Завершить (esc)", key: "Escape", x1: menuCardEnd.x,
                 x2:menuCardEnd.x + cardParameters.width, y1: menuCardEnd.y, y2: menuCardEnd.y + cardParameters.height });
-            this._gameObjects.push({ name: "Начать (enter)", key: "Enter", x1: menuCardContinue.x,
+            this.gameObjects.push({ name: "Начать (enter)", key: "Enter", x1: menuCardContinue.x,
                 x2:menuCardContinue.x + cardParameters.width, y1: menuCardContinue.y, y2: menuCardContinue.y + cardParameters.height });
         }
 

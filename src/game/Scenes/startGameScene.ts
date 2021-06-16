@@ -3,7 +3,6 @@ import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBack
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { sound } from "../utils/soundEffects";
-import { useState } from "react";
 
 export class StartGameScene extends SceneBase {
 
@@ -20,7 +19,6 @@ export class StartGameScene extends SceneBase {
         4: "english"
     };
 
-    private _gameObjects: any = [];
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
@@ -59,14 +57,14 @@ export class StartGameScene extends SceneBase {
             height: 190
         };
 
-        if (this._gameObjects.length < 4) {
-            this._gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: themeCard1.x,
+        if (this.gameObjects.length < 4) {
+            this.gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: themeCard1.x,
                 x2:themeCard1.x + cardParameters.width, y1: themeCard1.y, y2: themeCard1.y + cardParameters.height });
-            this._gameObjects.push({ name: cardsData.chemistry.themeName, key: "2", x1: themeCard2.x,
+            this.gameObjects.push({ name: cardsData.chemistry.themeName, key: "2", x1: themeCard2.x,
                 x2:themeCard2.x + cardParameters.width, y1: themeCard2.y, y2: themeCard2.y + cardParameters.height });
-            this._gameObjects.push({ name: cardsData.history.themeName, key: "3", x1: themeCard3.x,
+            this.gameObjects.push({ name: cardsData.history.themeName, key: "3", x1: themeCard3.x,
                 x2: themeCard3.x + cardParameters.width, y1: themeCard3.y, y2: themeCard3.y + cardParameters.height });
-            this._gameObjects.push({ name: cardsData.english.themeName, key: "4", x1: themeCard4.x,
+            this.gameObjects.push({ name: cardsData.english.themeName, key: "4", x1: themeCard4.x,
                 x2: themeCard4.x + cardParameters.width, y1: themeCard4.y, y2: themeCard4.y + cardParameters.height });
         }
 
