@@ -4,3 +4,6 @@
 node_modules
 dist
 serverDist
+*.env
+pgadmin-data
+postgresdata
