@@ -6,17 +6,11 @@ import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
 import store from "../store/store";
 import { escapeObject } from "../utils/escapeObject";
-let i = 0;
-export default (req: Request, res: Response): void => {
 
+export default (req: Request, res: Response): void => {
     const location = req.url;
     const context: StaticRouterContext = {};
-    console.log(`i = ${i}`);
-    i++;
-    // eslint-disable-next-line no-debugger
-    debugger;
-    // console.log(location);
-    // console.log(req);
+
     const jsx = (
         <React.StrictMode>
             <Provider store={store}>
