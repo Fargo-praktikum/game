@@ -1,11 +1,11 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { Request, Response } from "express";
-import App from "../components/App/App";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
-import store from "../store/store";
-import { escapeObject } from "../utils/escapeObject";
+import App from "../../src/components/App/App";
+import store from "../../src/store/store";
+import { escapeObject } from "../../src/utils/escapeObject";
 
 export default (req: Request, res: Response): void => {
     const location = req.url;

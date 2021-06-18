@@ -2,18 +2,18 @@ import path from "path";
 import express from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import serverRenderMiddleware from "./serverRenderMiddleware";
-import { serverAuthMiddleware } from "./serverAuthMiddleware";
+import serverRenderMiddleware from "./middlewares/serverRenderMiddleware";
+import { serverAuthMiddleware } from "./middlewares/serverAuthMiddleware";
 
-const app = express();
+const server = express();
 
 // TODO автор, по мануалу которого сделан SSR, рекомендует использовать это только для dev вурсии
 // а в prod юзать для этого nginx
-app
+server
     .use(cookieParser())
     .use(compression())
     .use(express.static(path.resolve(__dirname, "../dist")));
 
-app.get("/*", serverAuthMiddleware, serverRenderMiddleware);
+server.get("/*", serverAuthMiddleware, serverRenderMiddleware);
 
-export { app };
+export { server };

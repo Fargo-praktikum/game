@@ -1,7 +1,7 @@
 {
     "name": "game",
     "version": "1.0.0",
-    "main": "index.ts",
+    "main": "server/index.ts",
     "scripts": {
         "test": "jest",
         "build": "npm-run-all  lint  lint-styles webpack-prod",
@@ -12,8 +12,7 @@
         "webpack-prod": "webpack --mode production",
         "webpack-dev": "webpack --mode development",
         "prepare": "husky install",
-        "start": "webpack --mode=development --watch",
-        "start-old": "webpack serve --mode development"
+        "start": "webpack --mode development --watch"
     },
     "repository": {
         "type": "git",
@@ -34,6 +33,7 @@
         "@types/file-loader": "^4.2.1",
         "@types/jest": "^26.0.23",
         "@types/mini-css-extract-plugin": "^1.4.3",
+        "@types/react-loadable": "^5.5.5",
         "@types/react-router-dom": "^5.1.7",
         "@types/react-test-renderer": "^17.0.1",
         "@types/serialize-javascript": "^5.0.0",

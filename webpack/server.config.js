@@ -8,7 +8,7 @@ const serverConfig = {
     name: "server",
     target: "node",
     node: { __dirname: false },
-    entry: path.join(dirName, "index.ts"),
+    entry: path.join(dirName, "/server/index.ts"),
     module: {
         rules: [
             {
@@ -39,7 +39,11 @@ const serverConfig = {
     externals: [nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
     optimization: { nodeEnv: false },
     plugins: [
-        new NodemonPlugin(),
+        new NodemonPlugin({
+            env: {
+                NODE_ENV: 'development',
+            }
+        }),
     ],
 };
 
