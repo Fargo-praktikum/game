@@ -11,7 +11,7 @@ const middleware = getDefaultMiddleware({
     thunk: true,
 });
 
-export const storeWithInitState = (preloadedState: TRootState) => configureStore({
+export const storeWithInitState = (preloadedState?: TRootState) => configureStore({
     reducer: {
         auth: authReducer,
         forum: forumReducer,

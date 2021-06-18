@@ -85,6 +85,7 @@
         "@types/react-dom": "^17.0.3",
         "@types/webpack": "^5.28.0",
         "@types/yup": "^0.29.11",
+        "axios": "^0.21.1",
         "compression": "^1.7.4",
         "cookie-parser": "^1.4.5",
         "deepmerge": "^4.2.2",

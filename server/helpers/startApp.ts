@@ -1,4 +1,4 @@
-import devHosts from "../hosts.json";
+import devHosts from "../../configs/hosts.json";
 import { Express } from "express";
 import { readFileSync } from "fs";
 import https from "https";
@@ -14,7 +14,7 @@ interface Options {
 }
 
 const APP_HOSTS = ["localhost"];
-const { PORT = 9001, NODE_ENV } = process.env;
+const { PORT = 9000, NODE_ENV } = process.env;
 const isDev = NODE_ENV === "development";
 
 
@@ -35,7 +35,6 @@ export const startApp = ({ server }: Options): void => {
             https
                 .createServer({ key: key, cert: cert }, server)
                 .listen(PORT, "0.0.0.0" as any, () => {
-                    // eslint-disable-next-line
                     console.log(makeStartLogsText(
                         APP_HOSTS.concat(...devHosts.map(({ host }) => host)),
                         "https",
