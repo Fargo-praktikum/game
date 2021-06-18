@@ -14,7 +14,7 @@ interface Options {
 }
 
 const APP_HOSTS = ["localhost"];
-const { PORT = 9000, NODE_ENV } = process.env;
+const { PORT = 5000, NODE_ENV } = process.env;
 const isDev = NODE_ENV === "development";
 
 

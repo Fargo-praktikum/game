@@ -19,6 +19,7 @@ export class StartGameScene extends SceneBase {
         4: "english"
     };
 
+
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
         if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
             const stars = generateStars(width, height);
@@ -46,10 +47,31 @@ export class StartGameScene extends SceneBase {
         context.shadowBlur = 2;
         context.fillText("Выберите тему, чтобы начать играть", screenLocation.x + 190, screenLocation.y - 20);
 
-        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 20, cardsData.capitals.themeName, "1");
-        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 20, cardsData.chemistry.themeName, "2");
-        drawPlayCard(context, screenLocation.x + 20, screenLocation.y + 240, cardsData.history.themeName, "3");
-        drawPlayCard(context, screenLocation.x + 220, screenLocation.y + 240, cardsData.english.themeName, "4");
+        const themeCard1 = { x: screenLocation.x + 20, y: screenLocation.y + 20 };
+        const themeCard2 = { x: screenLocation.x + 220, y: screenLocation.y + 20 };
+        const themeCard3 = { x: screenLocation.x + 20, y: screenLocation.y + 240 };
+        const themeCard4 = { x: screenLocation.x + 220, y: screenLocation.y + 240 };
+
+        const cardParameters = {
+            width: 160,
+            height: 190
+        };
+
+        if (this.gameObjects.length < 4) {
+            this.gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: themeCard1.x,
+                x2:themeCard1.x + cardParameters.width, y1: themeCard1.y, y2: themeCard1.y + cardParameters.height });
+            this.gameObjects.push({ name: cardsData.chemistry.themeName, key: "2", x1: themeCard2.x,
+                x2:themeCard2.x + cardParameters.width, y1: themeCard2.y, y2: themeCard2.y + cardParameters.height });
+            this.gameObjects.push({ name: cardsData.history.themeName, key: "3", x1: themeCard3.x,
+                x2: themeCard3.x + cardParameters.width, y1: themeCard3.y, y2: themeCard3.y + cardParameters.height });
+            this.gameObjects.push({ name: cardsData.english.themeName, key: "4", x1: themeCard4.x,
+                x2: themeCard4.x + cardParameters.width, y1: themeCard4.y, y2: themeCard4.y + cardParameters.height });
+        }
+
+        drawPlayCard(context, themeCard1.x, themeCard1.y, cardsData.capitals.themeName, "1", cardParameters);
+        drawPlayCard(context, themeCard2.x, themeCard2.y, cardsData.chemistry.themeName, "2", cardParameters);
+        drawPlayCard(context, themeCard3.x, themeCard3.y, cardsData.history.themeName, "3", cardParameters);
+        drawPlayCard(context, themeCard4.x, themeCard4.y, cardsData.english.themeName, "4", cardParameters);
     }
 
     keyUpHandler(key: string): void {

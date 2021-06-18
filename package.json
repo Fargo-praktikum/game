@@ -12,7 +12,12 @@
         "webpack-prod": "webpack --mode production",
         "webpack-dev": "webpack --mode development",
         "prepare": "husky install",
-        "start": "webpack --mode development --watch"
+        "docker:compose:build": "docker compose build",
+        "docker:compose:up": "docker compose up",
+        "start:compile": "webpack --mode development --watch",
+        "start-new:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
+        "start": "npm-run-all --print-label --parallel start:*",
+        "stop:container": "docker compose stop"
     },
     "repository": {
         "type": "git",
@@ -34,6 +39,7 @@
         "@types/jest": "^26.0.23",
         "@types/mini-css-extract-plugin": "^1.4.3",
         "@types/react-loadable": "^5.5.5",
+        "@types/pg": "^8.6.0",
         "@types/react-router-dom": "^5.1.7",
         "@types/react-test-renderer": "^17.0.1",
         "@types/serialize-javascript": "^5.0.0",
@@ -91,6 +97,8 @@
         "deepmerge": "^4.2.2",
         "express": "^4.17.1",
         "formik": "^2.2.6",
+        "https": "^1.0.0",
+        "pg": "^8.6.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-loadable": "^5.5.0",

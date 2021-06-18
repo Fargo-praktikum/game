@@ -68,6 +68,14 @@ export const signIn = (data: SigninRequestData) => {
     };
 };
 
+export const oauthYndexSignIn = (code: string) => {
+    return async (dispatch: TAppDispatch) => {
+        await authApi.oauthYandex(code);
+
+        return dispatch(getUser());
+    };
+};
+
 export const logout = () => {
     return async (dispatch: TAppDispatch) => {
         await authApi.logout();

@@ -75,14 +75,23 @@ export const Game = (): JSX.Element => {
 
     useEffect(() => {
 
-        const handler = ({ key }: { key: string }) => {
+        const keyHandler = ({ key }: { key: string }) => {
             currentScene.keyUpHandler(key);
         };
 
-        window.addEventListener("keyup", handler);
+        const clickHandler = (e: MouseEvent) => {
+            currentScene.gameObjects.forEach(el => {
+                if (clickInObj({ x1: el.x1, x2: el.x2, y1: el.y1, y2: el.y2 },{ x: e.x, y: e.y })) {
+                    currentScene.keyUpHandler(el.key);
+                }
+            });
+        };
+        document.addEventListener("click", clickHandler );
+        document.addEventListener("keyup", keyHandler);
         // Remove event listeners on cleanup
         return () => {
-            window.removeEventListener("keyup", handler);
+            document.removeEventListener("click", clickHandler );
+            document.removeEventListener("keyup", keyHandler);
         };
 
     }, [currentScene]);
@@ -125,4 +134,8 @@ function useWindowSize() {
         return () => window.removeEventListener("resize", updateSize);
     }, []);
     return size;
+}
+
+function clickInObj({ x1, y1, x2, y2 }: {x1: number, y1: number, x2: number, y2: number}, { x, y }: {x: number, y: number}) {
+    return (x > x1 && x < x2) && (y > y1 && y < y2);
 }

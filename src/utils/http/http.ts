@@ -65,13 +65,12 @@ export default class HTTPTransport {
             headers["Content-Type"] = "application/json; charset=utf-8";
         }
 
-        const body =
-            mergedOptions.data
-                ? mergedOptions.requestType === "json"
-                    ? JSON.stringify(mergedOptions.data)
-                    : mergedOptions.data
-                : undefined;
-
+        let body: any | undefined = undefined;
+        if (mergedOptions.method !== HttpMethods.Get && mergedOptions.data) {
+            body = mergedOptions.requestType === "json"
+                ? JSON.stringify(mergedOptions.data)
+                : mergedOptions.data;
+        }
 
         const response = await fetch(
             `${this._baseUrl}${url}`,
