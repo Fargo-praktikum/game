@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { compareDate } from "../scripts/utils/compareDate";
+import ForumAPI from "../api/forumApi";
+import Topic from "../models/forum/topic";
+import UserForumInfo from "../models/forum/userForumInfo";
+import { TAppDispatch } from "./store";
+//import { compareDate } from "../scripts/utils/compareDate";
 
-export interface UserForumInfo {
-    id: number,
-    firstName: string,
-    secondName: string,
-    avatar?: string,
-}
+const forumApi = new ForumAPI();
 
+///
 export interface Comment {
     id: number,
     date: string,
@@ -30,21 +30,16 @@ export interface LastCommentInfo {
     topicTitle: string,
     comment: Comment,
 }
+///
 
-export interface Topic {
-    id: number,
-    title: string,
-    description: string,
-    messages: Message[] | null,
-    lastCommentInfo?: LastCommentInfo,
-}
+
 
 interface ForumState {
-    topicsList: Topic[] | null;
+    topics: Topic[] | null;
 }
 
 const initialState: ForumState = {
-    topicsList: null
+    topics: null
 };
 
 const forumSlice = createSlice({
@@ -52,24 +47,7 @@ const forumSlice = createSlice({
     initialState,
     reducers: {
         setTopicsList(state, action: PayloadAction<Topic[]>) {
-            state.topicsList = action.payload.map((topic: Topic) => {
-                let lastCommentInfo: LastCommentInfo | undefined = undefined;
-
-                topic.messages?.forEach((message) => {
-                    if (message.comments) {
-                        const lastCommentInTopic = message.comments[message.comments.length - 1];
-                        if (!lastCommentInfo || compareDate(lastCommentInfo.comment.date, lastCommentInTopic.date)) {
-                            lastCommentInfo = {
-                                topicId: message.id,
-                                topicTitle: message.title,
-                                comment: lastCommentInTopic,
-                            };
-                        }
-                    }
-                });
-
-                return { ...topic, lastCommentInfo };
-            });
+            state.topics = action.payload;
         }
     }
 });
@@ -77,3 +55,11 @@ const forumSlice = createSlice({
 export const { setTopicsList } = forumSlice.actions;
 
 export default forumSlice.reducer;
+
+export const getTopics = () => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<Topic[]>> => {
+        const data = await forumApi.getTopics();
+
+        return dispatch(setTopicsList(data.topics));
+    };
+};

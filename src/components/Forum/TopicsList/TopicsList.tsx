@@ -1,72 +1,58 @@
-import React, { useCallback } from "react";
-import { TRootState } from "../../../store/store";
+import React from "react";
+// import { useHistory, useParams } from "react-router-dom";
 
 import "./TopicsList.scss";
 
+import { TRootState } from "../../../store/store";
 import { setStyle } from "../../../scripts/utils/setStyle";
-import topicImg from "../../../assets/chat.png";
-import { Comment, Message } from "../../../store/forumReducer";
-import { getTimeInfo } from "../../../scripts/utils/timeHandler";
-import { useHistory } from "react-router-dom";
+// import { getTimeInfo } from "../../../scripts/utils/timeHandler";
+// import { getTopicsOrCommentsCount } from "./TopicsList";
+// import { lastElem } from "../../../scripts/utils/myDash/last";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
-import { openPopupAddTopic } from "../../Popups/PopupFuncs/PopupFuncs";
+// import { openPopupAddMessage } from "../../Popups/PopupFuncs/PopupFuncs";
 import { useAppSelector } from "../../../hooks/storeHooks";
 
-export const getTopicsOrCommentsCount = (topics: Message[] | Comment[] | null): number => {
-    return topics ? topics.length : 0;
-};
-
-const createTopic = () => {
-    console.log("нажал createTopic!!!");
-    openPopupAddTopic();
-};
 
 const TopicsList = (): JSX.Element => {
-    const topicsList = useAppSelector((state: TRootState) => state.forum.topicsList);
-    const history = useHistory();
+    const topicsList = useAppSelector((state: TRootState) => state.forum.topics);
 
-    const openForumItem = useCallback((id: number) => {
-        return () => {
-            history.push(`/forum/${id}`);
-        };
-    }, []);
+    //const history = useHistory();
 
+    // const openTopicItem = (messageId: number) => {
+    //     return () => {
+    //         history.push(`/forum/${topicId}/${messageId}`);
+    //     };
+    // };
+
+    // const createMessage = () => {
+    //     console.log("нажал createTopic!!!");
+    //     openPopupAddMessage();
+    // };
 
 
     return (
-        <section className="f-list">
-            <div className="f-list__header">
-                <h2 className="f-list__title">Topics</h2>
-                <CoolButton clickHandler={createTopic} text={"Создать топик"}/>
+        <section className="topics">
+            <div className="topics__header">
+                {/* TODO: СРЕДНЕ. Сделать пагинатор */}
+                <div className="paginator">Здесь будет пагинатор</div>
+                {/* <CoolButton clickHandler={createMessage} text={"Написать сообщение"}/> */}
+                <CoolButton text={"Создать топик"}/>
             </div>
-            <div className="f-list__card-container">
+            <div className="topics__card-container">
                 {topicsList &&
                 topicsList.map((topic, ind) => {
-                    const { id, title, description, messages, lastCommentInfo } = topic;
-
                     return (
-                        <div className={`f-list__item ${setStyle(ind % 2 === 1, "f-list__item_two")}`} key={ind}>
-                            <img className="f-list__img" src={topicImg} alt="img"/>
-                            <div className="f-list__info">
-                                <h3 className="f-list__list-title" onClick={openForumItem(id)}>{title}</h3>
-                                <p className="f-list__list-descr">{description}</p>
+                        <div className={`topics__item ${setStyle(ind % 2 === 1, "topics__item_two")}`} key={topic.id}>
+                            <div>
+                                {/* <h3 className="f-list__list-title" onClick={openTopicItem(id)}>{title}</h3> */}
+                                <h3 className="f-list__list-title">{topic.title}</h3>
                             </div>
-                            <div className="f-list__list-messages">
-                                <p className="f-list__messages-count">{getTopicsOrCommentsCount(messages)}</p>
-                                <p className="f-list__text">сообщений</p>
-                            </div>
-                            {lastCommentInfo &&
                             <div className="f-list__from-container">
-                                <p className="f-list__where">{lastCommentInfo.topicTitle}</p>
                                 <p className="f-list__from">
-                                    <span className="f-list_text">От </span>
-                                    {lastCommentInfo.comment.user.firstName}
-                                    {" "}
-                                    {lastCommentInfo.comment.user.secondName}
+                                    {topic.user.name}
                                 </p>
-                                <time className="f-list_text">{getTimeInfo(lastCommentInfo.comment.date)}</time>
+                                <div className="f-list_text">{topic.createdAt.toLocaleString()}</div>
                             </div>
-                            }
                         </div>
                     );
                 })

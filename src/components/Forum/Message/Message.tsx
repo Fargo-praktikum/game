@@ -5,7 +5,7 @@ import "./Message.scss";
 
 import { getTimeInfo } from "../../../scripts/utils/timeHandler";
 import Avatar from "../../common/Avatar/Avatar";
-import { UserForumInfo } from "../../../store/forumReducer";
+import UserForumInfo from "../../../models/forum/userForumInfo";
 
 type MessageType = {
     message: string | undefined

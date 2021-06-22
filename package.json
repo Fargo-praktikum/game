@@ -14,7 +14,7 @@
         "prepare": "husky install",
         "start:webpack": "webpack --mode=development --watch",
         "start:server": "nodemon index.js --watch serverDist/server.js",
-        "start": "SET NODE_ENV=development& npm-run-all --print-label --parallel start:*",
+        "start": "SET NODE_ENV=development& npm-run-all --print-label --parallel start:webpack start:server",
         "start-old": "webpack serve --mode development",
         "docker:compose:build": "docker compose build",
         "docker:compose:up": "docker compose up",
@@ -101,6 +101,9 @@
         "react-redux": "^7.2.4",
         "redux": "^4.1.0",
         "redux-thunk": "^2.3.0",
+        "reflect-metadata": "^0.1.13",
+        "sequelize": "^6.6.2",
+        "sequelize-typescript": "^2.1.0",
         "yup": "^0.32.9"
     }
 }
