@@ -37,8 +37,8 @@ export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunc
                 Cookie: stringCookies
             }
         })
-        .then(response => {
-            return store.dispatch(setUser(response.data));
+        .then(resp => {
+            return store.dispatch(setUser(resp.data));
         })
         .then((_res) => {
             next();
