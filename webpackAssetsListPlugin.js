@@ -7,8 +7,8 @@ class WebpackAssetsListPlugin {
     constructor(options = {}) {
         this.options = { ...WebpackAssetsListPlugin.defaultOptions, ...options };
 
-        console.log(options);
-        console.log(this.options);
+        //console.log(options);
+        //console.log(this.options);
     }
 
     static defaultOptions = {

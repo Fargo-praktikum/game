@@ -69,6 +69,7 @@
         "react-test-renderer": "^17.0.2",
         "sass": "^1.32.8",
         "sass-loader": "^11.0.1",
+        "sequelize-typescript": "^2.1.0",
         "serialize-javascript": "^5.0.1",
         "stylelint": "^13.12.0",
         "stylelint-config-sass-guidelines": "^8.0.0",
@@ -101,6 +102,8 @@
         "react-redux": "^7.2.4",
         "redux": "^4.1.0",
         "redux-thunk": "^2.3.0",
+        "reflect-metadata": "^0.1.13",
+        "sequelize": "^6.6.2",
         "yup": "^0.32.9"
     }
 }

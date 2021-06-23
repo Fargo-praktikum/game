@@ -21,6 +21,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "declaration": false,
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
