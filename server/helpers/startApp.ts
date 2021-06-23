@@ -1,17 +1,16 @@
 import devHosts from "../../configs/hosts.json";
 import { Express } from "express";
 import { readFileSync } from "fs";
-import https from "https";
-// import { homedir } from "os";
 import { resolve } from "path";
+import https from "https";
 import Loadable from "react-loadable";
-
 import { findIP } from "./network";
 import { makeStartLogsText } from "./startLogs";
 
 interface Options {
     server: Express;
 }
+
 
 const APP_HOSTS = ["localhost"];
 const { PORT = 5000, NODE_ENV } = process.env;
@@ -27,10 +26,10 @@ if (isDev) {
 
 
 export const startApp = ({ server }: Options): void => {
-    Loadable.preloadAll().then(() => {
+    Loadable.preloadAll().then(async () => {
         if (isDev) {
-            const key = readFileSync(resolve("server", "devCert", "key.pem"), "utf8");
-            const cert = readFileSync(resolve("server", "devCert", "cert.pem"), "utf8");
+            const key = readFileSync(resolve("server", "devCert","key.pem"));
+            const cert = readFileSync(resolve("server", "devCert","cert.pem"));
 
             https
                 .createServer({ key: key, cert: cert }, server)

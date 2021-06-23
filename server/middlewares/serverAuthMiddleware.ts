@@ -11,11 +11,11 @@ export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunc
 
     const cookiesCount = Object.keys(cookies).length;
     const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
-    const condition = cookiesCount === 0 && isLoginUrl;
-    console.log("condition");
-    console.log(condition);
+    const goNextMiddleware = cookiesCount === 0 && isLoginUrl;
+    console.log("goNextMiddleware");
+    console.log(goNextMiddleware);
 
-    if (condition) {
+    if (goNextMiddleware) {
         console.log("должен прервать serverAuthMiddleware");
         return next();
     }
