@@ -5,18 +5,19 @@ import App from "./components/App/App";
 import { Provider } from "react-redux";
 import { storeWithInitState, TRootState } from "./store/store";
 import "./global.scss";
-import { getUser } from "./store/authReducer";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
 
 // global redeclared types
 declare global {
     interface Window {
-        __INITIAL_STATE__?: TRootState;
+        __INITIAL_STATE__?: string;
     }
 }
 
-const preloadedState = window.__INITIAL_STATE__ as TRootState;
+const preloadedState = window.__INITIAL_STATE__
+    ? JSON.parse(window.__INITIAL_STATE__) as TRootState
+    : undefined;
 delete window.__INITIAL_STATE__;
 
 const store = storeWithInitState(preloadedState);
@@ -38,25 +39,16 @@ function startServiceWorker() {
 
 startServiceWorker();
 
-const auth = async () => {
-    return store.dispatch(getUser());
-};
 
 
+ReactDOM.hydrate(
+    <React.StrictMode>
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById("root"),
+);
 
-auth()
-    .catch((e: Error) =>{
-        console.error(e);
-    })
-    .finally(() => {
-        ReactDOM.hydrate(
-            <React.StrictMode>
-                <Provider store={store}>
-                    <BrowserRouter>
-                        <App />
-                    </BrowserRouter>
-                </Provider>
-            </React.StrictMode>,
-            document.getElementById("root"),
-        );
-    });
