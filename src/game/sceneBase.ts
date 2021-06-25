@@ -14,6 +14,7 @@ export type SceneOptions = {
             strokeColor: string;
         }
     },
+    theme: string,
     sound: {
         key: string;
     }
@@ -44,13 +45,14 @@ export abstract class SceneBase {
     protected _nextSceneCallback: (gameInfo: GameInfo) => void;
     protected _endGameCallback?: endGameCallbackType;
     protected _gameInfo: GameInfo;
-    private _sceneOptions?: SceneOptions;
+    protected _sceneOptions?: SceneOptions;
     public gameObjects: gameObjects = [];
 
     render(context: CanvasRenderingContext2D, width: number, height: number): void {
         this.context = context;
         this.width = width;
         this.height = height;
+
 
         this._drawBackground(context, width, height);
 

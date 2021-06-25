@@ -3,6 +3,7 @@ import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBack
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { sound } from "../utils/soundEffects";
+import store from "../../store/store";
 
 export class StartGameScene extends SceneBase {
 
@@ -21,16 +22,20 @@ export class StartGameScene extends SceneBase {
 
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
-        if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
-            const stars = generateStars(width, height);
-            this.backgroundStars = {
-                width,
-                height,
-                stars
-            };
+        if (this._sceneOptions?.theme === "STARS") {
+            if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
+                const stars = generateStars(width, height);
+                this.backgroundStars = {
+                    width,
+                    height,
+                    stars
+                };
+            }
+            drawBackground(context, width, height, this.backgroundStars.stars);
+        } else {
+            context.fillStyle = "white";
+            context.fillRect(0, 0, width, height);
         }
-
-        drawBackground(context, width, height, this.backgroundStars.stars);
     }
 
     protected _drawGameObjects(context: CanvasRenderingContext2D, width: number, height: number): void {
@@ -82,7 +87,7 @@ export class StartGameScene extends SceneBase {
             //Добавляю в стейт "тему"
             // const gameInfo = setGameInfo( { theme: `${ targetKey[key] }` } );
             // store.dispatch(gameInfo);
-
+            console.log(store.getState().game.theme);
             //TODO Временно, чтобы было видно, что работает
             console.log(`Pressed ${key} go to ${this._gameThemes[key]} theme`);
             sound.playSelect();

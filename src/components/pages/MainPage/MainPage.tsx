@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../../hooks/storeHooks";
 import { oauthYndexSignIn } from "../../../store/authReducer";
 
 import "./MainPage.scss";
+import { DropdownMenu } from "../../DropdownMenu/DropdownMenu";
 
 export const MainPage = (): JSX.Element => {
 
@@ -12,6 +13,11 @@ export const MainPage = (): JSX.Element => {
     const code = queryString.get("code");
     const dispatch = useAppDispatch();
     const user = useAuth();
+
+    const data = [
+        { id: 1, label: "STARS" },
+        { id: 2, label: "BASIC" }
+    ];
 
     useEffect(() => {
         if (code && !user) {
@@ -40,6 +46,7 @@ export const MainPage = (): JSX.Element => {
                 <Link to="/forum" className="main-page__link">
                     Форум
                 </Link>
+                <DropdownMenu data={data} text="Выберите тему игрового поля"/>
             </div>
         </main>
     );

@@ -6,11 +6,23 @@ import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
 import store from "../store/store";
 import { escapeObject } from "../utils/escapeObject";
+import sequelize from "../../db/sequalize";
 
-export default (req: Request, res: Response): void => {
+export default async (req: Request, res: Response): Promise<void> => {
 
-    const location = req.url;
+    const location = req.baseUrl;
     const context: StaticRouterContext = {};
+
+    try {
+        await sequelize.authenticate();
+        console.log("Connection has been established successfully.");
+        // sequelize.sync({ force: true }).then(() => {
+        sequelize.sync().then(() => {
+            console.log("synced");
+        });
+    } catch (error) {
+        console.error("Unable to connect to the database:", error);
+    }
 
     //console.log(location);
     //console.log(req);
@@ -28,7 +40,7 @@ export default (req: Request, res: Response): void => {
     const reduxState = store.getState();
 
     if (context.url) {
-        //console.log(context.url);
+        console.log(context.url);
         res.redirect(context.url);
         return;
     }

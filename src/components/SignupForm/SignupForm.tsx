@@ -8,7 +8,6 @@ import { emailRegexp, passwordMinLength, phoneRexep } from "../../constants";
 import { SignupFormValuesType } from "./types";
 
 import "../../styles/forms/floatingLabelForm.scss";
-// import DataFieldError from "../../models/errors/dataFieldError";
 import { useAppDispatch } from "../../hooks/storeHooks";
 import { signUp } from "../../store/authReducer";
 import DataFieldError from "../../models/errors/dataFieldError";
