@@ -7,9 +7,7 @@ import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { merge } from "../../scripts/utils/myDash/merge";
-import store from "../../store/store";
 
-const theme = store.getState();
 
 const sceneOptions = {
     fullScreen: {
@@ -21,7 +19,7 @@ const sceneOptions = {
             strokeColor: "white",
         }
     },
-    theme: theme.game.theme,
+    theme: "",
     sound: {
         key: "/"
     }
@@ -30,7 +28,8 @@ const sceneOptionsBlack = merge(sceneOptions, {});
 sceneOptionsBlack.fullScreen.parameters.strokeColor = "black";
 
 export const Game = (): JSX.Element => {
-    console.log(sceneOptions.theme, "sceneOptions.themesceneOptions.theme");
+    const theme = useAppSelector((state): any | null => state.game.theme);
+    sceneOptions.theme = theme;
 
     const history = useHistory();
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import "./DropdownMenu.scss";
-import { changeTheme, getTheme } from "../../store/gameReducer";
+import { changeTheme } from "../../store/gameReducer";
 import { useAppDispatch } from "../../hooks/storeHooks";
 
 interface DropdownMenuProps {
@@ -48,7 +48,7 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
                     <div className="dropdown__item" onClick={((e) => {
                         const selectedDiv = e.target as HTMLDivElement;
                         handleItemClick(selectedDiv.id);
-                    })} id={item.id} key={item.id}>
+                    })} id={item.id.toString()} key={item.id}>
                         <span className={`dropdown__item-dot ${item.id == selectedItem  ? "selected" : ""}`}>• </span>
                         {item.label}
                     </div>

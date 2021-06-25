@@ -21,13 +21,15 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "declaration": false,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
   },
   "include": [
     "src",
+      "server",
     "typings/**/*.d.ts",
     "./node_modules/@types",
     ".d.ts"

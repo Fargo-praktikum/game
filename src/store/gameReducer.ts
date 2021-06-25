@@ -9,7 +9,7 @@ interface GameState {
 const themeApi: any = new ThemeApi();
 
 const initialState: GameState = {
-    theme: new Date().getTime()
+    theme: new Date().getTime().toString()
 };
 
 const gameSlice = createSlice({
@@ -18,8 +18,6 @@ const gameSlice = createSlice({
     reducers: {
         setTheme(state, action: PayloadAction<string>) {
             state.theme = action.payload;
-            console.log(state.theme, "CHANGED");
-            console.log(action.payload, "CHANGED");
         }
     }
 });
@@ -39,14 +37,6 @@ export const changeTheme = (values: number) => {
         return dispatch(setTheme(theme));
     };
 };
-
-export const test = () => {
-    return async (dispatch, getState) => {
-        const currentState= getState();
-        console.log(currentState);
-    };
-};
-
 
 export const { setTheme } = gameSlice.actions;
 

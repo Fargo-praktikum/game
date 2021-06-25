@@ -1,11 +1,11 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { Request, Response } from "express";
-import App from "../components/App/App";
+import App from "../../src/components/App/App";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
-import store from "../store/store";
-import { escapeObject } from "../utils/escapeObject";
+import store from "../../src/store/store";
+import { escapeObject } from "../../src/utils/escapeObject";
 import sequelize from "../../db/sequalize";
 
 export default async (req: Request, res: Response): Promise<void> => {
@@ -24,8 +24,6 @@ export default async (req: Request, res: Response): Promise<void> => {
         console.error("Unable to connect to the database:", error);
     }
 
-    //console.log(location);
-    //console.log(req);
     const jsx = (
         <React.StrictMode>
             <Provider store={store}>

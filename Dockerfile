@@ -1,5 +1,5 @@
 FROM node:13.12.0-alpine as build
-WORKDIR /app
+WORKDIR /server
 COPY . .
 
 EXPOSE 5000
@@ -7,4 +7,4 @@ EXPOSE 5000
 RUN npm install
 RUN npm run build-dev
 
-CMD node index.js
+CMD node serverDist/index.js

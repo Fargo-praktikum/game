@@ -1,5 +1,5 @@
 import { Router } from "express";
-import serverRenderMiddleware from "../serverRenderMiddleware";
+import serverRenderMiddleware from "../middlewares/serverRenderMiddleware";
 
 export const appRoutes = (router: Router) => {
     // eslint-disable-next-line

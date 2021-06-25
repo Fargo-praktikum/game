@@ -1,7 +1,7 @@
-import { UserTheme } from "../../../db/models/theme/userTheme";
-import sequelize from "../../../db/sequalize";
+import { UserTheme } from "../../db/models/theme/userTheme";
+import sequelize from "../../db/sequalize";
 import RestServiceBase from "./restServiceBase";
-import { SiteTheme } from "../../../db/models/theme/siteTheme";
+import { SiteTheme } from "../../db/models/theme/siteTheme";
 
 interface FindRequest {
     id?: number;
@@ -29,14 +29,12 @@ export default class ThemeService extends RestServiceBase<UserTheme> {
         //TODO костыль пока нет проверки юзера
         const ownerId = 0;
         const themeId = data.data;
-        console.log(ownerId, themeId, "THE<MEID");
         await this._userThemeRepository.update({ themeId: themeId }, {
             where: {
                 ownerId: ownerId,
             }
         });
 
-        console.log(this._siteThemeRepository.findByPk(themeId), "REQUESTREQUEST");
         return this._siteThemeRepository.findByPk(themeId);
     };
 
