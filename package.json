@@ -14,7 +14,7 @@
         "prepare": "husky install",
         "docker:compose:build": "docker compose build",
         "docker:compose:up": "docker compose up",
-        "start:compile": "webpack --mode development --watch",
+        "start:compile": "webpack --env mode=production --watch",
         "start-new:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
         "start": "npm-run-all --print-label --parallel start:*",
         "stop:container": "docker compose stop"

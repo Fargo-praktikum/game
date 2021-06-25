@@ -15,7 +15,8 @@ interface Options {
 const APP_HOSTS = ["localhost"];
 const { PORT = 5000, NODE_ENV } = process.env;
 const isDev = NODE_ENV === "development";
-
+console.log("NODE_ENV");
+console.log(NODE_ENV);
 
 if (isDev) {
     const devLocalIP = findIP();

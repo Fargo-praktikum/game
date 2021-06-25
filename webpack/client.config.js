@@ -5,67 +5,72 @@ const WebpackAssetsListPlugin = require("../webpackAssetsListPlugin.js");
 
 const dirName = path.join(__dirname, "../");
 
-const clientConfig = {
-  entry: {
-        "static/app": path.join(dirName, "/src/index.tsx"),
-        sw: {
-            import: path.join(dirName, "/src/sw.ts"),
-            filename: "[name].js"
-        }
-    },
-    output: {
-        path: path.join(dirName, "/dist"),
-        filename: "[name]-bundle.js",
-        //publicPath: "/static/",
-        clean: true
-    },
-    resolve: {
-        extensions: [".tsx", ".ts", ".js"]
-    },
-    devtool: "source-map",
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: "ts-loader",
-                exclude: /node_modules/
-            },
-            {
-                test: /\.(png|jpg|svg|gif|wav)$/,
-                use: ['file-loader']
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "postcss-loader",
-                    "sass-loader"
-                ]
-            },
-        ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: "[name]-bundle.css",
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
+const clientConfig = (env) => {
+    if (env.mode !== "development" && env.mode !== 'production') throw Error("Необходимо указать --env mode=(development|production)");
+
+    return {
+        mode: env.mode,
+        entry: {
+            "static/app": path.join(dirName, "/src/index.tsx"),
+            sw: {
+                import: path.join(dirName, "/src/sw.ts"),
+                filename: "[name].js"
+            }
+        },
+        output: {
+            path: path.join(dirName, "/dist"),
+            filename: "[name]-bundle.js",
+            //publicPath: "/static/",
+            clean: true
+        },
+        resolve: {
+            extensions: [".tsx", ".ts", ".js"]
+        },
+        devtool: "source-map",
+        module: {
+            rules: [
                 {
-                    context: path.resolve(dirName),
-                    from: "src/assets/",
-                    to: "static"
-                }
-            ],
-        }),
-        new WebpackAssetsListPlugin({
-            dir: path.join(dirName, "/dist")
-        })
-    ],
-    stats: {
-        // хочешь больше логов - расскоменти
-        //children: true,
-    }
+                    test: /\.tsx?$/,
+                    use: "ts-loader",
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.(png|jpg|svg|gif|wav)$/,
+                    use: ['file-loader']
+                },
+                {
+                    test: /\.scss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        "css-loader",
+                        "postcss-loader",
+                        "sass-loader"
+                    ]
+                },
+            ]
+        },
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: "[name]-bundle.css",
+            }),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        context: path.resolve(dirName),
+                        from: "src/assets/",
+                        to: "static"
+                    }
+                ],
+            }),
+            new WebpackAssetsListPlugin({
+                dir: path.join(dirName, "/dist")
+            })
+        ],
+        stats: {
+            // хочешь больше логов - расскоменти
+            //children: true,
+        }
+    };
 };
 
 module.exports = clientConfig;
