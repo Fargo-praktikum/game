@@ -43,7 +43,7 @@ export const changeTheme = (values: number) => {
 export const test = () => {
     return async (dispatch, getState) => {
         const currentState= getState();
-        console.log(currentState)
+        console.log(currentState);
     };
 };
 

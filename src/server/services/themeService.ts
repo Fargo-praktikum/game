@@ -29,7 +29,7 @@ export default class ThemeService extends RestServiceBase<UserTheme> {
         //TODO костыль пока нет проверки юзера
         const ownerId = 0;
         const themeId = data.data;
-        console.log(ownerId, themeId, 'THE<MEID');
+        console.log(ownerId, themeId, "THE<MEID");
         await this._userThemeRepository.update({ themeId: themeId }, {
             where: {
                 ownerId: ownerId,

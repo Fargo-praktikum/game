@@ -30,7 +30,7 @@ const sceneOptionsBlack = merge(sceneOptions, {});
 sceneOptionsBlack.fullScreen.parameters.strokeColor = "black";
 
 export const Game = (): JSX.Element => {
-    console.log(sceneOptions.theme, 'sceneOptions.themesceneOptions.theme');
+    console.log(sceneOptions.theme, "sceneOptions.themesceneOptions.theme");
 
     const history = useHistory();
 

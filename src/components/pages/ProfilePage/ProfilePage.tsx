@@ -14,8 +14,8 @@ export const ProfilePage = (): JSX.Element => {
     const { path } = useRouteMatch();
 
     const { theme } = useSelector(state => state);
-    console.log(store.getState(), 'pro');
-    console.log(theme, 'pr11111111o');
+    console.log(store.getState(), "pro");
+    console.log(theme, "pr11111111o");
     return (
         <main className="page page_centered">
             <div className="wrap">
