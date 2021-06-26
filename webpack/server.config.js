@@ -47,7 +47,8 @@ const serverConfig = (env) => {
             new NodemonPlugin({
                 env: {
                     NODE_ENV: env.mode,
-                }
+                },
+                nodeArgs: [ '--inspect' ]
             }),
         ],
     };

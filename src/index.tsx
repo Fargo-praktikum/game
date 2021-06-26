@@ -7,6 +7,9 @@ import { storeWithInitState, TRootState } from "./store/store";
 import "./global.scss";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
+import { getUser } from "./store/authReducer";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 // global redeclared types
 declare global {
@@ -39,16 +42,34 @@ function startServiceWorker() {
 
 startServiceWorker();
 
+const hydrateReactDOM = () => {
+    ReactDOM.hydrate(
+        <React.StrictMode>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </Provider>
+        </React.StrictMode>,
+        document.getElementById("root"),
+    );
+};
+console.log("process.env");
+console.log(process.env);
+// на heroku некорректный домен, поэтому serverAuthMiddleware там не будет работать
+if (process.env.deploy === "heroku") {
+    const auth = async () => {
+        return store.dispatch(getUser());
+    };
+    auth()
+        .catch((e: Error) =>{
+            console.error(e);
+        })
+        .finally(() => {
+            hydrateReactDOM();
+        });
+} else {
+    hydrateReactDOM();
+}
 
-
-ReactDOM.hydrate(
-    <React.StrictMode>
-        <Provider store={store}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </Provider>
-    </React.StrictMode>,
-    document.getElementById("root"),
-);
 

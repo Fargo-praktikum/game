@@ -1,22 +1,22 @@
 import { NextFunction, Request, Response } from "express";
 import axios from "axios";
 
-import { baseUrl } from "../../configs/baseUrl";
+import { baseUrl, mainHost } from "../../configs/baseUrl";
 import { setUser } from "../../src/store/authReducer";
 import store from "../../src/store/store";
 // let i = 0;
 
 export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const cookies = req.cookies;
+    if (req.protocol !== "https") return next();
+    if (!req.hostname.endsWith(mainHost)) return next();
 
-    const cookiesCount = Object.keys(cookies).length;
+    const cookies = req.cookies;
+    const hasCookies = Object.keys(cookies).length > 0;
     const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
-    const goNextMiddleware = cookiesCount === 0 && isLoginUrl;
-    console.log("goNextMiddleware");
-    console.log(goNextMiddleware);
+    const goNextMiddleware = !hasCookies && isLoginUrl;
 
     if (goNextMiddleware) {
-        console.log("должен прервать serverAuthMiddleware");
+        console.log("goNextMiddleware");
         return next();
     }
 
