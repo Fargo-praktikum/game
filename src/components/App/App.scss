@@ -1,5 +1,10 @@
 /* здесь храним глобальные стили, если будут */
+$base-theme: url("../../assets/quiz-pattern.png");
 
 canvas {
     display: block;
+}
+
+.mainTheme {
+    background-image: $base-theme;
 }

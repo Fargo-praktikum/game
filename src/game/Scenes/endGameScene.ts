@@ -36,7 +36,12 @@ export class EndGameScene extends SceneBase {
 
         const fontSizeLittleCard = 23;
         context.font = `bold ${fontSizeLittleCard}px Inter`;
-        context.fillStyle = "white";
+        if (this._sceneOptions?.theme === "STARS") {
+            context.fillStyle = "white";
+        } else {
+            context.fillStyle = "black";
+        }
+
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.shadowBlur = 2;

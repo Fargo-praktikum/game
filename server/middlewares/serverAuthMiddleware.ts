@@ -9,9 +9,10 @@ import store from "../../src/store/store";
 export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
 
-    const cookiesCount = Object.keys(cookies).length;
-    const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
-    const goNextMiddleware = cookiesCount === 0 && isLoginUrl;
+    // const cookiesCount = Object.keys(cookies).length;
+    // const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
+    // const goNextMiddleware = cookiesCount === 0 && isLoginUrl;
+    const goNextMiddleware = true;
     console.log("goNextMiddleware");
     console.log(goNextMiddleware);
 

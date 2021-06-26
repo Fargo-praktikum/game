@@ -7,6 +7,7 @@ import { oauthYndexSignIn } from "../../../store/authReducer";
 import "./MainPage.scss";
 import { DropdownMenu } from "../../DropdownMenu/DropdownMenu";
 
+
 export const MainPage = (): JSX.Element => {
 
     const queryString = new URLSearchParams(useLocation().search);
@@ -18,6 +19,7 @@ export const MainPage = (): JSX.Element => {
         { id: 1, label: "STARS" },
         { id: 2, label: "BASIC" }
     ];
+
 
     useEffect(() => {
         if (code && !user) {

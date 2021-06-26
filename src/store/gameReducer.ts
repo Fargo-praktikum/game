@@ -9,7 +9,7 @@ interface GameState {
 const themeApi: any = new ThemeApi();
 
 const initialState: GameState = {
-    theme: new Date().getTime().toString()
+    theme: "BASIC"
 };
 
 const gameSlice = createSlice({
