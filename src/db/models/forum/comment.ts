@@ -4,11 +4,18 @@ import { CommentEmoji } from "./commentEmoji";
 import { Emoji } from "./emoji";
 import { Topic } from "./topic";
 
+interface CommentCreationAttrs {
+    content: string;
+    userId: number;
+    topicId: number;
+    parentId: number | null;
+}
+
 @Table({
     paranoid: true,
     tableName: "comments"
 })
-export class Comment extends Model<Comment> {
+export class Comment extends Model<Comment, CommentCreationAttrs> {
 
     @PrimaryKey
     @AutoIncrement

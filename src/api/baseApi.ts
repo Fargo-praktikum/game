@@ -5,6 +5,7 @@ import HttpError from "../utils/http/httpError";
 import { getApiBaseUrl } from "./apiSettings";
 
 export abstract class BaseApi {
+    // TODO так себе идея, но пока сделал так, чтобы меньше кода затронуть изменениями
     constructor(isInternal = false) {
         this._http = new HTTPTransport(getApiBaseUrl(isInternal));
     }

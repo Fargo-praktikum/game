@@ -3,5 +3,5 @@ export default abstract class RestServiceBase<T> {
     abstract create?: (...args: any[]) => Promise<T>;
     abstract update?: (...args: any[]) => Promise<T>;
     abstract delete?: (...args: any[]) => Promise<any>;
-    abstract find?: (...args: any[]) => Promise<T>;
+    abstract find?: (...args: any[]) => Promise<T | null>;
 }

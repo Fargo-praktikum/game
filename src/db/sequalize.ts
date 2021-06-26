@@ -1,9 +1,9 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 import { User } from "../db/models/user";
+import { Topic } from "../db/models/forum/topic";
 import { Comment } from "../db/models/forum/comment";
 import { CommentEmoji } from "../db/models/forum/commentEmoji";
 import { Emoji } from "../db/models/forum/emoji";
-import { Topic } from "../db/models/forum/topic";
 
 const sequelizeOptions: SequelizeOptions = {
     host: "localhost",
@@ -13,15 +13,24 @@ const sequelizeOptions: SequelizeOptions = {
     database: "fargo-cards",
     models: [
         User,
+        Topic,
         Comment,
         CommentEmoji,
-        Emoji,
-        Topic
+        Emoji
     ],
     dialect: "postgres", // 'mysql', 'sqlite', 'mariadb', 'mssql'
     repositoryMode: true
 };
 
-const sequelize = new Sequelize(sequelizeOptions);
+const sequalize = new Sequelize(sequelizeOptions);
 
-export default sequelize;
+export const initEmoji = async () => {
+    const emojiRepository = sequalize.getRepository(Emoji);
+
+    if ((await emojiRepository.findAll()).length === 0) {
+        emojiRepository.create({ iconName: "fire-solid.svg" });
+        emojiRepository.create({ iconName: "poop-solid.svg" });
+    }
+};
+
+export default sequalize;

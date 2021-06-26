@@ -3,6 +3,7 @@ import express from "express";
 import compression from "compression";
 //import serverRenderMiddleware from "./serverRenderMiddleware";
 import router from "./routing/router";
+import sequalize, { initEmoji } from "../db/sequalize";
 
 const app = express();
 
@@ -15,7 +16,8 @@ app
     .use(express.urlencoded({ extended: true }))
     .use(router);
 
-// eslint-disable-next-line
-//app.get("/*", serverRenderMiddleware);
+const exportVars = {
+    app, sequalize, initEmoji
+};
 
-export { app };
+export { exportVars };

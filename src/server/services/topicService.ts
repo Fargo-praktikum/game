@@ -1,9 +1,9 @@
 import { Topic } from "../../db/models/forum/topic";
 import { User } from "../../db/models/user";
-import sequelize from "../../db/sequalize";
+import sequalize from "../../db/sequalize";
 import RestServiceBase from "./restServiceBase";
 
-interface CreateRequest {
+export interface CreateRequest {
     title: string;
     message: string;
     userId: number;
@@ -16,23 +16,34 @@ interface QueryRequest {
 
 export default class TopicService extends RestServiceBase<Topic> {
 
-    private readonly _repository = sequelize.getRepository(Topic);
-    private readonly  _userRepository = sequelize.getRepository(User);
+    private readonly _repository = sequalize.getRepository(Topic);
+    private readonly _userRepository = sequalize.getRepository(User);
 
-    create = (data: CreateRequest) => {
-        return this._repository.create(data);
+    create = async (data: CreateRequest) => {
+        const { id } = await this._repository.create(data);
+
+        const newTopic = await this.find(id);
+
+        if (!newTopic) {
+            throw new Error();
+        }
+
+        return newTopic;
+    };
+
+    find = (id: number) => {
+        return this._repository
+            .findByPk(
+                id,
+                {
+                    include: [
+                        this._userRepository
+                    ]
+                }
+            );
     };
 
     request = (data: QueryRequest) => {
-
-        // if (data.offset === undefined || data.limit === undefined) {
-        //     return this._repository.findAll({
-        //         include: [
-        //             this._userRepository
-        //         ]
-        //     });
-        // }
-        // else {
         return this._repository.findAndCountAll({
             include: [
                 this._userRepository
@@ -40,10 +51,8 @@ export default class TopicService extends RestServiceBase<Topic> {
             limit: data.limit,
             offset: data.offset
         });
-        //}
     };
 
     update? = undefined;
     delete? = undefined;
-    find? = undefined;
 }

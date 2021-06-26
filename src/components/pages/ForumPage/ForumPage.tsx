@@ -11,6 +11,7 @@ import { PopupboxContainer } from "../../common/PopupConstructor/PopupboxContain
 
 import { /*Topic, setTopicsList,*/ getTopics } from "../../../store/forumReducer";
 import { useAppDispatch } from "../../../hooks/storeHooks";
+import Topic from "../../Forum/Topic/Topic";
 //import MessagesList from "../../Forum/TopicsList/TopicsList";
 
 // для теста
@@ -131,8 +132,8 @@ const ForumPage = (): JSX.Element => {
         <div className="forum__general">
             <ForumHeader/>
 
-            {/* <Route exact path="/forum/:topicId/:messageId" render={() => <MessageAndComments/>}/>
-             */}
+            <Route exact path="/forum/:topicId" render={() => <Topic/>}/>
+
             {/* <Route exact path='/forum' render={() => <TopicsList/>}/> */}
             <Route exact path="/forum/" render={() => <TopicsList/>}/>
 

@@ -5,7 +5,7 @@ import { AllowNull, AutoIncrement, Column, Model, PrimaryKey, Table } from "sequ
     paranoid: true,
     tableName: "emojies"
 })
-export class Emoji extends Model<Emoji> {
+export class Emoji extends Model<Emoji, { iconName: string }> {
 
     @PrimaryKey
     @AutoIncrement

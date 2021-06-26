@@ -1,42 +1,36 @@
 import React from "react";
-// import { useHistory, useParams } from "react-router-dom";
 
 import "./TopicsList.scss";
 
 import { TRootState } from "../../../store/store";
 import { setStyle } from "../../../scripts/utils/setStyle";
-// import { getTimeInfo } from "../../../scripts/utils/timeHandler";
-// import { getTopicsOrCommentsCount } from "./TopicsList";
-// import { lastElem } from "../../../scripts/utils/myDash/last";
 import CoolButton from "../../common/FormElements/Button/CoolButton";
-// import { openPopupAddMessage } from "../../Popups/PopupFuncs/PopupFuncs";
 import { useAppSelector } from "../../../hooks/storeHooks";
+import { openPopupAddTopic } from "../../Popups/PopupFuncs/PopupFuncs";
+import { useHistory } from "react-router-dom";
 
 
 const TopicsList = (): JSX.Element => {
     const topicsList = useAppSelector((state: TRootState) => state.forum.topics);
 
-    //const history = useHistory();
+    const history = useHistory();
 
-    // const openTopicItem = (messageId: number) => {
-    //     return () => {
-    //         history.push(`/forum/${topicId}/${messageId}`);
-    //     };
-    // };
+    const openTopicItem = (topicId: number) => {
+        return () => {
+            history.push(`/forum/${topicId}`);
+        };
+    };
 
-    // const createMessage = () => {
-    //     console.log("нажал createTopic!!!");
-    //     openPopupAddMessage();
-    // };
-
+    const createTopic = () => {
+        openPopupAddTopic();
+    };
 
     return (
         <section className="topics">
             <div className="topics__header">
                 {/* TODO: СРЕДНЕ. Сделать пагинатор */}
                 <div className="paginator">Здесь будет пагинатор</div>
-                {/* <CoolButton clickHandler={createMessage} text={"Написать сообщение"}/> */}
-                <CoolButton text={"Создать топик"}/>
+                <CoolButton clickHandler={createTopic} text={"Создать топик"}/>
             </div>
             <div className="topics__card-container">
                 {topicsList &&
@@ -44,8 +38,7 @@ const TopicsList = (): JSX.Element => {
                     return (
                         <div className={`topics__item ${setStyle(ind % 2 === 1, "topics__item_two")}`} key={topic.id}>
                             <div>
-                                {/* <h3 className="f-list__list-title" onClick={openTopicItem(id)}>{title}</h3> */}
-                                <h3 className="f-list__list-title">{topic.title}</h3>
+                                <h3 className="f-list__list-title" onClick={openTopicItem(topic.id)}>{topic.title}</h3>
                             </div>
                             <div className="f-list__from-container">
                                 <p className="f-list__from">
