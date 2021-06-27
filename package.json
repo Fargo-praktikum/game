@@ -6,7 +6,7 @@
         "test": "jest",
         "build": "npm-run-all  lint  lint-styles webpack-prod",
         "build-dev": "npm-run-all lint lint-styles webpack-dev",
-        "lint": "eslint .",
+        "lint": "eslint . --fix",
         "lint-styles": "stylelint \"src/**/*.scss\"",
         "lint-fix": "eslint . --fix",
         "webpack-prod": "webpack --mode production",

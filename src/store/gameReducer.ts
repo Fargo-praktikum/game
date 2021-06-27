@@ -38,7 +38,7 @@ export const getTheme = (values: number) => {
 
 export const changeTheme = (values: ThemeData) => {
     return async (dispatch: TAppDispatch) => {
-        console.log(values, 'valuesvaluesvalues!!!!3131');
+        console.log(values, "valuesvaluesvalues!!!!3131");
         const { theme } = await themeApi.changeTheme(values);
         return dispatch(setTheme(theme));
     };
