@@ -9,10 +9,35 @@
 
 .message {
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 6fr 1fr;
     grid-column-gap: 20px;
     padding: 20px;
     background-color: $gray;
+}
+
+.message__avatar {
+    width: 50px;
+}
+
+.message__emoji {
+    margin-right: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.message__emoji-img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.message__emojies-container {
+    display: flex;
+    align-items: center;
 }
 
 .f-list__img {

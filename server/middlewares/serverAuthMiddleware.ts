@@ -24,6 +24,7 @@ const cookieToString = (cookies: any): string => {
 
 export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
     const cookies = req.cookies;
+
     const hasAuthCookie = checkHasAuthCookie;
 
     const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
@@ -36,7 +37,7 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
     }
 
     const stringCookies = cookieToString(cookies);
-    console.log(stringCookies, "stringCookies112333");
+
     axios
         .get(`${baseUrl}/auth/user`, {
             headers: {
@@ -44,14 +45,13 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
             }
         })
         .then(resp => {
-            console.log(resp.data, "111111111111111111");
             return store.dispatch(setUser(resp.data));
         })
         .then((_res) => {
             next();
         })
         .catch(err => {
-            console.log(err.response.data);
+            console.log(err);
             next();
         });
 };

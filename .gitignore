@@ -4,6 +4,6 @@ coverage/
 dist/
 .idea
 serverDist
-*.env
 pgadmin-data/*
 postgresdata/*
+server/devCert/*

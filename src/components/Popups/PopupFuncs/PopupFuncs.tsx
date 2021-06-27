@@ -3,7 +3,6 @@ import React from "react";
 import PopupForm from "../PopupForm";
 import PopupboxManager from "../../common/PopupConstructor/PopupboxManager";
 
-import AddMessageForm from "../PopupForms/AddMessageForm";
 import AddTopicForm from "../PopupForms/AddTopicForm";
 
 
@@ -18,20 +17,11 @@ const popupOpen = (content: JSX.Element) => {
     });
 };
 
-const openPopupAddTopic = (): void => {
+const openPopupAddTopic = () => {
     const content = (
         <PopupForm {...{
-            title: "Создать новый топик",
-            form: <AddTopicForm/>
-        }}/>
-    );
-    popupOpen(content);
-};
-const openPopupAddMessage = () => {
-    const content = (
-        <PopupForm {...{
-            title: "Новое сообщение",
-            form: <AddMessageForm/>
+            title: "Новый топик",
+            form: <AddTopicForm onSubmitCallback={PopupboxManager.close.bind(PopupboxManager)}/>
         }}/>
     );
     popupOpen(content);
@@ -39,6 +29,5 @@ const openPopupAddMessage = () => {
 
 
 export {
-    openPopupAddTopic,
-    openPopupAddMessage,
+    openPopupAddTopic
 };

@@ -1,16 +1,20 @@
 import { server } from "./server";
 import { startApp } from "./helpers/startApp";
-import sequelize from "./db/sequelize";
+import sequalize, { initEmoji } from "./db/sequalize";
 
 (async function() {
     try {
-        await sequelize.authenticate();
+        await sequalize.authenticate();
         console.log("Connection has been established successfully.");
 
         //TODO хочешь полность пересоздать БД - расскомменти, а другую закомменти
-        //sequelize.sync({ force: true }).then(() => {
-        sequelize.sync().then(() => {
-            console.log("synced");
+        //sequalize.sync({ force: true }).then(() => {
+        sequalize.sync().then(() => {
+
+            initEmoji().then(() => {
+                console.log("synced");
+            });
+
         });
     }
     catch (error) {
@@ -20,3 +24,5 @@ import sequelize from "./db/sequelize";
     startApp({ server });
 
 })();
+
+

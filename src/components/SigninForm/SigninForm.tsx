@@ -64,7 +64,7 @@ export const SigninForm = (): JSX.Element => {
 
             const serviceId = await authApi.getOauthYandexServiceId();
 
-            window.location.href = ` https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=`;
+            window.location.href = ` https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=https://localhost:5000`;
         },
         []
     );
