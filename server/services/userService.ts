@@ -1,5 +1,5 @@
-import { User, UserCreationAttrs } from "../../db/models/user";
-import sequalize from "../../db/sequalize";
+import { User, UserCreationAttrs } from "../db/models/user";
+import sequalize from "../db/sequalize";
 import RestServiceBase from "./restServiceBase";
 
 export default class UserService extends RestServiceBase<User> {

@@ -10,11 +10,14 @@ export default class TopicApi {
     static create = async (request: Request, response: Response) => {
         try {
 
-            // TODO временно, пока у нас нет юзера на сервере
-            // также здесь и в подобных местах нужно вкрутить проверку, что переданный в запросе юзер соответствует
-            // тому, который залогинился
-            const userId = (request.body as CreateRequest).userId;
-            await userService.ensureUser({ id: userId, name: `testuser_${userId}` });
+            const { id: userId, login } = response.locals["user"];
+
+            // TODO тут проверяем, что переданный юзер совпадает с залогиненым
+            // по идее, можно было бы избавиться от передачи юзера, т.к. он уже тут есть, но не сейчас
+            if ((request.body as CreateRequest).userId !== parseInt(userId)) {
+                response.status(401).send();
+            }
+            await userService.ensureUser({ id: userId, name: login });
 
             response.send(await topicService.create(request.body));
         }

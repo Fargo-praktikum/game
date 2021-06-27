@@ -1,8 +1,8 @@
-import { Comment } from "../../db/models/forum/comment";
-import { CommentEmoji } from "../../db/models/forum/commentEmoji";
-import { Emoji } from "../../db/models/forum/emoji";
-import { User } from "../../db/models/user";
-import sequalize from "../../db/sequalize";
+import { Comment } from "../db/models/forum/comment";
+import { CommentEmoji } from "../db/models/forum/commentEmoji";
+import { Emoji } from "../db/models/forum/emoji";
+import { User } from "../db/models/user";
+import sequalize from "../db/sequalize";
 import RestServiceBase from "./restServiceBase";
 
 export interface CreateRequest {

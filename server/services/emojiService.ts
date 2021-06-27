@@ -1,5 +1,5 @@
-import { Emoji } from "../../db/models/forum/emoji";
-import sequalize from "../../db/sequalize";
+import { Emoji } from "../db/models/forum/emoji";
+import sequalize from "../db/sequalize";
 import RestServiceBase from "./restServiceBase";
 
 export default class EmojiService extends RestServiceBase<Emoji> {

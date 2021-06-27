@@ -1,9 +1,9 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
-import { User } from "../db/models/user";
-import { Topic } from "../db/models/forum/topic";
-import { Comment } from "../db/models/forum/comment";
-import { CommentEmoji } from "../db/models/forum/commentEmoji";
-import { Emoji } from "../db/models/forum/emoji";
+import { User } from "./models/user";
+import { Topic } from "./models/forum/topic";
+import { Comment } from "./models/forum/comment";
+import { CommentEmoji } from "./models/forum/commentEmoji";
+import { Emoji } from "./models/forum/emoji";
 
 const sequelizeOptions: SequelizeOptions = {
     host: "localhost",

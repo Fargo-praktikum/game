@@ -1,9 +1,5 @@
-const externalApiHost = "://ya-praktikum.tech";
-
-export const settings = {
-    baseurl: `https${externalApiHost}/api/v2`,
-};
+import { baseUrl } from "../../configs/baseUrl";
 
 export function getApiBaseUrl(isInternal = false): string {
-    return isInternal ? "/api" : settings.baseurl;
+    return isInternal ? "/api" : baseUrl;
 }

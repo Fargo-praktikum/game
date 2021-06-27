@@ -1,5 +1,6 @@
 import { Router } from "express";
 import TopicApi from "../api/topicApi";
+import { apiAuthMiddleware } from "../middlewares/serverAuthMiddleware";
 
 export const topicRoutes = (router: Router) => {
 
@@ -7,8 +8,8 @@ export const topicRoutes = (router: Router) => {
 
     // TODO тут в качестве миддваре должна передавать аутентификация. Прикрутить, когда появится
     topicRoute
-        .post("/", [], TopicApi.create)
-        .get("/", [], TopicApi.request);
+        .post("/", [apiAuthMiddleware], TopicApi.create)
+        .get("/", [apiAuthMiddleware], TopicApi.request);
 
     router.use("/api/topics", topicRoute);
 };

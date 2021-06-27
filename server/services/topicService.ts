@@ -1,6 +1,6 @@
-import { Topic } from "../../db/models/forum/topic";
-import { User } from "../../db/models/user";
-import sequalize from "../../db/sequalize";
+import { Topic } from "../db/models/forum/topic";
+import { User } from "../db/models/user";
+import sequalize from "../db/sequalize";
 import RestServiceBase from "./restServiceBase";
 
 export interface CreateRequest {
