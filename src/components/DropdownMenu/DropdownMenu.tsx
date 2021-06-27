@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import "./DropdownMenu.scss";
 import { changeTheme } from "../../store/gameReducer";
-import { useAppDispatch } from "../../hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 
 interface DropdownMenuProps {
     data: {
@@ -17,12 +17,13 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const dispatch = useAppDispatch();
     const toggleDropdown = () => setOpen(!isOpen);
+    const userInfoId = useAppSelector((state): any | null => state.auth?.userInfo?.id);
 
     const handleSubmit = useCallback(
         async (values: number) => {
 
             try {
-                await dispatch(changeTheme(values));
+                await dispatch(changeTheme({ themeId: values, userId: userInfoId }));
             }
             catch (e) {
                 throw Error(e);

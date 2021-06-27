@@ -24,16 +24,20 @@ export const App = (): JSX.Element => {
         return state.app.isOnline;
     });
 
-    let bck;
+    let backgroundImageTheme;
     const mainTheme = useAppSelector((state): any | null => state.game.theme);
-    if (mainTheme === "STARS") {
-        bck = `url(${stars as string})`;
-    } else {
-        bck = `url(${quizPattern as string})`;
+    const userInfo = useAppSelector((state): any | null => state.auth.userInfo);
+
+    if (userInfo) {
+        if (mainTheme === "STARS") {
+            backgroundImageTheme = `url(${stars as string})`;
+        } else if (mainTheme === "BASIC") {
+            backgroundImageTheme = `url(${quizPattern as string})`;
+        }
     }
 
     return (
-        <div className="mainTheme" style={{ backgroundImage: bck }}>
+        <div className="mainTheme" style={{ backgroundImage: backgroundImageTheme }}>
             { !isOnline && <OfflineNotification /> }
             <ErrorBoundary>
                 <Switch>

@@ -2,10 +2,7 @@ import path from "path";
 import express from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import serverRenderMiddleware from "./middlewares/serverRenderMiddleware";
-import { serverAuthMiddleware } from "./middlewares/serverAuthMiddleware";
 import router from "./routing/router";
-
 const server = express();
 
 // TODO автор, по мануалу которого сделан SSR, рекомендует использовать это только для dev вурсии
@@ -17,7 +14,5 @@ server
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
     .use(router);
-
-server.get("/*", serverAuthMiddleware, serverRenderMiddleware);
 
 export { server };

@@ -12,8 +12,9 @@ import { User } from "../user";
 import { SiteTheme } from "./siteTheme";
 
 interface ThemeCreationAttrs {
-    title: string;
-    description: string;
+    themeId: number,
+    device?: string,
+    ownerid: number,
 }
 
 @Table({
@@ -37,9 +38,7 @@ export class UserTheme extends Model<UserTheme, ThemeCreationAttrs> {
 
     @ForeignKey(() => User)
     @AllowNull(false)
-    @Column({
-        type: DataType.INTEGER,
-        field: "owner_id"
-    })
-    ownerId!: string;
+    @Column(DataType.INTEGER)
+    ownerid!: string;
+
 }

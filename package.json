@@ -12,11 +12,13 @@
         "webpack-prod": "webpack --mode production",
         "webpack-dev": "webpack --mode development",
         "prepare": "husky install",
+        "start:webpack": "webpack --mode=development --watch",
+
+        "start": "SET NODE_ENV=development& npm-run-all --print-label --parallel start:webpack",
+        "start-old": "webpack serve --mode development",
         "docker:compose:build": "docker compose build",
         "docker:compose:up": "docker compose up",
-        "start:compile": "webpack --mode development --watch",
-        "start-new:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
-        "start": "npm-run-all --print-label --parallel start:*",
+        "start:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
         "stop:container": "docker compose stop"
     },
     "repository": {

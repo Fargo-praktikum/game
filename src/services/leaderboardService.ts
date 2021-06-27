@@ -30,7 +30,8 @@ export async function updateScore(currentTheme: string, updatedScore: number): P
 
     let sendScore;
     //If there is no previous data set it to current, or update score
-    if (typeof leaderboadData === "undefined" || typeof leaderboadData[0].data === "undefined"
+    if (typeof leaderboadData === "undefined" || typeof leaderboadData[0] === "undefined"
+        || typeof leaderboadData[0].data === "undefined"
         || typeof leaderboadData[0].data.userId === "undefined") {
         sendScore = currentScore;
     } else {

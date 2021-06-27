@@ -12,6 +12,7 @@ import { useAppDispatch } from "../../hooks/storeHooks";
 import { signIn } from "../../store/authReducer";
 import DataFieldError from "../../models/errors/dataFieldError";
 import AuthAPI from "../../api/authApi";
+import { getTheme } from "../../store/gameReducer";
 
 const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
     login: Yup.string()
@@ -34,10 +35,12 @@ export const SigninForm = (): JSX.Element => {
             actions.setStatus(null);
 
             try {
-                await dispatch(signIn({
+                const userInfo = await dispatch(signIn({
                     login: values.login,
                     password: values.password,
                 }));
+
+                await dispatch(getTheme(Number(userInfo.payload.id)));
 
                 history.push("/game");
             }

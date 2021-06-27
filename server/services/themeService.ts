@@ -1,37 +1,34 @@
-import { UserTheme } from "../../db/models/theme/userTheme";
-import sequelize from "../../db/sequalize";
+import { UserTheme } from "../db/models/theme/userTheme";
+import sequelize from "../db/sequelize";
 import RestServiceBase from "./restServiceBase";
-import { SiteTheme } from "../../db/models/theme/siteTheme";
+import { SiteTheme } from "../db/models/theme/siteTheme";
 
 interface FindRequest {
     id?: number;
 }
 
-interface CreateRequest {
-    title: string;
-    description: string;
+interface ThemeData {
+    themeId: number,
+    userId: number
 }
-
 
 export default class ThemeService extends RestServiceBase<UserTheme> {
 
-
     private readonly _userThemeRepository = sequelize.getRepository(UserTheme);
     private readonly _siteThemeRepository = sequelize.getRepository(SiteTheme);
-    //TODO добавить  проверку юзера
-    // private readonly  _userRepository = sequelize.getRepository(User);
 
-    create = (data: CreateRequest) => {
-        return this._userThemeRepository.create(data);
+    create = (data: number) => {
+        const createUserTheme = this._userThemeRepository.create({ themeId: 1, ownerid: data });
+        this.request({ id: data } );
+        return createUserTheme;
     };
 
-    update = async (data: { data: number }) => {
-        //TODO костыль пока нет проверки юзера
-        const ownerId = 0;
-        const themeId = data.data;
+    update = async (data: { data: ThemeData }) => {
+        const ownerId = data.data.userId;
+        const themeId = data.data.themeId;
         await this._userThemeRepository.update({ themeId: themeId }, {
             where: {
-                ownerId: ownerId,
+                ownerid: ownerId,
             }
         });
 
@@ -41,12 +38,16 @@ export default class ThemeService extends RestServiceBase<UserTheme> {
     request = async (data: FindRequest) => {
         const userTheme = await this._userThemeRepository.findOne({
             where: {
-                ownerId: data.id,
+                ownerid: data.id,
             },
         });
-
-        return this._siteThemeRepository.findByPk(userTheme?.themeId);
-
+        if (userTheme) {
+            console.log(userTheme, "userThemeuserThemeuserTheme");
+            return this._siteThemeRepository.findByPk(userTheme?.themeId);
+        } else {
+            console.log(userTheme, "create DATAAAAA");
+            return this.create(data.id!);
+        }
     };
 
     find? = undefined;

@@ -3,7 +3,6 @@ import { BackGroundStar, drawBackground, generateStars } from "../utils/drawBack
 import { drawPlayCard } from "../utils/drawPlayCard";
 import { cardsData } from "../cardsData/cardsData";
 import { sound } from "../utils/soundEffects";
-import store from "../../store/store";
 
 export class StartGameScene extends SceneBase {
 
@@ -87,13 +86,6 @@ export class StartGameScene extends SceneBase {
         super.keyUpHandler(key);
 
         if (key in this._gameThemes) {
-            // TODO пока закоментил, непонятно, нужен ли нам стор для игры
-            //Добавляю в стейт "тему"
-            // const gameInfo = setGameInfo( { theme: `${ targetKey[key] }` } );
-            // store.dispatch(gameInfo);
-            console.log(store.getState().game.theme);
-            //TODO Временно, чтобы было видно, что работает
-            console.log(`Pressed ${key} go to ${this._gameThemes[key]} theme`);
             sound.playSelect();
             this._nextSceneCallback({
                 ...this._gameInfo,
