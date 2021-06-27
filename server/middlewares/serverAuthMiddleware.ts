@@ -4,32 +4,39 @@ import axios from "axios";
 import { baseUrl } from "../../configs/baseUrl";
 import { setUser } from "../../src/store/authReducer";
 import store from "../../src/store/store";
-// let i = 0;
 
-export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const checkHasAuthCookie = (cookies: any): boolean => {
+    return ("authCookie" in cookies);
+};
+
+const cookieToString = (cookies: any): string => {
+
+    let res = "";
+
+    if (cookies) {
+        Object.entries<string>(cookies).forEach(([key, value], ind) => {
+            res += `${ind === 0 ? "" : " "}${key}=${value};`;
+        });
+    }
+
+    return res;
+};
+
+export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
     const cookies = req.cookies;
 
-    const cookiesCount = Object.keys(cookies).length;
+    const hasAuthCookie = checkHasAuthCookie;
+
     const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
-    const goNextMiddleware = cookiesCount === 0 && isLoginUrl;
-    console.log("goNextMiddleware");
-    console.log(goNextMiddleware);
+
+    const goNextMiddleware = !hasAuthCookie && isLoginUrl;
 
     if (goNextMiddleware) {
         console.log("должен прервать serverAuthMiddleware");
         return next();
     }
 
-    let stringCookies = "";
-
-    if (cookies) {
-        Object.entries<string>(cookies).forEach(([key, value], ind) => {
-            stringCookies += `${ind === 0 ? "" : " "}${key}=${value};`;
-        });
-    }
-
-    // console.log(`i = ${i};`);
-    // i++;
+    const stringCookies = cookieToString(cookies);
 
     axios
         .get(`${baseUrl}/auth/user`, {
@@ -43,8 +50,39 @@ export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunc
         .then((_res) => {
             next();
         })
-        .catch(_err => {
-            res.redirect("/login");
+        .catch(err => {
+            console.log(err);
+            next();
         });
 };
 
+export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    const cookies = req.cookies;
+
+    const failedAction = () => { res.status(401).send(); };
+
+    const hasAuthCookie = checkHasAuthCookie;
+
+    if (!hasAuthCookie) {
+        return failedAction();
+    }
+
+    const stringCookies = cookieToString(cookies);
+
+    axios
+        .get(`${baseUrl}/auth/user`, {
+            headers: {
+                Cookie: stringCookies
+            }
+        })
+        .then(resp => {
+            res.locals["user"] = resp.data;
+        })
+        .then((_res) => {
+            next();
+        })
+        .catch(err => {
+            console.log(err);
+            return failedAction();
+        });
+};
