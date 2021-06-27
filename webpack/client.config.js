@@ -32,7 +32,14 @@ const clientConfig = {
             },
             {
                 test: /\.(png|jpg|svg|gif|wav)$/,
-                use: ['file-loader']
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        useRelativePath: true,
+                        esModule: false
+                    }
+                }
             },
             {
                 test: /\.scss$/,

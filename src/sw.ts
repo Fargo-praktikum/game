@@ -28,7 +28,7 @@ self.addEventListener("install", (event: ExtendableEvent) => {
                 return self.skipWaiting();
             })
             .catch(err => {
-                console.log(err);
+                //console.log(err);
                 throw err;
             })
     );
