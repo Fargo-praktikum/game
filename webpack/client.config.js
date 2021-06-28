@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackAssetsListPlugin = require("../webpackAssetsListPlugin.js");
 const getClientEnvironment = require('./env');
@@ -9,16 +8,13 @@ const dirName = path.join(__dirname, "../");
 
 
 const clientConfig = (packageEnv) => {
-    // console.log("process.env.NODE_ENV from clientConfig");
-    const { NODE_ENV } = process.env;
+    const {NODE_ENV} = process.env;
+    const isDev = NODE_ENV === "development";
+    const isProd = NODE_ENV === "production";
 
-    if (NODE_ENV !== "development" && NODE_ENV !== "production") {
+    if (!isDev && !isProd) {
         throw Error("Необходимо указать NODE_ENV=(development|production)");
     }
-
-    const env = getClientEnvironment();
-    // console.log("env from clientConfig");
-    // console.log(env);
 
     return {
         mode: process.env.NODE_ENV,
@@ -47,7 +43,15 @@ const clientConfig = (packageEnv) => {
                 },
                 {
                     test: /\.(png|jpg|svg|gif|wav)$/,
-                    use: ['file-loader']
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].[ext]',
+                                outputPath: 'static/'
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.scss$/,
@@ -61,18 +65,9 @@ const clientConfig = (packageEnv) => {
             ]
         },
         plugins: [
-            new webpack.DefinePlugin(env.stringified),
+            new webpack.DefinePlugin(getClientEnvironment().stringified),
             new MiniCssExtractPlugin({
                 filename: "[name]-bundle.css",
-            }),
-            new CopyWebpackPlugin({
-                patterns: [
-                    {
-                        context: path.resolve(dirName),
-                        from: "src/assets/",
-                        to: "static"
-                    }
-                ],
             }),
             new WebpackAssetsListPlugin({
                 dir: path.join(dirName, "/dist")

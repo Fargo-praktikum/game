@@ -6,9 +6,6 @@ const dirName = path.join(__dirname, "../");
 
 
 const serverConfig = (packageEnv) => {
-    // console.log("process.env from serverConfig");
-    // console.log(process.env);
-
     return {
         mode: process.env.NODE_ENV,
         name: "server",
