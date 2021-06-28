@@ -1,15 +1,27 @@
+const webpack = require('webpack');
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackAssetsListPlugin = require("../webpackAssetsListPlugin.js");
+const getClientEnvironment = require('./env');
 
 const dirName = path.join(__dirname, "../");
 
-const clientConfig = (env) => {
-    if (env.mode !== "development" && env.mode !== 'production') throw Error("Необходимо указать --env mode=(development|production)");
+
+const clientConfig = (packageEnv) => {
+    // console.log("process.env.NODE_ENV from clientConfig");
+    const { NODE_ENV } = process.env;
+
+    if (NODE_ENV !== "development" && NODE_ENV !== "production") {
+        throw Error("Необходимо указать NODE_ENV=(development|production)");
+    }
+
+    const env = getClientEnvironment();
+    // console.log("env from clientConfig");
+    // console.log(env);
 
     return {
-        mode: env.mode,
+        mode: process.env.NODE_ENV,
         entry: {
             "static/app": path.join(dirName, "/src/index.tsx"),
             sw: {
@@ -20,7 +32,6 @@ const clientConfig = (env) => {
         output: {
             path: path.join(dirName, "/dist"),
             filename: "[name]-bundle.js",
-            //publicPath: "/static/",
             clean: true
         },
         resolve: {
@@ -50,6 +61,7 @@ const clientConfig = (env) => {
             ]
         },
         plugins: [
+            new webpack.DefinePlugin(env.stringified),
             new MiniCssExtractPlugin({
                 filename: "[name]-bundle.css",
             }),

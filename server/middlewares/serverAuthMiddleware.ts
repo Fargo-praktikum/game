@@ -1,15 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import axios from "axios";
 
-import { baseUrl, mainHost } from "../../configs/baseUrl";
+import { baseUrl } from "../../configs/baseUrl";
 import { setUser } from "../../src/store/authReducer";
 import store from "../../src/store/store";
-// let i = 0;
+let i = 0;
 
 export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    if (req.protocol !== "https") return next();
-    if (!req.hostname.endsWith(mainHost)) return next();
-
+    // console.log(req);
     const cookies = req.cookies;
     const hasCookies = Object.keys(cookies).length > 0;
     const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
@@ -28,8 +26,8 @@ export const serverAuthMiddleware = (req: Request, res: Response, next: NextFunc
         });
     }
 
-    // console.log(`i = ${i};`);
-    // i++;
+    console.log(`i = ${i};`);
+    i++;
 
     axios
         .get(`${baseUrl}/auth/user`, {

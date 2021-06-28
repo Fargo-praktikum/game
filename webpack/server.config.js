@@ -4,12 +4,13 @@ const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const dirName = path.join(__dirname, "../");
 
-const serverConfig = (env) => {
-    console.log("env from serverConfig");
-    console.log(env);
+
+const serverConfig = (packageEnv) => {
+    // console.log("process.env from serverConfig");
+    // console.log(process.env);
 
     return {
-        mode: env.mode,
+        mode: process.env.NODE_ENV,
         name: "server",
         target: "node",
         node: {__dirname: false},
@@ -44,13 +45,10 @@ const serverConfig = (env) => {
         externals: [nodeExternals({allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i]})],
         optimization: {nodeEnv: false},
         plugins: [
-            new NodemonPlugin({
-                env: {
-                    NODE_ENV: env.mode,
-                },
+            process.env.NODE_ENV === "development" && new NodemonPlugin({
                 nodeArgs: [ '--inspect' ]
-            }),
-        ],
+            })
+        ].filter(Boolean),
     };
 };
 

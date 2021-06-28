@@ -8,8 +8,7 @@ import "./global.scss";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
 import { getUser } from "./store/authReducer";
-import * as dotenv from "dotenv";
-dotenv.config();
+
 
 // global redeclared types
 declare global {
@@ -54,10 +53,15 @@ const hydrateReactDOM = () => {
         document.getElementById("root"),
     );
 };
-console.log("process.env");
-console.log(process.env);
+
+
+const isDev = process.env.NODE_ENV === "development";
+const isHttps = process.env.HTTP_PROTOCOL === "https";
+// console.log("process.env from client");
+// console.log(process.env);
 // на heroku некорректный домен, поэтому serverAuthMiddleware там не будет работать
-if (process.env.deploy === "heroku") {
+if (isDev && !isHttps) {
+    console.log("запрос за пользователем с клиента");
     const auth = async () => {
         return store.dispatch(getUser());
     };
@@ -69,6 +73,7 @@ if (process.env.deploy === "heroku") {
             hydrateReactDOM();
         });
 } else {
+    console.log("просто отрисовка страницы");
     hydrateReactDOM();
 }
 
