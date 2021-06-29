@@ -11,18 +11,17 @@ const middleware = getDefaultMiddleware({
     thunk: true,
 });
 
-export const storeWithInitState = (preloadedState?: TRootState) => configureStore({
-    reducer: {
-        auth: authReducer,
-        forum: forumReducer,
-        game: gameReducer,
-        app: appStateReducer
-    },
-    middleware,
-    devTools: process.env.NODE_ENV !=="production" && !isServer,
-    preloadedState,
-});
-
+// export const storeWithInitState = (preloadedState?: any) => configureStore({
+//     reducer: {
+//         auth: authReducer,
+//         forum: forumReducer,
+//         game: gameReducer,
+//         app: appStateReducer
+//     },
+//     middleware,
+//     devTools: process.env.NODE_ENV !=="production" && !isServer,
+//     preloadedState,
+// });
 
 const store = configureStore({
     reducer: {

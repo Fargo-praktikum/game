@@ -22,23 +22,26 @@ export const LeaderboardPage = (): JSX.Element => {
     }, []);
 
     return (
-        <div className="leaderboard">
-            <div className="leaderboard__header">
-                Рейтинг
-            </div>
-            <div className="leaderboard__subheader">
-                Пользователь: {userInfo ? userInfo.firstName : ""}. {typeof currentTheme !== "undefined" ? `Тема: ${cardsData[currentTheme].themeName}` : "Количество очков за все игры"}
-            </div>
-            <LeaderboardTable usersScore={usersScore}/>
-            <div className="navigate">
-                <Link to="/" className="navigate__link link">
-                    На главную
-                </Link>
-                <Link to="/game" className="navigate__link link">
-                    К игре
-                </Link>
+        <div className="leaderboardWrapper">
+            <div className="leaderboard">
+                <div className="leaderboard__header">
+                    Рейтинг
+                </div>
+                <div className="leaderboard__subheader">
+                    Пользователь: {userInfo ? userInfo.firstName : ""}. {typeof currentTheme !== "undefined" ? `Тема: ${cardsData[currentTheme].themeName}` : "Количество очков за все игры"}
+                </div>
+                <LeaderboardTable usersScore={usersScore}/>
+                <div className="navigate">
+                    <Link to="/" className="navigate__link link">
+                        На главную
+                    </Link>
+                    <Link to="/game" className="navigate__link link">
+                        К игре
+                    </Link>
+                </div>
             </div>
         </div>
+
     );
 };
 

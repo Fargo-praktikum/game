@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import App from "./components/App/App";
 import { Provider } from "react-redux";
-import { storeWithInitState, TRootState } from "./store/store";
+import store from "./store/store";
 import "./global.scss";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
@@ -15,12 +15,12 @@ declare global {
     }
 }
 
-const preloadedState = window.__INITIAL_STATE__
-    ? JSON.parse(window.__INITIAL_STATE__) as TRootState
-    : undefined;
-delete window.__INITIAL_STATE__;
-
-const store = storeWithInitState(preloadedState);
+// const preloadedState = window.__INITIAL_STATE__
+//     ? JSON.parse(window.__INITIAL_STATE__) as TRootState
+//     : undefined;
+// delete window.__INITIAL_STATE__;
+//
+// const store = storeWithInitState(preloadedState);
 
 function startServiceWorker() {
     if ("serviceWorker" in navigator) {
