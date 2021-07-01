@@ -16,8 +16,6 @@ export async function updateScore(currentTheme: string, updatedScore: number): P
     const userInfo = store?.getState().auth.userInfo;
     const userId = userInfo?.id;
     const firstName = userInfo?.firstName;
-    console.log(userInfo, 'userInfouserInfouserInfouserInfo');
-    console.log(currentTheme, updatedScore, 'userInfouserInfouserInfouserInfo');
     const currentScore = {
         date: new Date().getTime(),
         userId: userId,
@@ -35,26 +33,20 @@ export async function updateScore(currentTheme: string, updatedScore: number): P
         || typeof leaderboadData[0].data === "undefined"
         || typeof leaderboadData[0].data.userId === "undefined") {
         sendScore = currentScore;
-        console.log(leaderboadData, "im here!");
         leaderboardApi.addScore(sendScore as unknown as scoreData);
     } else {
         const oldScore = leaderboadData.find(el => el.data.userId === userId);
-        console.log("or here");
         if (currentTheme) {
             //Check if current score greater than previous
             const currentScoreNumber = currentScore.themes[currentTheme].score;
             const oldScoreScoreNumber = oldScore?.data?.themes[currentTheme]?.score || 0;
-            console.log(currentScore, currentScoreNumber, oldScoreScoreNumber, "mb im here?");
             if (oldScoreScoreNumber === 0 || typeof oldScoreScoreNumber === "undefined") {
                 sendScore = currentScore;
                 leaderboardApi.addScore(sendScore as unknown as scoreData);
             } else if (currentScoreNumber > oldScoreScoreNumber) {
-                console.log("better be here1111111");
                 //merge чтобы добавлять поля разных "тем", а не перезаписывать с одним полем каждый раз
                 sendScore = merge(oldScore?.data as unknown as Indexed<scoreData>, currentScore);
-                console.log(sendScore, "better be here2222222");
                 sendScore.themes[currentTheme] = { score: currentScoreNumber };
-                console.log(sendScore, 'sendScore TEST!!____');
                 leaderboardApi.addScore(sendScore as unknown as scoreData);
             }
         }

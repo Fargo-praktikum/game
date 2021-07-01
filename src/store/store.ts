@@ -11,6 +11,7 @@ const middleware = getDefaultMiddleware({
     thunk: true,
 });
 
+// TODO пофиксить создание стора с инит стейтом на клиенте
 // export const storeWithInitState = (preloadedState?: any) => configureStore({
 //     reducer: {
 //         auth: authReducer,

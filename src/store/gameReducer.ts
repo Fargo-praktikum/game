@@ -31,14 +31,12 @@ export const getTheme = (values: number) => {
     return async (dispatch: TAppDispatch) => {
         const { theme } = await themeApi.getUserTheme(values);
         //TODO добавить запрос темы при авторизации
-        console.log(dispatch, theme, "current theme!!!!!!!!!!");
         return dispatch(setTheme(theme));
     };
 };
 
 export const changeTheme = (values: ThemeData) => {
     return async (dispatch: TAppDispatch) => {
-        console.log(values, "valuesvaluesvalues!!!!3131");
         const { theme } = await themeApi.changeTheme(values);
         return dispatch(setTheme(theme));
     };
