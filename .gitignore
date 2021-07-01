@@ -6,4 +6,4 @@ dist/
 serverDist
 pgadmin-data/*
 postgresdata/*
-server/devCert/*
+server/**/*.pem

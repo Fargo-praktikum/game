@@ -1,8 +1,11 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 import { User } from "./models/user";
+import { Topic } from "./models/forum/topic";
+import { Comment } from "./models/forum/comment";
+import { CommentEmoji } from "./models/forum/commentEmoji";
+import { Emoji } from "./models/forum/emoji";
 import { UserTheme } from "./models/theme/userTheme";
 import { SiteTheme } from "./models/theme/siteTheme";
-import { Emoji } from "./models/forum/emoji";
 
 const sequelizeOptions: SequelizeOptions = {
     host: "localhost",
@@ -12,6 +15,10 @@ const sequelizeOptions: SequelizeOptions = {
     database: "fargo-cards",
     models: [
         User,
+        Topic,
+        Comment,
+        CommentEmoji,
+        Emoji,
         UserTheme,
         SiteTheme,
     ],

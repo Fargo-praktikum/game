@@ -1,6 +1,6 @@
 import { Topic } from "../db/models/forum/topic";
 import { User } from "../db/models/user";
-import sequalize from "../db/sequalize";
+import sequelize from "../db/sequelize";
 import RestServiceBase from "./restServiceBase";
 
 export interface CreateRequest {
@@ -16,8 +16,8 @@ interface QueryRequest {
 
 export default class TopicService extends RestServiceBase<Topic> {
 
-    private readonly _repository = sequalize.getRepository(Topic);
-    private readonly _userRepository = sequalize.getRepository(User);
+    private readonly _repository = sequelize.getRepository(Topic);
+    private readonly _userRepository = sequelize.getRepository(User);
 
     create = async (data: CreateRequest) => {
         const { id } = await this._repository.create(data);
