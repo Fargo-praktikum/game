@@ -49,7 +49,7 @@ function getHtml(reactHtml: string, reduxState = {}) {
             <link href="/static/app-bundle.css" rel="stylesheet">
         </head>
         <body>
-            <div id="root">${reactHtml}</div>
+            <div id="root" style="height: 100%">${reactHtml}</div>
             <script>
                 window.__INITIAL_STATE__ = ${escapeObject(JSON.stringify(reduxState)) }
             </script>

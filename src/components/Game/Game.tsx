@@ -7,7 +7,7 @@ import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { merge } from "../../scripts/utils/myDash/merge";
-
+import "./game.scss";
 
 const sceneOptions = {
     fullScreen: {
@@ -100,8 +100,8 @@ export const Game = (): JSX.Element => {
 
     }, [currentScene]);
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = window.innerWidth * 0.8;
+    const height = window.innerHeight * 0.8;
     const canvas = useRef<HTMLCanvasElement>(null);
 
     //update canvas size if window resize happen
@@ -124,7 +124,7 @@ export const Game = (): JSX.Element => {
         };
     });
 
-    return <canvas ref={canvas} width={width} height={height} />;
+    return <canvas className="gameCanvas" ref={canvas} width={width} height={height} />;
 };
 
 function useWindowSize() {
