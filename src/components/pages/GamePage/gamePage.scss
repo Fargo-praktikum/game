@@ -1,0 +1,14 @@
+.game__wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+}
+
+.game__field {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
