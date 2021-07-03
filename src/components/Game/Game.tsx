@@ -8,6 +8,7 @@ import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { merge } from "../../scripts/utils/myDash/merge";
 
+
 const sceneOptions = {
     fullScreen: {
         key: "0",
@@ -99,25 +100,21 @@ export const Game = (): JSX.Element => {
 
     }, [currentScene]);
 
-    const [size, setSize] = useState([0, 0]);
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const canvas = useRef<HTMLCanvasElement>(null);
 
     //update canvas size if window resize happen
     useWindowSize();
 
     useLayoutEffect(() => {
-
-        if (window.innerWidth !== size[0] || window.innerHeight !== size[1]) {
-            setSize([window.innerWidth, window.innerHeight]);
-        }
-
         if (canvas.current === null) throw new Error("Could not get current canvas");
         const context = canvas.current.getContext("2d");
         if (context === null) throw new Error("Could not get context");
 
         let animationFrameId: number;
         const render = () => {
-            currentScene.render(context, size[0], size[1]);
+            currentScene.render(context, width, height);
             animationFrameId = requestAnimationFrame(render);
         };
         render();
@@ -127,7 +124,7 @@ export const Game = (): JSX.Element => {
         };
     });
 
-    return <canvas ref={canvas} width={size[0]} height={size[1]} />;
+    return <canvas ref={canvas} width={width} height={height} />;
 };
 
 function useWindowSize() {
