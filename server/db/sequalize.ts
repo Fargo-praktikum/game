@@ -4,6 +4,8 @@ import { Topic } from "./models/forum/topic";
 import { Comment } from "./models/forum/comment";
 import { CommentEmoji } from "./models/forum/commentEmoji";
 import { Emoji } from "./models/forum/emoji";
+import { UserTheme } from "./models/theme/userTheme";
+import { SiteTheme } from "./models/theme/siteTheme";
 
 const sequelizeOptions: SequelizeOptions = {
     host: "localhost",
@@ -16,7 +18,9 @@ const sequelizeOptions: SequelizeOptions = {
         Topic,
         Comment,
         CommentEmoji,
-        Emoji
+        Emoji,
+        UserTheme,
+        SiteTheme,
     ],
     dialect: "postgres", // 'mysql', 'sqlite', 'mariadb', 'mssql'
     repositoryMode: true

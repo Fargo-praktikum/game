@@ -13,7 +13,6 @@
         "webpack-dev": "webpack --mode development",
         "prepare": "husky install",
         "start:webpack": "webpack --mode=development --watch",
-
         "start": "SET NODE_ENV=development& npm-run-all --print-label --parallel start:webpack",
         "start-old": "webpack serve --mode development",
         "docker:compose:build": "docker compose build",
