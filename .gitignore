@@ -7,3 +7,4 @@ serverDist
 *.env
 pgadmin-data/*
 postgresdata/*
+server/devCert/*.pem
