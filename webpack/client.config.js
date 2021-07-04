@@ -6,7 +6,6 @@ const getClientEnvironment = require('./env');
 
 const dirName = path.join(__dirname, "../");
 
-
 const clientConfig = (packageEnv) => {
     const {NODE_ENV} = process.env;
     const isDev = NODE_ENV === "development";
@@ -19,14 +18,14 @@ const clientConfig = (packageEnv) => {
     return {
         mode: process.env.NODE_ENV,
         entry: {
-            "static/app": path.join(dirName, "/src/index.tsx"),
+            app: path.join(dirName, "/src/index.tsx"),
             sw: {
                 import: path.join(dirName, "/src/sw.ts"),
-                filename: "[name].js"
+                filename: "../[name].js"
             }
         },
         output: {
-            path: path.join(dirName, "/dist"),
+            path: path.join(dirName, "dist", "static"),
             filename: "[name]-bundle.js",
             clean: true
         },
@@ -48,7 +47,6 @@ const clientConfig = (packageEnv) => {
                             loader: 'file-loader',
                             options: {
                                 name: '[name].[ext]',
-                                outputPath: 'static/'
                             }
                         }
                     ]

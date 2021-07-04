@@ -1,73 +1,67 @@
 @import "../forumVar";
 
-.f-list {
+.topics {
     width: 90vw;
     height: fit-content;
     margin: auto;
+}
 
-    &__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 50px;
-        padding: 0 30px;
-        background-color: $dark-gray;
-    }
-
-    &__title {
-        font-weight: 600;
-        font-size: 18px;
-    }
-
-    &__card-container {
-        min-height: 50vh;
-        background-color: $gray;
-    }
-
-    &__item {
-        display: grid;
-        grid-template-columns: 30px 4fr 1.5fr 2fr;
-        grid-column-gap: 20px;
-        align-items: center;
-        padding: 20px;
-
-        &_two {
-            background-color: $gray-locked;
-        }
-    }
-
-    &__img {
-        width: 30px;
-        height: 30px;
-        object-fit: cover;
-    }
-
-    &__list-title {
-        cursor: pointer;
-        transition: all 0.2s linear;
-
-        &:hover {
-            color: $lightblue;
-        }
-    }
-
-    &__list-descr {
-        margin-top: 5px;
-    }
-
-    &__list-messages {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-
-    &__messages-count {
-        font-size: 30px;
-    }
-
-    &_text {
-        color: $font-dark-second;
-    }
+.topics__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 30px;
+    background-color: $dark-gray;
 }
 
 
+.topics__card-container {
+    min-height: 50vh;
+    background-color: $gray;
+}
+
+.topics__item {
+    display: grid;
+    grid-template-columns: 4fr 1.5fr 2fr;
+    grid-column-gap: 20px;
+    align-items: center;
+    padding: 20px;
+
+    &_two {
+        background-color: $gray-locked;
+    }
+}
+
+.f-list__img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.f-list__list-title {
+    cursor: pointer;
+    transition: all 0.2s linear;
+
+    &:hover {
+        color: $lightblue;
+    }
+}
+
+.f-list__list-descr {
+    margin-top: 5px;
+}
+
+.f-list__list-topics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.f-list__topics-count {
+    font-size: 30px;
+}
+
+.f-list_text {
+    color: $font-dark-second;
+}

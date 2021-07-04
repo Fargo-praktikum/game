@@ -1,28 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import App from "./components/App/App";
 import { Provider } from "react-redux";
-import { storeWithInitState, TRootState } from "./store/store";
 import "./global.scss";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
+import store from "./store/store";
 import { getUser } from "./store/authReducer";
 
-
-// global redeclared types
-declare global {
-    interface Window {
-        __INITIAL_STATE__?: string;
-    }
-}
-
-const preloadedState = window.__INITIAL_STATE__
-    ? JSON.parse(window.__INITIAL_STATE__) as TRootState
-    : undefined;
-delete window.__INITIAL_STATE__;
-
-const store = storeWithInitState(preloadedState);
 
 function startServiceWorker() {
     if ("serviceWorker" in navigator) {
@@ -41,6 +26,7 @@ function startServiceWorker() {
 
 startServiceWorker();
 
+
 const hydrateReactDOM = () => {
     ReactDOM.hydrate(
         <React.StrictMode>
@@ -57,9 +43,7 @@ const hydrateReactDOM = () => {
 
 const isDev = process.env.NODE_ENV === "development";
 const isHttps = process.env.HTTP_PROTOCOL === "https";
-// console.log("process.env from client");
-// console.log(process.env);
-// на heroku некорректный домен, поэтому serverAuthMiddleware там не будет работать
+// на heroku некорректный домен, поэтому serverAuthMiddlewares там не будут работать
 if (isDev && !isHttps) {
     console.log("запрос за пользователем с клиента");
     const auth = async () => {
@@ -76,5 +60,8 @@ if (isDev && !isHttps) {
     console.log("просто отрисовка страницы");
     hydrateReactDOM();
 }
+
+
+
 
 

@@ -15,6 +15,8 @@ import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
 import { MainPage } from "../pages/MainPage";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { OfflineNotification } from "../OfflineNotification";
+import quizPattern from "../../assets/quiz-pattern.png";
+import stars from "../../assets/stars.png";
 
 export const App = (): JSX.Element => {
 
@@ -22,8 +24,20 @@ export const App = (): JSX.Element => {
         return state.app.isOnline;
     });
 
+    let backgroundImageTheme;
+    const mainTheme = useAppSelector((state): any | null => state.game.theme);
+    const userInfo = useAppSelector((state): any | null => state.auth.userInfo);
+
+    if (userInfo) {
+        if (mainTheme === "STARS") {
+            backgroundImageTheme = `url(${stars as string})`;
+        } else if (mainTheme === "BASIC") {
+            backgroundImageTheme = `url(${quizPattern as string})`;
+        }
+    }
+
     return (
-        <>
+        <div className="mainTheme" style={{ backgroundImage: backgroundImageTheme }}>
             { !isOnline && <OfflineNotification /> }
             <ErrorBoundary>
                 <Switch>
@@ -53,7 +67,7 @@ export const App = (): JSX.Element => {
                     </Route>
                 </Switch>
             </ErrorBoundary>
-        </>
+        </div>
     );
 };
 

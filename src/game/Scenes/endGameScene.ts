@@ -12,16 +12,20 @@ export class EndGameScene extends SceneBase {
 
 
     protected _drawBackground(context: CanvasRenderingContext2D, width: number, height: number): void {
-        if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
-            const stars = generateStars(width, height);
-            this.backgroundStars = {
-                width,
-                height,
-                stars
-            };
+        if (this._sceneOptions?.theme === "STARS") {
+            if (!this.backgroundStars || this.backgroundStars.width !== width || this.backgroundStars?.height !== height) {
+                const stars = generateStars(width, height);
+                this.backgroundStars = {
+                    width,
+                    height,
+                    stars
+                };
+            }
+            drawBackground(context, width, height, this.backgroundStars.stars);
+        } else {
+            context.fillStyle = "white";
+            context.fillRect(0, 0, width, height);
         }
-
-        drawBackground(context, width, height, this.backgroundStars.stars);
     }
 
     protected _drawGameObjects(context: CanvasRenderingContext2D, width: number, height: number): void {
@@ -32,7 +36,12 @@ export class EndGameScene extends SceneBase {
 
         const fontSizeLittleCard = 23;
         context.font = `bold ${fontSizeLittleCard}px Inter`;
-        context.fillStyle = "white";
+        if (this._sceneOptions?.theme === "STARS") {
+            context.fillStyle = "white";
+        } else {
+            context.fillStyle = "black";
+        }
+
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.shadowBlur = 2;

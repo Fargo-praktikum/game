@@ -4,4 +4,4 @@ COPY . .
 
 EXPOSE 5000
 
-RUN npm install && npm run build
+RUN npm install && npm run build-dev

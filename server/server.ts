@@ -1,13 +1,9 @@
 import path from "path";
-import express, { RequestHandler } from "express";
+import express from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import serverRenderMiddleware from "./middlewares/serverRenderMiddleware";
-import { serverAuthMiddleware } from "./middlewares/serverAuthMiddleware";
+import router from "./routing/router";
 
-
-const isDev = process.env.NODE_ENV === "development";
-const isHttps = process.env.HTTP_PROTOCOL === "https";
 
 const server = express();
 
@@ -16,13 +12,9 @@ const server = express();
 server
     .use(cookieParser())
     .use(compression())
-    .use(express.static(path.resolve(__dirname, "../dist")));
-
-const getMiddlewares = [
-    !(isDev && !isHttps) && serverAuthMiddleware,
-    serverRenderMiddleware
-].filter(Boolean) as Array<RequestHandler>;
-
-server.get("/*", getMiddlewares);
+    .use(express.static(path.resolve(__dirname, "../dist")))
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use(router);
 
 export { server };

@@ -1,50 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { compareDate } from "../scripts/utils/compareDate";
+import ForumAPI from "../api/forumApi";
+import Comment from "../models/forum/comment";
+import CommentCreateRequest from "../models/forum/commentCreateRequest";
+import Emoji from "../models/forum/emoji";
+import Topic from "../models/forum/topic";
+import TopicCreateRequest from "../models/forum/topicCreateRequest";
+import { TAppDispatch } from "./store";
 
-export interface UserForumInfo {
-    id: number,
-    firstName: string,
-    secondName: string,
-    avatar?: string,
-}
-
-export interface Comment {
-    id: number,
-    date: string,
-    message: string,
-    user: UserForumInfo,
-}
-
-export interface Message {
-    id: number,
-    title: string,
-    description: string,
-    date: string,
-    user: UserForumInfo,
-    comments: Comment[] | null,
-}
-
-// Можно будет перенести логику lastCommentInfo на бэк
-export interface LastCommentInfo {
-    topicId: number
-    topicTitle: string,
-    comment: Comment,
-}
-
-export interface Topic {
-    id: number,
-    title: string,
-    description: string,
-    messages: Message[] | null,
-    lastCommentInfo?: LastCommentInfo,
-}
+const forumApi = new ForumAPI();
 
 interface ForumState {
-    topicsList: Topic[] | null;
+    topics: Topic[];
+    comments: Comment[];
+    emojies: Emoji[];
 }
 
 const initialState: ForumState = {
-    topicsList: null
+    topics: [],
+    comments: [],
+    emojies: []
 };
 
 const forumSlice = createSlice({
@@ -52,28 +26,78 @@ const forumSlice = createSlice({
     initialState,
     reducers: {
         setTopicsList(state, action: PayloadAction<Topic[]>) {
-            state.topicsList = action.payload.map((topic: Topic) => {
-                let lastCommentInfo: LastCommentInfo | undefined = undefined;
-
-                topic.messages?.forEach((message) => {
-                    if (message.comments) {
-                        const lastCommentInTopic = message.comments[message.comments.length - 1];
-                        if (!lastCommentInfo || compareDate(lastCommentInfo.comment.date, lastCommentInTopic.date)) {
-                            lastCommentInfo = {
-                                topicId: message.id,
-                                topicTitle: message.title,
-                                comment: lastCommentInTopic,
-                            };
-                        }
-                    }
-                });
-
-                return { ...topic, lastCommentInfo };
-            });
+            state.topics = action.payload;
+        },
+        addTopic(state, action: PayloadAction<Topic>) {
+            state.topics.push(action.payload);
+        },
+        setComments(state, action: PayloadAction<Comment[]>) {
+            state.comments = action.payload;
+        },
+        setEmojies(state, action: PayloadAction<Emoji[]>) {
+            state.emojies = action.payload;
+        },
+        setCommentEmoji(state, action: PayloadAction<{ commentId: number, emojiId: number }>) {
+            const commentIndex = state.comments.findIndex((item) => { return item.id === action.payload.commentId; });
+            if (commentIndex >= 0) {
+                state.comments[commentIndex].emojies[action.payload.emojiId] =
+                (state.comments[commentIndex].emojies[action.payload.emojiId] ?? 0) + 1;
+            }
+        },
+        addComment(state, action: PayloadAction<Comment>) {
+            state.comments.push(action.payload);
         }
     }
 });
 
-export const { setTopicsList } = forumSlice.actions;
+export const { setTopicsList, addTopic, setComments, setEmojies, setCommentEmoji, addComment } = forumSlice.actions;
 
 export default forumSlice.reducer;
+
+export const getTopics = () => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<Topic[]>> => {
+        const data = await forumApi.getTopics();
+
+        return dispatch(setTopicsList(data.topics));
+    };
+};
+
+export const createTopic = (data: TopicCreateRequest) => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<Topic>> => {
+        const topic = await forumApi.createTopic(data);
+
+        return dispatch(addTopic(topic));
+    };
+};
+
+export const getComments = (topicId: number) => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<Comment[]>> => {
+        const data = await forumApi.getComments(topicId);
+
+        return dispatch(setComments(data));
+    };
+};
+
+export const getEmojies = () => {
+    return async (dispath: TAppDispatch): Promise<PayloadAction<Emoji[]>> => {
+        const data = await forumApi.getEmojies();
+
+        return dispath(setEmojies(data));
+    };
+};
+
+export const addCommentEmoji = (data: { commentId: number, emojiId: number }) => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<{ commentId: number, emojiId: number }>> => {
+        await forumApi.addCommentEmoji(data.commentId, data.emojiId);
+
+        return dispatch(setCommentEmoji(data));
+    };
+};
+
+export const createComment = (data: CommentCreateRequest) => {
+    return async (dispatch: TAppDispatch): Promise<PayloadAction<Comment>> => {
+        const comment = await forumApi.createComment(data);
+
+        return dispatch(addComment(comment));
+    };
+};

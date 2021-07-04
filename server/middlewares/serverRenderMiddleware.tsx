@@ -7,8 +7,9 @@ import App from "../../src/components/App/App";
 import store from "../../src/store/store";
 import { escapeObject } from "../../src/utils/escapeObject";
 
-export default (req: Request, res: Response): void => {
-    const location = req.url;
+export default (req: Request, res: Response) => {
+
+    const location = req.baseUrl;
     const context: StaticRouterContext = {};
 
     const jsx = (
@@ -25,7 +26,6 @@ export default (req: Request, res: Response): void => {
     const reduxState = store.getState();
 
     if (context.url) {
-        // console.log(context.url);
         res.redirect(context.url);
         return;
     }

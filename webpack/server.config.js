@@ -20,8 +20,19 @@ const serverConfig = (packageEnv) => {
                     exclude: /node_modules/
                 },
                 {
-                    test: /\.(png|jpg|svg|gif|wav)$/,
+                    test: /\.(wav)$/,
                     use: ["null-loader"]
+                },
+                {
+                    test: /\.(png|jpg|svg|gif|wav)$/,
+                    use: {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            emitFile: false,
+                            publicPath: `${process.env.PUBLIC_URL}/static`,
+                        }
+                    }
                 },
                 {
                     test: /\.scss$/,
@@ -30,7 +41,7 @@ const serverConfig = (packageEnv) => {
             ],
         },
         output: {
-            filename: "server.js",
+            filename: "index.js",
             libraryTarget: "commonjs2",
             path: path.join(dirName, "serverDist"),
         },

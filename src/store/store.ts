@@ -11,17 +11,36 @@ const middleware = getDefaultMiddleware({
     thunk: true,
 });
 
-export const storeWithInitState = (preloadedState?: TRootState) => configureStore({
-    reducer: {
-        auth: authReducer,
-        forum: forumReducer,
-        game: gameReducer,
-        app: appStateReducer
-    },
-    middleware,
-    devTools: process.env.NODE_ENV !=="production" && !isServer,
-    preloadedState,
-});
+// export const storeWithInitState = (preloadedState?: TRootState) => configureStore({
+//     reducer: {
+//         auth: authReducer,
+//         forum: forumReducer,
+//         game: gameReducer,
+//         app: appStateReducer
+//     },
+//     middleware,
+//     devTools: process.env.NODE_ENV !=="production" && !isServer,
+//     preloadedState,
+// });
+
+// global redeclared types
+declare global {
+    interface Window {
+        __INITIAL_STATE__?: string;
+    }
+}
+
+const preloadedState = (!isServer)
+    ? (window.__INITIAL_STATE__)
+        ? JSON.parse(window.__INITIAL_STATE__)
+        : undefined
+    : undefined;
+
+if (!isServer) {
+    delete window.__INITIAL_STATE__;
+}
+
+//const store = storeWithInitState(preloadedState);
 
 
 const store = configureStore({
@@ -33,6 +52,7 @@ const store = configureStore({
     },
     middleware,
     devTools: process.env.NODE_ENV !=="production" && !isServer,
+    preloadedState
 });
 
 export type TRootState = ReturnType<typeof store.getState>;

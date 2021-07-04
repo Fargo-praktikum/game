@@ -3,20 +3,19 @@
     "version": "1.0.0",
     "main": "server/index.ts",
     "scripts": {
+        "prepare": "husky install",
         "test": "jest",
-        "build": "npm-run-all lint lint-styles test webpack-prod",
-        "build-dev": "npm-run-all lint lint-styles webpack-dev",
         "lint": "eslint .",
         "lint-styles": "stylelint \"src/**/*.scss\"",
         "lint-fix": "eslint . --fix",
+        "build-prod": "npm-run-all lint lint-styles test webpack-prod",
+        "build-dev": "npm-run-all lint lint-styles webpack-dev",
         "webpack-prod": "set HTTP_PROTOCOL=http&& set NODE_ENV=production&& webpack",
-        "webpack-dev": "webpack --mode development",
-        "prepare": "husky install",
+        "webpack-dev": "set HTTP_PROTOCOL=https&& set NODE_ENV=development&& webpack",
         "docker:compose:build": "docker compose build",
         "docker:compose:up": "docker compose up",
-        "start:compile": "set HTTP_PROTOCOL=https&& set NODE_ENV=development&& webpack --watch",
-        "start-new:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
-        "start": "npm-run-all --print-label --parallel start:*",
+        "start:webpack": "set HTTP_PROTOCOL=https&& set NODE_ENV=development&& webpack --watch",
+        "start:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
         "stop:container": "docker compose stop"
     },
     "repository": {
@@ -77,8 +76,8 @@
         "ts-jest": "^26.5.6",
         "ts-loader": "^9.1.0",
         "typescript": "^4.2.4",
-        "webpack": "^5.34.0",
-        "webpack-cli": "^4.6.0",
+        "webpack": "^5.40.0",
+        "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2",
         "webpack-node-externals": "^3.0.0"
     },
@@ -107,6 +106,9 @@
         "react-redux": "^7.2.4",
         "redux": "^4.1.0",
         "redux-thunk": "^2.3.0",
+        "reflect-metadata": "^0.1.13",
+        "sequelize": "^6.6.2",
+        "sequelize-typescript": "^2.1.0",
         "yup": "^0.32.9"
     }
 }
