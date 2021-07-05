@@ -1,7 +1,8 @@
 import { UserTheme } from "../db/models/theme/userTheme";
-import sequelize from "../db/sequelize";
+
 import RestServiceBase from "./restServiceBase";
 import { SiteTheme } from "../db/models/theme/siteTheme";
+import sequalize from "../db/sequalize";
 
 interface FindRequest {
     id?: number;
@@ -14,8 +15,8 @@ interface ThemeData {
 
 export default class ThemeService extends RestServiceBase<UserTheme> {
 
-    private readonly _userThemeRepository = sequelize.getRepository(UserTheme);
-    private readonly _siteThemeRepository = sequelize.getRepository(SiteTheme);
+    private readonly _userThemeRepository = sequalize.getRepository(UserTheme);
+    private readonly _siteThemeRepository = sequalize.getRepository(SiteTheme);
 
     create = (data: number) => {
         const createUserTheme = this._userThemeRepository.create({ themeId: 1, ownerid: data });
@@ -42,10 +43,8 @@ export default class ThemeService extends RestServiceBase<UserTheme> {
             },
         });
         if (userTheme) {
-            console.log(userTheme, "userThemeuserThemeuserTheme");
             return this._siteThemeRepository.findByPk(userTheme?.themeId);
         } else {
-            console.log(userTheme, "create DATAAAAA");
             return this.create(data.id!);
         }
     };

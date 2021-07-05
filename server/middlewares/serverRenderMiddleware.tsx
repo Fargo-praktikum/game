@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import App from "../../src/components/App/App";
 import store from "../../src/store/store";
 import { escapeObject } from "../../src/utils/escapeObject";
+import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
 
 export default (req: Request, res: Response) => {
 
@@ -51,7 +52,7 @@ function getHtml(reactHtml: string, reduxState = {}) {
         <body>
             <div id="root" style="height: 100%">${reactHtml}</div>
             <script>
-                window.__INITIAL_STATE__ = ${escapeObject(JSON.stringify(reduxState)) }
+                window.__INITIAL_STATE__ = ${escapeObject(JSON.stringify(fromSnakeCase(reduxState))) }
             </script>
             <script src="/static/app-bundle.js"></script>
         </body>

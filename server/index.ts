@@ -8,7 +8,7 @@ import sequalize, { initEmoji } from "./db/sequalize";
         console.log("Connection has been established successfully.");
 
         //TODO хочешь полность пересоздать БД - расскомменти, а другую закомменти
-        //sequalize.sync({ force: true }).then(() => {
+        // sequalize.sync({ force: true }).then(() => {
         sequalize.sync().then(() => {
 
             initEmoji().then(() => {
