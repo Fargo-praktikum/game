@@ -75,6 +75,10 @@ const useStyles = makeStyles(() =>
         infoText: {
             width: "80%",
             margin: "auto"
+        },
+        infoImageWrap: {
+            maxWidth: "100%",
+            height: "auto"
         }
     }));
 
@@ -119,7 +123,9 @@ export const MainPage = (): JSX.Element => {
             </div>
             <div className={classes.infoWrap} id="info">
                 <div className={classes.infoCard}>
-                    <img src="https://image.flaticon.com/icons/png/512/4696/4696535.png" alt="" className={classes.infoImage}/>
+                    <div className={classes.infoImageWrap}>
+                        <img src="https://image.flaticon.com/icons/png/512/4696/4696535.png" alt="" className={classes.infoImage}/>
+                    </div>
                     <Typography variant="h6" gutterBottom align="center">
                         Изучайте новое
                     </Typography>
@@ -128,7 +134,9 @@ export const MainPage = (): JSX.Element => {
                     </Typography>
                 </div>
                 <div className={classes.infoCard}>
-                    <img src="https://image.flaticon.com/icons/png/512/4696/4696585.png" alt="" className={classes.infoImage}/>
+                    <div className={classes.infoImageWrap}>
+                        <img src="https://image.flaticon.com/icons/png/512/4696/4696585.png" alt="" className={classes.infoImage}/>
+                    </div>
                     <Typography variant="h6" gutterBottom align="center">
                         Соревнуйтесь
                     </Typography>
@@ -137,7 +145,9 @@ export const MainPage = (): JSX.Element => {
                     </Typography>
                 </div>
                 <div className={classes.infoCard}>
-                    <img src="https://image.flaticon.com/icons/png/512/4696/4696589.png" alt="" className={classes.infoImage}/>
+                    <div className={classes.infoImageWrap}>
+                        <img src="https://image.flaticon.com/icons/png/512/4696/4696589.png" alt="" className={classes.infoImage}/>
+                    </div>
                     <Typography variant="h6" gutterBottom align="center">
                         Общайтесь
                     </Typography>

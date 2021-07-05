@@ -158,7 +158,6 @@ export class MainGameScene extends SceneBase {
             setTimeout(nextPage, timeToNextPage);
         }
     }
-
 }
 
 function shuffleCards(cardsData: any, theme: string | number | null | undefined) {
@@ -168,10 +167,8 @@ function shuffleCards(cardsData: any, theme: string | number | null | undefined)
         shuffleCardsData[theme].questions.forEach((key: {[key: string]: string[]}) => {
             key.options = <string[]>shuffle(key.options);
         });
-
         return shuffleCardsData[theme];
     } else {
         throw new Error("Theme is not string.");
     }
-
 }
