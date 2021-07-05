@@ -7,10 +7,10 @@ import { themeRoutes } from "./themeRoutes";
 
 const router: Router = Router();
 
+appRoutes(router);
 topicRoutes(router);
 commentRoutes(router);
 emojiRoutes(router);
 themeRoutes(router);
-appRoutes(router);
 
 export default router;

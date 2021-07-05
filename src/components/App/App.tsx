@@ -1,5 +1,5 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import LeaderboardPage from "../pages/LeaderboardPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { SignupPage } from "../pages/SignupPage/SignupPage";
@@ -19,7 +19,7 @@ import quizPattern from "../../assets/quiz-pattern.png";
 import stars from "../../assets/stars.png";
 
 export const App = (): JSX.Element => {
-
+    const history = useHistory();
     const isOnline = useAppSelector((state) => {
         return state.app.isOnline;
     });
@@ -35,6 +35,12 @@ export const App = (): JSX.Element => {
             backgroundImageTheme = `url(${quizPattern as string})`;
         }
     }
+
+    useEffect(() => {
+        if (!userInfo) {
+            history.push("/login");
+        }
+    }, []);
 
     return (
         <div className="mainTheme" style={{ backgroundImage: backgroundImageTheme }}>
