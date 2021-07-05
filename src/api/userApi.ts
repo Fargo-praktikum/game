@@ -6,6 +6,19 @@ import { BaseApi } from "./baseApi";
 
 export default class UserAPI extends BaseApi {
 
+    async getUserById(id: number): Promise<unknown> {
+        try {
+            return await this._http.get(
+                `/user/${id}`
+            );
+        }
+        catch (e) {
+            const error = this._processError(e);
+
+            throw error;
+        }
+    }
+
     async changePassword(oldPassword: string, newPassword: string): Promise<unknown> {
         try {
             return await this._http.put(

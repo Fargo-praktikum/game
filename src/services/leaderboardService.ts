@@ -13,10 +13,9 @@ const leaderboardApi = new LeaderboardApi();
 
 export async function updateScore(currentTheme: string, updatedScore: number): Promise<void> {
     const leaderboadData = await leaderboardApi.getLeaderboard();
-    const userInfo = store?.getState().auth?.userInfo;
+    const userInfo = store?.getState().auth.userInfo;
     const userId = userInfo?.id;
     const firstName = userInfo?.firstName;
-
     const currentScore = {
         date: new Date().getTime(),
         userId: userId,
@@ -34,16 +33,20 @@ export async function updateScore(currentTheme: string, updatedScore: number): P
         || typeof leaderboadData[0].data === "undefined"
         || typeof leaderboadData[0].data.userId === "undefined") {
         sendScore = currentScore;
+        leaderboardApi.addScore(sendScore as scoreData);
     } else {
         const oldScore = leaderboadData.find(el => el.data.userId === userId);
-
         if (currentTheme) {
             //Check if current score greater than previous
             const currentScoreNumber = currentScore.themes[currentTheme].score;
             const oldScoreScoreNumber = oldScore?.data?.themes[currentTheme]?.score || 0;
-
-            if (currentScoreNumber > oldScoreScoreNumber) {
+            if (!oldScoreScoreNumber) {
+                sendScore = currentScore;
+                leaderboardApi.addScore(sendScore as scoreData);
+            } else if (currentScoreNumber > oldScoreScoreNumber) {
+                //merge чтобы добавлять поля разных "тем", а не перезаписывать с одним полем каждый раз
                 sendScore = merge(oldScore?.data as unknown as Indexed<scoreData>, currentScore);
+                sendScore.themes[currentTheme] = { score: currentScoreNumber };
                 leaderboardApi.addScore(sendScore as unknown as scoreData);
             }
         }

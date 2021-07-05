@@ -4,8 +4,7 @@ import axios from "axios";
 import { baseUrl } from "../../configs/baseUrl";
 import { setUser } from "../../src/store/authReducer";
 import store from "../../src/store/store";
-import { getTheme2, setTheme } from "../../src/store/gameReducer";
-import ThemeService from "../services/themeService";
+import { setTheme } from "../../src/store/gameReducer";
 import https from "https";
 
 const checkHasAuthCookie = (cookies: any): boolean => {

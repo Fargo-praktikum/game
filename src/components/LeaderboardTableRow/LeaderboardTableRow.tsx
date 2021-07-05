@@ -1,14 +1,15 @@
 import React from "react";
 import "./LeaderboardTableRow.scss";
-import avatar from "../../assets/circle.png";
+import avatarNull from "../../assets/circle.png";
 import { LeaderboardTableRowProps } from "./types";
 import gold from "../../assets/gold-medal.svg";
 import silver from "../../assets/silver-medal.svg";
 import bronze from "../../assets/bronze-medal.svg";
 
+
 export const LeaderboardTableRow = (props: LeaderboardTableRowProps): JSX.Element => {
 
-    const { rating, name, date, score } = props.userData;
+    const { rating, name, date, score, avatar } = props.userData;
 
     function renderScoreNumber(rating: number) {
         switch (rating) {
@@ -27,7 +28,7 @@ export const LeaderboardTableRow = (props: LeaderboardTableRowProps): JSX.Elemen
         {renderScoreNumber(rating)}
         <td className="tablerow" align="left">
             <a target="_blank" className="tablerow__link">
-                <img className="tablerow__img" src={avatar}
+                <img className="tablerow__img" src={avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : avatarNull}
                     width="50" height="50" alt="Image not found"/>
                 <span className="tablerow__name">{name}</span>
             </a>
