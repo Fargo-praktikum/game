@@ -26,10 +26,10 @@ const sequelizeOptions: SequelizeOptions = {
     repositoryMode: true
 };
 
-const sequalize = new Sequelize(sequelizeOptions);
+const sequelize = new Sequelize(sequelizeOptions);
 
 export const initEmoji = async () => {
-    const emojiRepository = sequalize.getRepository(Emoji);
+    const emojiRepository = sequelize.getRepository(Emoji);
 
     if ((await emojiRepository.findAll()).length === 0) {
         emojiRepository.create({ iconName: "fire-solid.svg" });
@@ -37,4 +37,4 @@ export const initEmoji = async () => {
     }
 };
 
-export default sequalize;
+export default sequelize;
