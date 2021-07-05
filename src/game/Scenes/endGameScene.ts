@@ -30,8 +30,8 @@ export class EndGameScene extends SceneBase {
 
     protected _drawGameObjects(context: CanvasRenderingContext2D, width: number, height: number): void {
         const screenLocation = {
-            x: width / 2,
-            y: height / 2
+            x: width * 0.5,
+            y: height * 0.5
         };
 
         const fontSizeLittleCard = 23;

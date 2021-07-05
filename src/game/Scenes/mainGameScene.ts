@@ -50,8 +50,8 @@ export class MainGameScene extends SceneBase {
             context,
             x: 150,
             y: 50,
-            width: width * .65,
-            height: 20,
+            width: width * .7,
+            height: 15,
             radius: 5,
             answers: this._answersHistory,
             commonCount: this._stages.length,
@@ -60,7 +60,7 @@ export class MainGameScene extends SceneBase {
 
         const currentStage = this._stages[this._currentStageIndex];
         // плашка с вопросом
-        drawPlayCard(context, 150, height / 2 - 95, currentStage.question);
+        drawPlayCard(context, 150, height * 0.5 - 95, currentStage.question);
 
         this._drawAnswerCards(context, width, height, 1, this._currentPressedCard);
         this._drawAnswerCards(context, width, height, 2, this._currentPressedCard);
@@ -84,9 +84,9 @@ export class MainGameScene extends SceneBase {
             }
         }
 
-        const answCard1 = { x: width / 2, y: (height / 2) - (answerCardHeight * 1.5) - answerCardGap };
-        const answCard2 = { x: width / 2, y: (height / 2) - (answerCardHeight / 2) };
-        const answCard3 = { x: width / 2, y: (height / 2) + (answerCardHeight / 2) + answerCardGap };
+        const answCard1 = { x: width * 0.65, y: (height / 2) - (answerCardHeight * 1.5) - answerCardGap };
+        const answCard2 = { x: width * 0.65, y: (height / 2) - (answerCardHeight / 2) };
+        const answCard3 = { x: width * 0.65, y: (height / 2) + (answerCardHeight / 2) + answerCardGap };
 
         if (this.gameObjects.length < 3) {
             this.gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: answCard1.x,

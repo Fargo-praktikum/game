@@ -15,6 +15,7 @@ export const ProfileMain = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
     const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
+    const themeInfo = useAppSelector((state): string | null => state.game.theme);
     if (!userInfo) {
         throw new Error("User is undefined");
     }
@@ -59,6 +60,10 @@ export const ProfileMain = (): JSX.Element => {
                     <ProfileMainField
                         label="Телефон"
                         placeholder={userInfo.phone}
+                    />
+                    <ProfileMainField
+                        label="Игровая тема"
+                        placeholder={themeInfo}
                     />
                 </div>
                 <div className="form__field">

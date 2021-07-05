@@ -1,68 +1,49 @@
-import React from "react";
-import { fade, makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import React, { MouseEvent, useCallback, useState } from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
+
+
+import { toggleFullScreen } from "../../game/utils/toggleFullScreen";
+import { sound } from "../../game/utils/soundEffects";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { Avatar } from "@material-ui/core";
+import { Link, useHistory } from "react-router-dom";
+import { logout } from "../../store/authReducer";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        appBar: {
+            backgroundColor: "#3369f3",
+        },
         grow: {
             flexGrow: 1,
         },
         menuButton: {
             marginRight: theme.spacing(2),
         },
+        menuLink: {
+            textDecoration: "none",
+            color: "black"
+        },
+        red: {
+            color: "red"
+        },
         title: {
             display: "none",
             [theme.breakpoints.up("sm")]: {
                 display: "block",
-            },
-        },
-        search: {
-            position: "relative",
-            borderRadius: theme.shape.borderRadius,
-            backgroundColor: fade(theme.palette.common.white, 0.15),
-            "&:hover": {
-                backgroundColor: fade(theme.palette.common.white, 0.25),
-            },
-            marginRight: theme.spacing(2),
-            marginLeft: 0,
-            width: "100%",
-            [theme.breakpoints.up("sm")]: {
-                marginLeft: theme.spacing(3),
-                width: "auto",
-            },
-        },
-        searchIcon: {
-            padding: theme.spacing(0, 2),
-            height: "100%",
-            position: "absolute",
-            pointerEvents: "none",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-        },
-        inputRoot: {
-            color: "inherit",
-        },
-        inputInput: {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-            transition: theme.transitions.create("width"),
-            width: "100%",
-            [theme.breakpoints.up("md")]: {
-                width: "20ch",
             },
         },
         sectionDesktop: {
@@ -81,9 +62,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(): JSX.Element {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [clickedFullscreen, setClickedFullscreen] = useState(false);
+    const [clickedSound, setClickedSound] = useState(false);
+    const userInfo = useAppSelector((state): any | null => state.auth.userInfo);
+    const history = useHistory();
+    const dispatch = useAppDispatch();
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -96,8 +82,27 @@ export default function PrimarySearchAppBar() {
         setAnchorEl(null);
     };
 
+    const handleMenuFullscreen = () => {
+        setClickedFullscreen(!clickedFullscreen);
+        return toggleFullScreen();
+    };
+
+    const handleMenuSound = () => {
+        setClickedSound(!clickedSound);
+        sound.mute() ? sound.mute(true) : sound.mute(false);
+    };
+
+    const handleLogoutClick = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+
+        await dispatch(logout());
+
+        history.push("/login");
+    }, []);
 
     const menuId = "primary-search-account-menu";
+
+
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
@@ -108,49 +113,50 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <Link to="/" className={classes.menuLink}>
+                <MenuItem onClick={handleMenuClose}>Главная страница</MenuItem>
+            </Link>
+            <Link to="/leaderboard" className={classes.menuLink}>
+                <MenuItem onClick={handleMenuClose}>Доска почета</MenuItem>
+            </Link>
+            <Link to="/profile" className={classes.menuLink}>
+                <MenuItem onClick={handleMenuClose}>Профиль</MenuItem>
+            </Link>
+            <Link to="/forum" className={classes.menuLink}>
+                <MenuItem onClick={handleMenuClose}>Форум</MenuItem>
+            </Link>
+            <Link to="/logout" className={ `${classes.menuLink} ${classes.red}` }>
+                <MenuItem onClick={handleLogoutClick as any}>Выйти</MenuItem>
+            </Link>
         </Menu>
     );
 
     return (
         <div>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <IconButton
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={handleProfileMenuOpen}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         FargoCards
                     </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ "aria-label": "search" }}
-                        />
-                    </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton color="inherit">
-                            <Badge color="secondary">
-                                <VolumeUpIcon />
+                            <Badge onClick={handleMenuSound} color="secondary">
+                                {clickedSound ? <VolumeUpIcon /> : <VolumeOffIcon /> }
                             </Badge>
                         </IconButton>
-                        <IconButton color="inherit">
+                        <IconButton onClick={handleMenuFullscreen} color="inherit">
                             <Badge color="secondary">
-                                <FullscreenIcon />
+                                {clickedFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -161,7 +167,7 @@ export default function PrimarySearchAppBar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            { userInfo.avatar ? <Avatar alt="Remy Sharp" src={`${userInfo.avatar as string}`} /> : <AccountCircle /> }
                         </IconButton>
                     </div>
                 </Toolbar>

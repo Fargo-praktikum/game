@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
 import { changeUserAvatar, changeUserProfile } from "../../../store/authReducer";
 import DataFieldError from "../../../models/errors/dataFieldError";
 import { useHistory } from "react-router";
+import { DropdownMenu } from "../../DropdownMenu/DropdownMenu";
 
 
 const formValidationSchema: Yup.SchemaOf<UserProfile> = Yup.object({
@@ -85,6 +86,11 @@ export const ProfileForm = (): JSX.Element => {
         []
     );
 
+    const data = [
+        { id: 1, label: "STARS" },
+        { id: 2, label: "BASIC" }
+    ];
+
     return (
         <div className="profile__block">
             <div className="profile__wrapper">
@@ -144,7 +150,7 @@ export const ProfileForm = (): JSX.Element => {
                                     name="phone"
                                     label="Телефон"
                                 />
-
+                                <DropdownMenu data={data} text="Выберите тему игрового поля"/>
                             </div>
                             <div className="floating-label-form__action-block">
                                 <div className="floating-label-form__error-message">{status}</div>

@@ -39,8 +39,8 @@ export class StartGameScene extends SceneBase {
 
     protected _drawGameObjects(context: CanvasRenderingContext2D, width: number, height: number): void {
         const screenLocation = {
-            x: width - 550,
-            y: height - 650
+            x: width * 0.35,
+            y: height * 0.2,
         };
 
         const fontSizeLittleCard = 23;
