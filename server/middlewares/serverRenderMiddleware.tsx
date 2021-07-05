@@ -8,7 +8,7 @@ import store from "../../src/store/store";
 import { escapeObject } from "../../src/utils/escapeObject";
 
 export default (req: Request, res: Response) => {
-
+    console.log("зашел в serverRenderMiddleware");
     const location = req.baseUrl;
     const context: StaticRouterContext = {};
 

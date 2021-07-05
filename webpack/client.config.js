@@ -47,6 +47,7 @@ const clientConfig = (packageEnv) => {
                             loader: 'file-loader',
                             options: {
                                 name: '[name].[ext]',
+                                publicPath: 'static'
                             }
                         }
                     ]

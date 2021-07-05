@@ -23,6 +23,7 @@ const cookieToString = (cookies: any): string => {
 
 
 export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
+    console.log("зашел в pagesAuthMiddleware");
     const cookies = req.cookies;
 
     const hasAuthCookie = checkHasAuthCookie(cookies);

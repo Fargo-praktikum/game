@@ -6,6 +6,7 @@ const dirName = path.join(__dirname, "../");
 
 
 const serverConfig = (packageEnv) => {
+
     return {
         mode: process.env.NODE_ENV,
         name: "server",
@@ -23,16 +24,20 @@ const serverConfig = (packageEnv) => {
                     test: /\.(wav)$/,
                     use: ["null-loader"]
                 },
+                // при HTTP_PROTOCOL=http почему-то null выводит, на этом мои полномочия все)
                 {
                     test: /\.(png|jpg|svg|gif|wav)$/,
-                    use: {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            emitFile: false,
-                            publicPath: `${process.env.PUBLIC_URL}/static`,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].[ext]',
+                                emitFile: false,
+                                // publicPath: `${process.env.PUBLIC_URL}/static`,
+                                publicPath: 'static',
+                            }
                         }
-                    }
+                    ]
                 },
                 {
                     test: /\.scss$/,
@@ -54,7 +59,7 @@ const serverConfig = (packageEnv) => {
         optimization: {nodeEnv: false},
         plugins: [
             process.env.NODE_ENV === "development" && new NodemonPlugin({
-                nodeArgs: [ '--inspect' ]
+                nodeArgs: ['--inspect']
             })
         ].filter(Boolean),
     };
