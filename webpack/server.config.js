@@ -17,9 +17,22 @@ const serverConfig = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(png|jpg|svg|gif|wav)$/,
+                test: /\.(wav)$/,
                 use: ["null-loader"]
             },
+            {
+                test: /\.(png|jpg|svg|gif|wav)$/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            esModule: false,
+                            emitFile: false
+                        },
+                    },
+                ],
+            },
+
             {
                 test: /\.scss$/,
                 use: ["null-loader"]

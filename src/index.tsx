@@ -1,26 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import App from "./components/App/App";
 import { Provider } from "react-redux";
-import { storeWithInitState, TRootState } from "./store/store";
 import "./global.scss";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
-
-// global redeclared types
-declare global {
-    interface Window {
-        __INITIAL_STATE__?: string;
-    }
-}
-
-const preloadedState = window.__INITIAL_STATE__
-    ? JSON.parse(window.__INITIAL_STATE__) as TRootState
-    : undefined;
-delete window.__INITIAL_STATE__;
-
-const store = storeWithInitState(preloadedState);
+import store from "./store/store";
 
 function startServiceWorker() {
     if ("serviceWorker" in navigator) {
@@ -38,8 +23,6 @@ function startServiceWorker() {
 }
 
 startServiceWorker();
-
-
 
 ReactDOM.hydrate(
     <React.StrictMode>

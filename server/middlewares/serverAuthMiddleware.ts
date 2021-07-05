@@ -25,7 +25,7 @@ const cookieToString = (cookies: any): string => {
 export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
     const cookies = req.cookies;
 
-    const hasAuthCookie = checkHasAuthCookie;
+    const hasAuthCookie = checkHasAuthCookie(cookies);
 
     const isLoginUrl = req.headers.referer?.search(/\/login$/i) != -1 || req.url === "/login";
 
@@ -61,7 +61,7 @@ export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunctio
 
     const failedAction = () => { res.status(401).send(); };
 
-    const hasAuthCookie = checkHasAuthCookie;
+    const hasAuthCookie = checkHasAuthCookie(cookies);
 
     if (!hasAuthCookie) {
         return failedAction();
