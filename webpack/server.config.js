@@ -1,5 +1,5 @@
 const path = require("path");
-const nodeExternals = require("webpack-node-externals");
+//const nodeExternals = require("webpack-node-externals");
 const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const dirName = path.join(__dirname, "../");
@@ -49,7 +49,8 @@ const serverConfig = {
         extensions: ["*", ".js", ".jsx", ".json", ".ts", ".tsx"],
     },
     devtool: "source-map",
-    externals: [nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
+    // штука хорошая, но пока уберу, чтобы сделать сборку в облако.
+    //externals: [nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
     optimization: { nodeEnv: false },
     plugins: [
         new NodemonPlugin({

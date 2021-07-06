@@ -4,7 +4,7 @@
     "main": "server/index.ts",
     "scripts": {
         "test": "jest",
-        "build": "npm-run-all  lint  lint-styles webpack-prod",
+        "build": "SET NODE_ENV=production& npm-run-all  lint  lint-styles webpack-prod",
         "build-dev": "npm-run-all lint lint-styles webpack-dev",
         "lint": "eslint .",
         "lint-styles": "stylelint \"src/**/*.scss\"",
