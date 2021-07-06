@@ -63,4 +63,6 @@ jobs:
                     username: ${{ secrets.CLOUD_DEPLOY_USER }}
                     key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
                     source: "./docker-compose.yaml"
-                    target: /var/app/docker"
+                    target: /var/app",
+                    overwrite: true
+
