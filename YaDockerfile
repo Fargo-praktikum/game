@@ -11,4 +11,4 @@ EXPOSE 5000
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/serverDist /app/serverDist
 
-CMD node /app/serverDist/index.js
+CMD node /app/serverDist/server.js
