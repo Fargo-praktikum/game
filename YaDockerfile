@@ -1,7 +1,8 @@
 FROM node:14.17.0-alpine as build
 WORKDIR /app
 COPY . .
-RUN npm install --production
+RUN npm install
+RUN npm install tslib
 RUN NODE_ENV=production npm run webpack-prod
 
 FROM node:14.17.0-alpine
