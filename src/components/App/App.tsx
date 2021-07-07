@@ -17,24 +17,26 @@ import { useAppSelector } from "../../hooks/storeHooks";
 import { OfflineNotification } from "../OfflineNotification";
 import quizPattern from "../../assets/quiz-pattern.png";
 import stars from "../../assets/stars.png";
+import { ThemeType } from "../../store/gameReducer";
+
+
+const setThemeBgImage = (mainTheme: ThemeType) => {
+    let backgroundImageTheme = `url(${quizPattern as string})`;
+
+    if (mainTheme === "STARS") backgroundImageTheme = `url(${stars as string})`;
+    else if (mainTheme === "BASIC") backgroundImageTheme = `url(${quizPattern as string})`;
+
+    return backgroundImageTheme;
+};
+
 
 export const App = (): JSX.Element => {
     const history = useHistory();
     const isOnline = useAppSelector((state) => {
         return state.app.isOnline;
     });
-
-    let backgroundImageTheme;
-    const mainTheme = useAppSelector((state): any | null => state.game.theme);
+    const mainTheme = useAppSelector((state) => state.game.theme);
     const userInfo = useAppSelector((state): any | null => state.auth.userInfo);
-
-    if (userInfo) {
-        if (mainTheme === "STARS") {
-            backgroundImageTheme = `url(${stars as string})`;
-        } else if (mainTheme === "BASIC") {
-            backgroundImageTheme = `url(${quizPattern as string})`;
-        }
-    }
 
     useEffect(() => {
         if (!userInfo) {
@@ -43,33 +45,33 @@ export const App = (): JSX.Element => {
     }, []);
 
     return (
-        <div className="mainTheme" style={{ backgroundImage: backgroundImageTheme }}>
-            { !isOnline && <OfflineNotification /> }
+        <div className="mainTheme" style={{ backgroundImage: setThemeBgImage(mainTheme) }}>
+            {!isOnline && <OfflineNotification/>}
             <ErrorBoundary>
                 <Switch>
                     <Route path="/" exact>
-                        <MainPage />
+                        <MainPage/>
                     </Route>
                     <Route path="/login">
-                        <SigninPage />
+                        <SigninPage/>
                     </Route>
                     <Route path="/signup">
-                        <SignupPage />
+                        <SignupPage/>
                     </Route>
                     <PrivateRoute path="/game">
-                        <GamePage />
+                        <GamePage/>
                     </PrivateRoute>
                     <PrivateRoute path="/profile">
-                        <ProfilePage />
+                        <ProfilePage/>
                     </PrivateRoute>
                     <PrivateRoute path="/leaderboard/:currentTheme?">
-                        <LeaderboardPage />
+                        <LeaderboardPage/>
                     </PrivateRoute>
                     <PrivateRoute path="/forum">
-                        <ForumPage />
+                        <ForumPage/>
                     </PrivateRoute>
                     <Route>
-                        <NotFoundPage />
+                        <NotFoundPage/>
                     </Route>
                 </Switch>
             </ErrorBoundary>

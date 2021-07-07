@@ -2,8 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import ThemeApi from "../api/themeApi";
 import { TAppDispatch } from "./store";
 
+export type ThemeType = "BASIC" | "STARS";
+
 interface GameState {
-    theme: string;
+    theme: ThemeType;
 }
 
 interface ThemeData {
@@ -21,7 +23,7 @@ const gameSlice = createSlice({
     name: "game",
     initialState,
     reducers: {
-        setTheme(state, action: PayloadAction<string>) {
+        setTheme(state, action: PayloadAction<ThemeType>) {
             state.theme = action.payload;
         }
     }

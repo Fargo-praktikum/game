@@ -6,6 +6,7 @@ import { oauthYndexSignIn } from "../../../store/authReducer";
 
 import "./MainPage.scss";
 import { DropdownMenu } from "../../DropdownMenu/DropdownMenu";
+import {ThemeType} from "../../../store/gameReducer";
 
 
 export const MainPage = (): JSX.Element => {
@@ -15,7 +16,7 @@ export const MainPage = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const user = useAuth();
 
-    const data = [
+    const ThemeOptions: {id: number, label: ThemeType}[] = [
         { id: 1, label: "STARS" },
         { id: 2, label: "BASIC" }
     ];
@@ -29,6 +30,10 @@ export const MainPage = (): JSX.Element => {
 
     return (
         <main className="page page_centered">
+            <div className="main-page__select">
+                <h2 className="main-page__select-title">Тема игрового поля</h2>
+                <DropdownMenu data={ThemeOptions}/>
+            </div>
             <div className="main-page__links">
                 <Link to="/signup" className="main-page__link">
                     Регистрация
@@ -48,7 +53,6 @@ export const MainPage = (): JSX.Element => {
                 <Link to="/forum" className="main-page__link">
                     Форум
                 </Link>
-                <DropdownMenu data={data} text="Выберите тему игрового поля"/>
             </div>
         </main>
     );

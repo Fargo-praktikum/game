@@ -1,23 +1,23 @@
 import React, { useCallback, useState } from "react";
 import "./DropdownMenu.scss";
-import { changeTheme } from "../../store/gameReducer";
+import { changeTheme, ThemeType } from "../../store/gameReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { setStyle } from "../../scripts/utils/setStyle";
 
 interface DropdownMenuProps {
     data: {
         id: number,
-        label: string
-    }[],
-    text: string
+        label: ThemeType
+    }[]
 }
 
-export const DropdownMenu = (props: DropdownMenuProps) => {
-    const [isOpen, setOpen] = useState(false);
-    const [items] = useState(props.data);
-    const [selectedItem, setSelectedItem] = useState<number | null>(null);
+export const DropdownMenu = ({ data: items }: DropdownMenuProps) => {
     const dispatch = useAppDispatch();
-    const toggleDropdown = () => setOpen(!isOpen);
+    const [isOpen, setOpen] = useState(false);
     const userInfoId = useAppSelector((state): any | null => state.auth?.userInfo?.id);
+    const mainTheme = useAppSelector((state) => state.game.theme);
+
+    const toggleDropdown = () => setOpen(!isOpen);
 
     const handleSubmit = useCallback(
         async (values: number) => {
@@ -29,29 +29,23 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
                 throw Error(e);
             }
         },
-        []
+        [userInfoId]
     );
-
-    const handleItemClick = (id: any) => {
-        selectedItem == id ? setSelectedItem(null) : setSelectedItem(id);
-        handleSubmit(id);
-    };
 
 
     return (
         <div className='dropdown'>
             <div className='dropdown__header' onClick={toggleDropdown}>
-                {selectedItem ? items.find(item => item.id == selectedItem)?.label : props.text}
-                <i className={`fa fa-chevron-right icon ${isOpen ? "open" : "" }`}/>
+                {mainTheme}
             </div>
-            <div className={`dropdown__body ${isOpen ? "open" : ""}`}>
-                {items.map(item => (
-                    <div className="dropdown__item" onClick={((e) => {
-                        const selectedDiv = e.target as HTMLDivElement;
-                        handleItemClick(selectedDiv.id);
-                    })} id={item.id.toString()} key={item.id}>
-                        <span className={`dropdown__item-dot ${item.id == selectedItem  ? "selected" : ""}`}>• </span>
-                        {item.label}
+            <div className={`dropdown__body ${setStyle(isOpen, "open")}`}>
+                {items.map(({ id, label }) => (
+                    <div className="dropdown__item" key={id}
+                        onClick={(_e) => {
+                            handleSubmit(id);
+                        }}>
+                        <span className={`dropdown__item-dot ${setStyle(mainTheme === label, "selected")}`}>• </span>
+                        {label}
                     </div>
                 ))}
             </div>

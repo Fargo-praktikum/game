@@ -34,7 +34,7 @@ const serverConfig = (packageEnv) => {
                                 name: '[name].[ext]',
                                 emitFile: false,
                                 // publicPath: `${process.env.PUBLIC_URL}/static`,
-                                publicPath: 'static',
+                                publicPath: '/static',
                             }
                         }
                     ]
