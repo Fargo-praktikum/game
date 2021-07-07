@@ -30,7 +30,7 @@ export function generateStars(width: number, height: number): BackGroundStar[] {
 
     const hmTimes = Math.round(xMax + yMax);
 
-    for(let i = 0; i <= hmTimes; i++) {
+    for (let i = 0; i <= hmTimes; i++) {
 
         const star: BackGroundStar = {
             x: Math.floor((Math.random() * xMax) + 1),

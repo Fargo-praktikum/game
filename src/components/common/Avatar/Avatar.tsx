@@ -5,7 +5,7 @@ import "./Avatar.scss";
 import noPhoto from "../../../assets/noPhoto.png";
 
 type AvatarType = {
-    avatarSrc: string | undefined
+    avatarSrc?: string
 };
 
 

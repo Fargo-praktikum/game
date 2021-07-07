@@ -61,6 +61,8 @@
                 "allowTemplateLiterals": true
             }
         ],
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "space-before-blocks": "error",
+        "keyword-spacing": "error"
     }
 }

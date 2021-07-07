@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка CoolButton корректная отрисовка 1`] = `
+<button
+  className="cool-button"
+>
+  <span>
+    Нажми меня
+  </span>
+</button>
+`;
+
+exports[`Проверка CoolButton наличие всех свойств 1`] = `
+<button
+  className="cool-button"
+  disabled={false}
+  onClick={[Function]}
+  type="reset"
+>
+  <span>
+    Нажми меня
+  </span>
+</button>
+`;

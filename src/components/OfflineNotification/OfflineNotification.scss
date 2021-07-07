@@ -1,0 +1,12 @@
+@import "../../styles/variables";
+
+.offline-notification {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 15px;
+    border: 1px solid $main-red;
+    padding: 3px;
+    font-weight: $font-weight-semi-bold;
+}

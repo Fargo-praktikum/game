@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка Avatar отрисовка без avatarSrc 1`] = `
+<img
+  alt="фото"
+  className="avatar"
+  src="test-file-stub"
+/>
+`;
+
+exports[`Проверка Avatar отрисовка с avatarSrc 1`] = `
+<img
+  alt="фото"
+  className="avatar"
+  src="https://test.ru"
+/>
+`;

@@ -2,22 +2,20 @@ import React from "react";
 import { SigninForm } from "../../SigninForm/SigninForm";
 
 import "../../../styles/page.scss";
-import { useSelector } from "react-redux";
-import { rootStateType } from "../../../scripts/redux/store";
-import { useHistory } from "react-router-dom";
+import { TRootState } from "../../../store/store";
+import { Redirect } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 export const SigninPage = (): JSX.Element => {
 
-    const userInfo = useSelector((state: rootStateType) => state.auth.userInfo);
-    const history = useHistory();
-
-    if(userInfo.login != null){
-        history.push("/game");
-    }
+    const userInfo = useAppSelector((state: TRootState) => state.auth.userInfo);
 
     return (
         <main className="page page_centered">
-            <SigninForm />
+            { userInfo && userInfo.login !== null
+                ? <Redirect to="/game"/>
+                : <SigninForm/>
+            }
         </main>
     );
 };

@@ -1,14 +1,15 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { FloatingFormField } from "../FloatingFormField";
 import { Button } from "../Button/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { emailRegexp, passwordMinLength, phoneRexep } from "../../constants";
-import { signup } from "../../services/authService";
 import { SignupFormValuesType } from "./types";
 
 import "../../styles/forms/floatingLabelForm.scss";
+import { useAppDispatch } from "../../hooks/storeHooks";
+import { signUp } from "../../store/authReducer";
 import DataFieldError from "../../models/errors/dataFieldError";
 
 const formValidationSchema: Yup.SchemaOf<SignupFormValuesType> = Yup.object({
@@ -32,35 +33,43 @@ const formValidationSchema: Yup.SchemaOf<SignupFormValuesType> = Yup.object({
         .oneOf([Yup.ref("password"), null], "Пароли должны совпадать")
 });
 
-const handleSubmit =
-    async (values: SignupFormValuesType, actions: FormikHelpers<SignupFormValuesType>) => {
-
-        actions.setStatus(null);
-
-        try {
-            await signup({
-                email: values.email,
-                login: values.login,
-                firstName: values.firstName,
-                secondName: values.secondName,
-                phone: values.phone,
-                password: values.password,
-            });
-        }
-        catch (e) {
-            if (e instanceof DataFieldError) {
-                actions.setFieldError(e.dataFieldName, e.message);
-            }
-            else {
-                actions.setStatus(e.message);
-            }
-        }
-        finally {
-            actions.setSubmitting(false);
-        }
-    };
-
 export const SignupForm = (): JSX.Element => {
+
+    const history = useHistory();
+
+    const dispatch = useAppDispatch();
+
+    const handleSubmit = useCallback(
+        async (values: SignupFormValuesType, actions: FormikHelpers<SignupFormValuesType>) => {
+
+            actions.setStatus(null);
+
+            try {
+
+                await dispatch(signUp({
+                    email: values.email,
+                    login: values.login,
+                    firstName: values.firstName,
+                    secondName: values.secondName,
+                    phone: values.phone,
+                    password: values.password,
+                }));
+
+                history.push("/game");
+            }
+            catch (e) {
+                if (e instanceof DataFieldError) {
+                    actions.setFieldError(e.dataFieldName, e.message);
+                }
+                else {
+                    actions.setStatus(e.message);
+                }
+
+                actions.setSubmitting(false);
+            }
+        },
+        []
+    );
 
     return (
         <div className="floating-label-form">

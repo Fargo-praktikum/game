@@ -1,9 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../../hooks/authHook";
+import { useAppDispatch } from "../../../hooks/storeHooks";
+import { oauthYndexSignIn } from "../../../store/authReducer";
 
 import "./MainPage.scss";
+import { DropdownMenu } from "../../DropdownMenu/DropdownMenu";
+
 
 export const MainPage = (): JSX.Element => {
+
+    const queryString = new URLSearchParams(useLocation().search);
+    const code = queryString.get("code");
+    const dispatch = useAppDispatch();
+    const user = useAuth();
+
+    const data = [
+        { id: 1, label: "STARS" },
+        { id: 2, label: "BASIC" }
+    ];
+
+
+    useEffect(() => {
+        if (code && !user) {
+            dispatch(oauthYndexSignIn(code));
+        }
+    });
+
     return (
         <main className="page page_centered">
             <div className="main-page__links">
@@ -25,7 +48,9 @@ export const MainPage = (): JSX.Element => {
                 <Link to="/forum" className="main-page__link">
                     Форум
                 </Link>
+                <DropdownMenu data={data} text="Выберите тему игрового поля"/>
             </div>
         </main>
     );
 };
+

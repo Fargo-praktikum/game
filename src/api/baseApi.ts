@@ -5,13 +5,15 @@ import HttpError from "../utils/http/httpError";
 import { getApiBaseUrl } from "./apiSettings";
 
 export abstract class BaseApi {
-    constructor() {
-        this._http = new HTTPTransport(getApiBaseUrl());
+    // TODO так себе идея, но пока сделал так, чтобы меньше кода затронуть изменениями
+    constructor(isInternal = false) {
+        this._http = new HTTPTransport(getApiBaseUrl(isInternal));
     }
 
     protected _http: HTTPTransport;
 
     protected _processError(e: Error): Error {
+
         if (e instanceof HttpError) {
 
             // тут нужно попытаться получить имя поля
@@ -31,6 +33,9 @@ export abstract class BaseApi {
 
                 return new Error(errorText);
             }
+        }
+        else if (e instanceof TypeError && e.message.toLowerCase() === "failed to fetch") {
+            return new Error("Не удалось отправить запрос");
         }
 
         return e;

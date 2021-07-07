@@ -2,23 +2,28 @@ import React, { MouseEvent, useCallback } from "react";
 import ProfileNonePhoto from "../../../assets/profileNonePhoto.svg";
 
 import "../Profile.scss";
-import { useSelector } from "react-redux";
 import { ProfileMainField } from "../ProfileMainField";
 import User from "../../../models/user";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
-import { logout } from "../../../services/authService";
+import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
+import { logout } from "../../../store/authReducer";
 
 export const ProfileMain = (): JSX.Element => {
 
     const { url } = useRouteMatch();
     const history = useHistory();
+    const dispatch = useAppDispatch();
 
-    //TODO типизировать, когда появится типизированный стор
-    const userInfo = useSelector<{ auth: { userInfo: User } }, User>((state): User => state.auth.userInfo );
+    const userInfo = useAppSelector((state): User | null => state.auth.userInfo);
+    if (!userInfo) {
+        throw new Error("User is undefined");
+    }
 
     const handleLogoutClick = useCallback(async (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        await logout();
+
+        await dispatch(logout());
+
         history.push("/login");
     }, []);
 
@@ -27,7 +32,7 @@ export const ProfileMain = (): JSX.Element => {
             <div className="profile__wrapper">
                 <div className="profile__image">
                     <img className="profile__avatar"
-                        src={ userInfo?.avatar? `https://ya-praktikum.tech/api/v2/resources${userInfo.avatar}` : ProfileNonePhoto }
+                        src={ userInfo?.avatar? userInfo.avatar : ProfileNonePhoto }
                         alt="Аватар"/>
                 </div>
                 <div className="floating-label-form__fields-block">

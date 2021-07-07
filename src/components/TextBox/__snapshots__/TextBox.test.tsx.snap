@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка TextBox корректная отрисовка 1`] = `
+<input
+  className="text-box "
+/>
+`;
+
+exports[`Проверка TextBox отрисовка с пропсами 1`] = `
+<input
+  checked={false}
+  className="text-box form__textinput-profile right"
+  multiple={true}
+  name="testName"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="text"
+  value="test"
+/>
+`;

@@ -1,15 +1,18 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { FloatingFormField } from "../FloatingFormField";
 import { Button } from "../Button/Button";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { passwordMinLength } from "../../constants";
-import { signin } from "../../services/authService";
 
 import "../../styles/forms/floatingLabelForm.scss";
-import DataFieldError from "../../models/errors/dataFieldError";
 import SigninRequestData from "../../models/signinRequestData";
+import { useAppDispatch } from "../../hooks/storeHooks";
+import { signIn } from "../../store/authReducer";
+import DataFieldError from "../../models/errors/dataFieldError";
+import AuthAPI from "../../api/authApi";
+import { getTheme } from "../../store/gameReducer";
 
 const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
     login: Yup.string()
@@ -24,19 +27,22 @@ export const SigninForm = (): JSX.Element => {
 
     const history = useHistory();
 
-    const handleSubmit =
+    const dispatch = useAppDispatch();
+
+    const handleSubmit = useCallback(
         async (values: SigninRequestData, actions: FormikHelpers<SigninRequestData>) => {
 
             actions.setStatus(null);
 
             try {
-                await signin({
+                const userInfo = await dispatch(signIn({
                     login: values.login,
                     password: values.password,
-                });
+                }));
+
+                await dispatch(getTheme(Number(userInfo.payload.id)));
 
                 history.push("/game");
-
             }
             catch (e) {
                 if (e instanceof DataFieldError) {
@@ -45,12 +51,23 @@ export const SigninForm = (): JSX.Element => {
                 else {
                     actions.setStatus(e.message);
                 }
-            }
-            finally {
+
                 actions.setSubmitting(false);
             }
-        };
+        },
+        []
+    );
 
+    const handleOAuth = useCallback(
+        async () => {
+            const authApi = new AuthAPI();
+
+            const serviceId = await authApi.getOauthYandexServiceId();
+
+            window.location.href = ` https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=https://localhost:5000`;
+        },
+        []
+    );
 
     return (
         <div className="floating-label-form">
@@ -84,6 +101,9 @@ export const SigninForm = (): JSX.Element => {
                             <div className="floating-label-form__error-message">{status}</div>
                             <Button className="floating-label-form__button" type="submit">
                                 Авторизоваться
+                            </Button>
+                            <Button className="floating-label-form__button" type="button" onClick={handleOAuth}>
+                                Авторизоваться через Я.OAuth
                             </Button>
                             <Link className="floating-label-form__link" to="/signup">
                                 Нет аккаунта ?
