@@ -62,7 +62,26 @@ jobs:
                     host: ${{ secrets.CLOUD_HOST }}
                     username: ${{ secrets.CLOUD_DEPLOY_USER }}
                     key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
-                    source: "./docker-compose.yaml"
+                    source: "./ya-docker-compose.yaml"
                     target: "/var/app"
                     overwrite: true
+
+    run-app:
+        runs-on: ubuntu-latest
+        needs: [build-and-push-image, copy-files]
+
+        steps:
+            -   name: run
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.CLOUD_HOST }}
+                    username: ${{ secrets.CLOUD_DEPLOY_USER }}
+                    key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
+                    script: |
+                        sudo docker-compose down
+
+                        sudo docker-compose rm -f $(docker ps -a -q)
+
+                        sudo docker-compose -f ya-docker-compose.yaml up -d
+
 
