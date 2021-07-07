@@ -34,15 +34,15 @@
 .profile__avatar {
     display: block;
     border-radius: 50%;
-    width: 130px;
-    height: 130px;
+    width: 200px;
+    height: 200px;
 }
 
 .profile__image .profile-svg {
     display: block;
     border-radius: 50%;
-    width: 130px;
-    height: 130px;
+    width: 200px;
+    height: 200px;
 }
 
 .profile__image .profile-svg-change {
@@ -73,3 +73,9 @@
     color: $main-red;
 }
 
+.dragAndDrop {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.2);
+    background: #fff;
+    opacity: 0.5;
+}

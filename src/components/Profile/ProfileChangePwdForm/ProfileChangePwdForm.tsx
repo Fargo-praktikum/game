@@ -63,7 +63,7 @@ export const ProfileChangePwdForm = (): JSX.Element => {
         <div className="profile__block">
             <div className="profile__wrapper">
                 <div className="profile__image">
-                    <div className="image-upload">
+                    <div className="imageUpload">
                         <label className="file-input">
                             <img className="profile__avatar"
                                 src={ userInfo?.avatar? userInfo.avatar : ProfileNonePhoto }
