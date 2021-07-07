@@ -62,7 +62,7 @@ jobs:
                     host: ${{ secrets.CLOUD_HOST }}
                     username: ${{ secrets.CLOUD_DEPLOY_USER }}
                     key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
-                    source: "./ya-docker-compose.yaml"
+                    source: "./ya-docker-compose.yaml,./nginx.conf"
                     target: "/var/app"
                     overwrite: true
 
@@ -82,10 +82,14 @@ jobs:
 
                         mv ya-docker-compose.yaml docker-compose.yaml
 
+                        mv nginx.conf /etc/nginx
+
                         docker-compose down
 
                         docker-compose rm -f $(docker ps -a -q)
 
                         docker-compose up -d
+
+                        sudo systemctl restart nginx
 
 
