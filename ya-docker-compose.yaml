@@ -3,8 +3,6 @@ version: "3"
 services:
     server-app:
         image: ghcr.io/fargo-praktikum/game:9-sprint-CI-CD
-        build:
-            context: .
         depends_on:
             - postgres
         ports:
