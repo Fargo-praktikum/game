@@ -82,7 +82,9 @@ jobs:
 
                         mv ya-docker-compose.yaml docker-compose.yaml
 
-                        mv nginx.conf /etc/nginx
+                        mv nginx.conf /etc/nginx/conf.d
+
+                        sudo systemctl restart nginx
 
                         docker-compose down
 
@@ -90,6 +92,6 @@ jobs:
 
                         docker-compose up -d
 
-                        sudo systemctl restart nginx
+
 
 
