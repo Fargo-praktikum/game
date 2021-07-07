@@ -80,10 +80,12 @@ jobs:
                     script: |
                         cd /var/app
 
-                        sudo docker-compose down
+                        mv ya-docker-compose.yaml docker-compose.yaml
 
-                        sudo docker-compose rm -f $(docker ps -a -q)
+                        docker-compose down
 
-                        sudo docker-compose -f ya-docker-compose.yaml up -d
+                        docker-compose rm -f $(docker ps -a -q)
+
+                        docker-compose up -d
 
 
