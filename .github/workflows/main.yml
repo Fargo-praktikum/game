@@ -78,6 +78,8 @@ jobs:
                     username: ${{ secrets.CLOUD_DEPLOY_USER }}
                     key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
                     script: |
+                        cd /var/app
+
                         sudo docker-compose down
 
                         sudo docker-compose rm -f $(docker ps -a -q)
