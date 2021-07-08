@@ -9,8 +9,8 @@ import { escapeObject } from "../../src/utils/escapeObject";
 
 export default (req: Request, res: Response) => {
     console.log("зашел в serverRenderMiddleware");
-    console.log("req");
-    console.log(req);
+    // console.log("req");
+    // console.log(req);
     const location = req.baseUrl;
     const context: StaticRouterContext = {};
 
