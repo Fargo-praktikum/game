@@ -31,12 +31,16 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
 
     const goNextMiddleware = !hasAuthCookie && isLoginUrl;
 
+    console.log("auth middle", cookies, hasAuthCookie, isLoginUrl, goNextMiddleware);
+
     if (goNextMiddleware) {
         console.log("должен прервать serverAuthMiddleware");
         return next();
     }
 
     const stringCookies = cookieToString(cookies);
+
+    console.log("auth middle before axios", cookies, hasAuthCookie, isLoginUrl, goNextMiddleware, stringCookies);
 
     axios
         .get(`${baseUrl}/auth/user`, {
