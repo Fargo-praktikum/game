@@ -49,7 +49,6 @@ const serverConfig = {
         extensions: ["*", ".js", ".jsx", ".json", ".ts", ".tsx"],
     },
     devtool: "source-map",
-    // штука хорошая, но пока уберу, чтобы сделать сборку в облако.
     externals: [nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
     optimization: { nodeEnv: false },
     plugins: [
