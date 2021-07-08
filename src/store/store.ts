@@ -28,7 +28,7 @@ if (!isServer) {
     delete window.__INITIAL_STATE__;
 }
 
-export const initStore = () => {
+const createStore = () => {
     return configureStore({
         reducer: {
             auth: authReducer,
@@ -43,7 +43,11 @@ export const initStore = () => {
 };
 
 // eslint-disable-next-line
-let store = initStore();
+let store = createStore();
+
+export const initStore = () => {
+    store = createStore();
+};
 
 export type TRootState = ReturnType<typeof store.getState>;
 
