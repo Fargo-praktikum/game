@@ -18,7 +18,7 @@ import sequalize, { initEmoji } from "./db/sequalize";
         });
     }
     catch (error) {
-        console.error("Unable to connect to the database:", error);
+        console.error("Unable to connect to the database123:", error);
     }
 
     startApp({ server });
