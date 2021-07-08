@@ -6,7 +6,7 @@ import { oauthYndexSignIn } from "../../../store/authReducer";
 
 import "./MainPage.scss";
 import { DropdownMenu } from "../../DropdownMenu/DropdownMenu";
-import {ThemeType} from "../../../store/gameReducer";
+import { ThemeType } from "../../../store/gameReducer";
 
 
 export const MainPage = (): JSX.Element => {
