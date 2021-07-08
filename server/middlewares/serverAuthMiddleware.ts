@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { baseUrl } from "../../configs/baseUrl";
 import { setUser } from "../../src/store/authReducer";
-import store from "../../src/store/store";
+import store, { initStore } from "../../src/store/store";
 
 const checkHasAuthCookie = (cookies: any): boolean => {
     return ("authCookie" in cookies);
@@ -49,6 +49,7 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
             }
         })
         .then(resp => {
+            initStore();
             return store.dispatch(setUser(resp.data));
         })
         .then((_res) => {
