@@ -5,7 +5,7 @@ import sequalize, { initEmoji } from "./db/sequalize";
 (async function() {
     try {
         await sequalize.authenticate();
-        console.log("Connection has been established successfully.");
+        console.log("Connection has been established successfully_test.");
 
         //TODO хочешь полность пересоздать БД - расскомменти, а другую закомменти
         //sequalize.sync({ force: true }).then(() => {
@@ -18,7 +18,7 @@ import sequalize, { initEmoji } from "./db/sequalize";
         });
     }
     catch (error) {
-        console.error("Unable to connect to the database123:", error);
+        console.error("Unable to connect to the database:", error);
     }
 
     startApp({ server });
