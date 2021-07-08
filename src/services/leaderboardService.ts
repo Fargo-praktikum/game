@@ -1,4 +1,3 @@
-import store from "../store/store";
 import { merge } from "../scripts/utils/myDash/merge";
 import scoreData from "../models/scoreData";
 import LeaderboardApi from "../api/leaderboardApi";
@@ -11,9 +10,8 @@ type Indexed<T = unknown> = {
 
 const leaderboardApi = new LeaderboardApi();
 
-export async function updateScore(currentTheme: string, updatedScore: number): Promise<void> {
+export async function updateScore(currentTheme: string, updatedScore: number, userInfo: any | undefined): Promise<void> {
     const leaderboadData = await leaderboardApi.getLeaderboard();
-    const userInfo = store?.getState().auth?.userInfo;
     const userId = userInfo?.id;
     const firstName = userInfo?.firstName;
 

@@ -23,7 +23,7 @@ export default class TopicApi {
         }
         catch (e) {
             console.error(e);
-            response.status(500).send({ error: "Cannot create topic" });
+            response.status(500).send({ error: "Cannot create topic", details: e });
         }
     };
 

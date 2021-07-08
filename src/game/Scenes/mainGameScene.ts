@@ -5,6 +5,7 @@ import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
 import { sound } from "../utils/soundEffects";
 import { drawProgressBar } from "../utils/drawProgressBar";
+import User from "../../models/user";
 
 interface Stage {
     question: string;
@@ -26,17 +27,22 @@ export class MainGameScene extends SceneBase {
     private _currentStageIndex: number;
     private _answersHistory: boolean[] = [];
 
-    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
+    constructor(
+        { gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface,
+        userSelector: () => User | null
+    ) {
         super({ gameInfo, nextSceneCallback, sceneOptions });
 
         this._currentStageIndex = 0;
         this._currentPressedCard = undefined;
         this._currentScore = 0;
+        this._userSelector = userSelector;
 
         // пока выбранная тема не используется, просто выведем на консоль. чтобы проверить правильность установки
         console.log(`Current game theme is ${gameInfo.currentTheme ?? ""}`);
     }
 
+    private _userSelector: () => User | null;
 
     private _stages: Stage[] = shuffleCards(cardsData, this._gameInfo.currentTheme).questions;
 
@@ -128,7 +134,7 @@ export class MainGameScene extends SceneBase {
             if (this._currentStageIndex >= this._stages.length) {
                 if (this._gameInfo.currentTheme) {
                     if (this._gameInfo.needUpdateScore) {
-                        updateScore(this._gameInfo.currentTheme, this._currentScore);
+                        updateScore(this._gameInfo.currentTheme, this._currentScore, this._userSelector);
                     }
                 } else {
                     console.log("CurrentTheme undefined");
