@@ -5,7 +5,21 @@ import { Provider } from "react-redux";
 import "./global.scss";
 import { setOnline } from "./store/appStateReducer";
 import { BrowserRouter } from "react-router-dom";
-import store from "./store/store";
+import { createStore, TRootState } from "./store/store";
+
+// global redeclared types
+declare global {
+    interface Window {
+        __INITIAL_STATE__?: string;
+    }
+}
+
+const preloadedState = window.__INITIAL_STATE__
+    ? JSON.parse(window.__INITIAL_STATE__) as TRootState
+    : undefined;
+delete window.__INITIAL_STATE__;
+
+const store = createStore(preloadedState);
 
 function startServiceWorker() {
     if ("serviceWorker" in navigator) {

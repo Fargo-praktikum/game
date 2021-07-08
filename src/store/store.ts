@@ -11,24 +11,7 @@ const middleware = getDefaultMiddleware({
     thunk: true,
 });
 
-// global redeclared types
-declare global {
-    interface Window {
-        __INITIAL_STATE__?: string;
-    }
-}
-
-const preloadedState = (!isServer)
-    ? (window.__INITIAL_STATE__)
-        ? JSON.parse(window.__INITIAL_STATE__)
-        : undefined
-    : undefined;
-
-if (!isServer) {
-    delete window.__INITIAL_STATE__;
-}
-
-const createStore = () => {
+export const createStore = (preloadedState?: any) => {
     return configureStore({
         reducer: {
             auth: authReducer,
@@ -42,15 +25,9 @@ const createStore = () => {
     });
 };
 
-// eslint-disable-next-line
-let store = createStore();
+// TODO да, костыльно. пока другого варианта не нашёл
+const storeForTypings = createStore();
 
-export const initStore = () => {
-    store = createStore();
-};
+export type TRootState = ReturnType<typeof storeForTypings.getState>;
 
-export type TRootState = ReturnType<typeof store.getState>;
-
-export type TAppDispatch = typeof store.dispatch;
-
-export default store;
+export type TAppDispatch = typeof storeForTypings.dispatch;

@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import axios from "axios";
 
 import { baseUrl } from "../../configs/baseUrl";
-import { setUser } from "../../src/store/authReducer";
-import store, { initStore } from "../../src/store/store";
 
 const checkHasAuthCookie = (cookies: any): boolean => {
     return ("authCookie" in cookies);
@@ -22,7 +20,7 @@ const cookieToString = (cookies: any): string => {
     return res;
 };
 
-export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
+export const pagesAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
 
     const hasAuthCookie = checkHasAuthCookie(cookies);
@@ -49,8 +47,7 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
             }
         })
         .then(resp => {
-            initStore();
-            return store.dispatch(setUser(resp.data));
+            res.locals["user"] = resp.data;
         })
         .then((_res) => {
             next();
