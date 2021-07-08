@@ -80,9 +80,9 @@ jobs:
                     script: |
                         cd /var/app
 
-                        mv ya-docker-compose.yaml docker-compose.yaml
+                        mv ya-docker-compose.yaml docker-compose.yaml -f
 
-                        mv nginx.conf /etc/nginx/conf.d
+                        sudo mv nginx.conf /etc/nginx/conf.d -f
 
                         sudo systemctl restart nginx
 
