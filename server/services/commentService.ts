@@ -2,7 +2,7 @@ import { Comment } from "../db/models/forum/comment";
 import { CommentEmoji } from "../db/models/forum/commentEmoji";
 import { Emoji } from "../db/models/forum/emoji";
 import { User } from "../db/models/user";
-import sequalize from "../db/sequalize";
+import sequelize from "../db/sequelize";
 import RestServiceBase from "./restServiceBase";
 
 export interface CreateRequest {
@@ -14,10 +14,10 @@ export interface CreateRequest {
 
 export default class CommentService extends RestServiceBase<Comment> {
 
-    private readonly _repository = sequalize.getRepository(Comment);
-    private readonly _userRepository = sequalize.getRepository(User);
-    private readonly _emojiRepository = sequalize.getRepository(Emoji);
-    private readonly _commentEmojiRepository = sequalize.getRepository(CommentEmoji);
+    private readonly _repository = sequelize.getRepository(Comment);
+    private readonly _userRepository = sequelize.getRepository(User);
+    private readonly _emojiRepository = sequelize.getRepository(Emoji);
+    private readonly _commentEmojiRepository = sequelize.getRepository(CommentEmoji);
 
     request = (topicId: number) => {
         return this._repository

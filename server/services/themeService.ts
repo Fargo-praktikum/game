@@ -2,7 +2,7 @@ import { UserTheme } from "../db/models/theme/userTheme";
 
 import RestServiceBase from "./restServiceBase";
 import { SiteTheme } from "../db/models/theme/siteTheme";
-import sequalize from "../db/sequalize";
+import sequelize from "../db/sequelize";
 
 interface FindRequest {
     id?: number;
@@ -15,8 +15,8 @@ interface ThemeData {
 
 export default class ThemeService extends RestServiceBase<UserTheme> {
 
-    private readonly _userThemeRepository = sequalize.getRepository(UserTheme);
-    private readonly _siteThemeRepository = sequalize.getRepository(SiteTheme);
+    private readonly _userThemeRepository = sequelize.getRepository(UserTheme);
+    private readonly _siteThemeRepository = sequelize.getRepository(SiteTheme);
 
     create = (data: number) => {
         const createUserTheme = this._userThemeRepository.create({ themeId: 1, ownerid: data });
