@@ -1,15 +1,15 @@
 import { server } from "./server";
 import { startApp } from "./helpers/startApp";
-import sequalize, { initEmoji } from "./db/sequalize";
+import sequelize, { initEmoji } from "./db/sequelize";
 
 (async function() {
     try {
-        await sequalize.authenticate();
+        await sequelize.authenticate();
         console.log("Connection has been established successfully.");
 
         //TODO хочешь полность пересоздать БД - расскомменти, а другую закомменти
-        // sequalize.sync({ force: true }).then(() => {
-        sequalize.sync().then(() => {
+        //sequalize.sync({ force: true }).then(() => {
+        sequelize.sync().then(() => {
 
             initEmoji().then(() => {
                 console.log("synced");

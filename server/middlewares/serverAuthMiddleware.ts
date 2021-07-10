@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import axios from "axios";
 
 import { baseUrl } from "../../configs/baseUrl";
-import { setUser } from "../../src/store/authReducer";
-import store from "../../src/store/store";
-import { setTheme } from "../../src/store/gameReducer";
-import https from "https";
 
 const checkHasAuthCookie = (cookies: any): boolean => {
     return ("authCookie" in cookies);
@@ -24,7 +20,7 @@ const cookieToString = (cookies: any): string => {
     return res;
 };
 
-export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
+export const pagesAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
 
     const hasAuthCookie = checkHasAuthCookie(cookies);
@@ -47,31 +43,15 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
             }
         })
         .then(resp => {
-            getThemeInit(resp.data.id);
-            return store.dispatch(setUser(resp.data));
+            res.locals["user"] = resp.data;
         })
-
         .then((_res) => {
             next();
         })
         .catch(err => {
-            console.log("SeverAuthMiddleware ERROR - ", err.response.data);
+            console.log(err);
             next();
         });
-
-    // TODO игнорирую отсутствие SSL сертификата, убрать когда добавим https://github.com/axios/axios/issues/535
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
-
-    const getThemeInit = (id: string) => {
-        axios
-            .get(`${baseUrl}/api/theme?id=${id}`, { httpsAgent: agent })
-            .then(res => {
-                store.dispatch(setTheme(res.data.theme));
-            })
-            .catch(e => console.log(e, "error - get theme init"));
-    };
 };
 
 export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
@@ -100,7 +80,7 @@ export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunctio
             next();
         })
         .catch(err => {
-            console.log("SeverAuthMiddleware ERROR - ", err.response.data);
+            console.log(err);
             return failedAction();
         });
 };

@@ -6,6 +6,7 @@ import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
+import User from "../../models/user";
 import { merge } from "../../scripts/utils/myDash/merge";
 import "./game.scss";
 
@@ -31,6 +32,8 @@ export const Game = (): JSX.Element => {
     const theme = useAppSelector((state): any | null => state.game.theme);
     sceneOptions.theme = theme;
 
+    const user = useAppSelector((state): User | null => state.auth.userInfo);
+
     const history = useHistory();
 
     const isOnline = useAppSelector((state) => state.app.isOnline);
@@ -53,7 +56,9 @@ export const Game = (): JSX.Element => {
                             setCurrentScene(sceneFactory("end", gameInfo));
                         },
                         sceneOptions: sceneOptionsBlack
-                    });
+                    },
+                    () => user
+                    );
                 case "end":
                     return new EndGameScene({
                         gameInfo: initialGameInfo,
