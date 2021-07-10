@@ -90,10 +90,10 @@ export const ProfileForm = (): JSX.Element => {
     );
 
     const onChangeAvatar = useCallback(
-        async (e: any) => {
+        async (e: Event | dataDnD) => {
             let files;
-            if (e.target) {
-                files = e.target.files;
+            if ("target" in e) {
+                files = (e.target as HTMLInputElement).files;
             } else {
                 files = e.fileList;
             }

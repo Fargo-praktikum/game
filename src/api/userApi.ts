@@ -6,7 +6,7 @@ import { BaseApi } from "./baseApi";
 
 export default class UserAPI extends BaseApi {
 
-    async getUserById(id: number): Promise<unknown> {
+    async getUserById(id: number): Promise<User> {
         try {
             return await this._http.get(
                 `/user/${id}`

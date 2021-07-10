@@ -66,7 +66,7 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
 
     const getThemeInit = (id: string) => {
         axios
-            .get(`https://local.ya-praktikum.tech:5000/api/theme?id=${id}`, { httpsAgent: agent })
+            .get(`${baseUrl}/api/theme?id=${id}`, { httpsAgent: agent })
             .then(res => {
                 store.dispatch(setTheme(res.data.theme));
             })

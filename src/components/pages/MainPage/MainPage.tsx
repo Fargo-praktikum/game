@@ -9,10 +9,9 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-// TODO заменить url img на импорт когда разберемся с [object Object] при ssr
-// import forum from "../../../assets/forum.png";
-// import trophy from "../../../assets/trophy.png";
-// import learn from "../../../assets/learn.png";
+import forum from "../../../assets/forum.png";
+import trophy from "../../../assets/trophy.png";
+import learn from "../../../assets/learn.png";
 
 import "./MainPage.scss";
 
@@ -124,7 +123,7 @@ export const MainPage = (): JSX.Element => {
             <div className={classes.infoWrap} id="info">
                 <div className={classes.infoCard}>
                     <div className={classes.infoImageWrap}>
-                        <img src="https://image.flaticon.com/icons/png/512/4696/4696535.png" alt="" className={classes.infoImage}/>
+                        <img src={learn} alt="" className={classes.infoImage}/>
                     </div>
                     <Typography variant="h6" gutterBottom align="center">
                         Изучайте новое
@@ -135,7 +134,7 @@ export const MainPage = (): JSX.Element => {
                 </div>
                 <div className={classes.infoCard}>
                     <div className={classes.infoImageWrap}>
-                        <img src="https://image.flaticon.com/icons/png/512/4696/4696585.png" alt="" className={classes.infoImage}/>
+                        <img src={trophy} alt="" className={classes.infoImage}/>
                     </div>
                     <Typography variant="h6" gutterBottom align="center">
                         Соревнуйтесь
@@ -146,7 +145,7 @@ export const MainPage = (): JSX.Element => {
                 </div>
                 <div className={classes.infoCard}>
                     <div className={classes.infoImageWrap}>
-                        <img src="https://image.flaticon.com/icons/png/512/4696/4696589.png" alt="" className={classes.infoImage}/>
+                        <img src={forum} alt="" className={classes.infoImage}/>
                     </div>
                     <Typography variant="h6" gutterBottom align="center">
                         Общайтесь
