@@ -14,7 +14,7 @@
         "webpack-prod": "set HTTP_PROTOCOL=http&& set NODE_ENV=production&& webpack",
         "webpack-dev": "set HTTP_PROTOCOL=https&& set NODE_ENV=development&& webpack",
         "webpack-heroku": "NODE_ENV=development webpack",
-        "docker:compose-heroku:up": "docker compose -f docker-compose.prod.yaml up",
+        "docker:compose-heroku:up": "docker compose -f docker-compose.yaml up",
         "start": "set HTTP_PROTOCOL=http&& set NODE_ENV=development&& webpack --watch",
         "start:container-heroku": "npm-run-all docker:compose-heroku:* --print-label",
         "stop:container": "docker-compose stop"
