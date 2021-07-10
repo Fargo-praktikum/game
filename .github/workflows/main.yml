@@ -1,0 +1,99 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+    build-and-push-image:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: read
+            packages: write
+
+        env:
+            REGISTRY: ghcr.io
+            IMAGE_NAME: ${{ github.repository }}
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+
+            -   name: Log in to the Container registry
+                uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+                with:
+                    registry: ${{ env.REGISTRY }}
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: Extract metadata (tags, labels) for Docker
+                id: meta
+                uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+                with:
+                    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+            -   name: Build and push Docker image
+                uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+                with:
+                    context: .
+                    file: YaDockerfile
+                    push: true
+                    tags: ${{ steps.meta.outputs.tags }}
+                    labels: ${{ steps.meta.outputs.labels }}
+
+    copy-files:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+
+            -   name: copy file via ssh
+                uses: appleboy/scp-action@master
+                with:
+                    host: ${{ secrets.CLOUD_HOST }}
+                    username: ${{ secrets.CLOUD_DEPLOY_USER }}
+                    key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
+                    source: "./ya-docker-compose.yaml,./nginx.conf"
+                    target: "/var/app"
+                    overwrite: true
+
+    run-app:
+        runs-on: ubuntu-latest
+        needs: [build-and-push-image, copy-files]
+
+        steps:
+            -   name: run
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.CLOUD_HOST }}
+                    username: ${{ secrets.CLOUD_DEPLOY_USER }}
+                    key: ${{ secrets.CLOUD_DEPLOY_USER_SSH }}
+                    script: |
+                        cd /var/app
+
+                        mv ya-docker-compose.yaml docker-compose.yaml -f
+
+                        sudo mv nginx.conf /etc/nginx -f
+
+                        sudo systemctl restart nginx
+
+                        docker-compose down
+
+                        docker image prune -f
+
+                        docker-compose pull
+
+                        docker-compose up -d --force-recreate server-app
+
+
+
+

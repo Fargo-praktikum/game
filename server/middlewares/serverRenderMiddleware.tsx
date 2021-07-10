@@ -4,13 +4,20 @@ import { Request, Response } from "express";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
 import App from "../../src/components/App/App";
-import store from "../../src/store/store";
 import { escapeObject } from "../../src/utils/escapeObject";
+import { createStore } from "../../src/store/store";
+import { setUser } from "../../src/store/authReducer";
 
 export default (req: Request, res: Response) => {
 
     const location = req.baseUrl;
     const context: StaticRouterContext = {};
+
+    const store = createStore();
+
+    if (res.locals["user"]) {
+        store.dispatch(setUser(res.locals["user"]));
+    }
 
     const jsx = (
         <React.StrictMode>
