@@ -13,4 +13,4 @@ EXPOSE 5000
 RUN npm run build-heroku
 
 ENTRYPOINT [ "./entrypoint.sh" ]
-CMD ["echo", "!!!!!!!! psql-container is available now !!!!!!!!"] && node serverDist/index.js
+CMD node serverDist/index.js
