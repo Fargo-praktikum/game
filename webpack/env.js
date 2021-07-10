@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 function getClientEnvironment() {
   const stringified = {
     'process.env': Object.keys(process.env).reduce((env, key) => {

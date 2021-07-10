@@ -10,13 +10,14 @@
         "lint-fix": "eslint . --fix",
         "build-prod": "npm-run-all lint lint-styles test webpack-prod",
         "build-dev": "npm-run-all lint lint-styles webpack-dev",
+        "build-heroku": "npm-run-all lint lint-styles webpack-heroku",
         "webpack-prod": "set HTTP_PROTOCOL=http&& set NODE_ENV=production&& webpack",
         "webpack-dev": "set HTTP_PROTOCOL=https&& set NODE_ENV=development&& webpack",
-        "docker:compose:build": "docker compose build",
-        "docker:compose:up": "docker compose up",
+        "webpack-heroku": "NODE_ENV=development webpack",
+        "docker:compose-heroku:up": "docker compose -f docker-compose.prod.yaml up",
         "start": "set HTTP_PROTOCOL=http&& set NODE_ENV=development&& webpack --watch",
-        "start:container": "npm-run-all docker:compose:build docker:compose:up --print-label",
-        "stop:container": "docker compose stop"
+        "start:container-heroku": "npm-run-all docker:compose-heroku:* --print-label",
+        "stop:container": "docker-compose stop"
     },
     "repository": {
         "type": "git",

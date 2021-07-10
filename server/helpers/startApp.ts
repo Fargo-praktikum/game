@@ -30,7 +30,8 @@ if (isDev) {
 } else {
     APP_HOSTS.push("localhost");
 }
-
+console.log("APP_HOSTS from startApp");
+console.log(APP_HOSTS);
 
 
 export const startApp = ({ server }: Options): void => {

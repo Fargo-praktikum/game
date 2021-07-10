@@ -6,6 +6,8 @@ const dirName = path.join(__dirname, "../");
 
 
 const serverConfig = (packageEnv) => {
+    console.log("NODE_ENV from serverConfig");
+    console.log(process.env.NODE_ENV);
 
     return {
         mode: process.env.NODE_ENV,
@@ -58,6 +60,7 @@ const serverConfig = (packageEnv) => {
         externals: [nodeExternals({allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i]})],
         optimization: {nodeEnv: false},
         plugins: [
+            // NodemonPlugin не запускается без флага --watch
             process.env.NODE_ENV === "development" && new NodemonPlugin({
                 nodeArgs: ['--inspect']
             })

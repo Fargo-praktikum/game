@@ -10,7 +10,7 @@ import { SiteTheme } from "./models/theme/siteTheme";
 const sequelizeOptions: SequelizeOptions = {
     host: "localhost",
     port: 5432,
-    username: "postgres",
+    username: "postgresUser",
     password: "newPassword",
     database: "fargo-cards",
     models: [
@@ -23,13 +23,19 @@ const sequelizeOptions: SequelizeOptions = {
         SiteTheme,
     ],
     dialect: "postgres", // 'mysql', 'sqlite', 'mariadb', 'mssql'
-    repositoryMode: true
+    repositoryMode: true,
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    }
 };
 
-const sequalize = new Sequelize(sequelizeOptions);
+const sequelize = new Sequelize(sequelizeOptions);
 
 export const initEmoji = async () => {
-    const emojiRepository = sequalize.getRepository(Emoji);
+    const emojiRepository = sequelize.getRepository(Emoji);
 
     if ((await emojiRepository.findAll()).length === 0) {
         emojiRepository.create({ iconName: "fire-solid.svg" });
@@ -37,4 +43,4 @@ export const initEmoji = async () => {
     }
 };
 
-export default sequalize;
+export default sequelize;
