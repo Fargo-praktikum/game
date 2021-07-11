@@ -88,9 +88,9 @@ export const Game = (): JSX.Element => {
             currentScene.keyUpHandler(key);
         };
 
-        const clickHandler = (e: MouseEvent) => {
+        const clickHandler = (e: any) => {
             currentScene.gameObjects.forEach(el => {
-                if (clickInObj({ x1: el.x1, x2: el.x2, y1: el.y1, y2: el.y2 },{ x: e.x, y: e.y })) {
+                if (clickInObj({ x1: el.x1, x2: el.x2, y1: el.y1, y2: el.y2 },{ x: e.layerX, y: e.layerY })) {
                     currentScene.keyUpHandler(el.key);
                 }
             });
@@ -105,8 +105,10 @@ export const Game = (): JSX.Element => {
 
     }, [currentScene]);
 
-    const width = window.innerWidth * 0.8;
-    const height = window.innerHeight * 0.8;
+    let width = Math.floor(window.innerWidth * 0.8);
+    if (width > 1000) width = 1000;
+    let height = Math.floor(window.innerHeight * 0.8);
+    if (height > 700) height = 700;
     const canvas = useRef<HTMLCanvasElement>(null);
 
     //update canvas size if window resize happen

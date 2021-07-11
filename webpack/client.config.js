@@ -16,7 +16,7 @@ const clientConfig = {
     output: {
         path: path.join(dirName, "/dist"),
         filename: "[name]-bundle.js",
-        //publicPath: "/static/",
+        // publicPath: "/static/",
         clean: true
     },
     resolve: {

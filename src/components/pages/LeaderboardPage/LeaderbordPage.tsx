@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import LeaderboardTable from "../../LeaderboardTable";
 import "./LeaderboardPage.scss";
 
-import { Link } from "react-router-dom";
 import { cardsData } from "../../../game/cardsData/cardsData";
 import { TRootState } from "../../../store/store";
 import { useAppSelector } from "../../../hooks/storeHooks";
 import { getLeaderboardData } from "../../../services/leaderboardService";
 import ScoreRequestData from "../../../models/scoreRequestData";
+import { SidebarProfile } from "../../Profile/SidebarProfile/SidebarProfile";
+import { getUserById } from "../../../services/getUserById";
+import ScoreData from "../../../models/scoreData";
 
 export const LeaderboardPage = (): JSX.Element => {
     const [usersScore, setUsersScore] = useState<ScoreRequestData[]>([]);
@@ -18,27 +20,37 @@ export const LeaderboardPage = (): JSX.Element => {
     const { currentTheme } = useParams<{ currentTheme: string }>();
 
     useEffect(() => {
-        getLeaderboardData(currentTheme).then(leaderboardScore => setUsersScore(leaderboardScore));
+        getLeaderboardData(currentTheme).then(async leaderboardScore => {
+            setUsersScore(leaderboardScore);
+            getAvatars(leaderboardScore);
+        });
+
+        const getAvatars = async (usersScore: ScoreRequestData[]) => {
+            const newLeaderboardAvatars: ScoreRequestData[] = await Promise.all(usersScore.map(async (el: ScoreRequestData) => {
+                const userAvatar = await getUserById(el.data.userId) as ScoreData;
+                el.data.avatar = userAvatar.avatar;
+                return el;
+            }));
+            setUsersScore(newLeaderboardAvatars);
+        };
+
+
     }, []);
 
     return (
-        <div className="leaderboard">
-            <div className="leaderboard__header">
-                Рейтинг
-            </div>
-            <div className="leaderboard__subheader">
-                Пользователь: {userInfo ? userInfo.firstName : ""}. {typeof currentTheme !== "undefined" ? `Тема: ${cardsData[currentTheme].themeName}` : "Количество очков за все игры"}
-            </div>
-            <LeaderboardTable usersScore={usersScore}/>
-            <div className="navigate">
-                <Link to="/" className="navigate__link link">
-                    На главную
-                </Link>
-                <Link to="/game" className="navigate__link link">
-                    К игре
-                </Link>
+        <div className="leaderboard__wrapper">
+            <SidebarProfile/>
+            <div className="leaderboard">
+                <div className="leaderboard__header">
+                    Рейтинг
+                </div>
+                <div className="leaderboard__subheader">
+                    Пользователь: {userInfo ? userInfo.firstName : ""}. {typeof currentTheme !== "undefined" ? `Тема: ${cardsData[currentTheme].themeName}` : "Количество очков за все игры"}
+                </div>
+                <LeaderboardTable usersScore={usersScore}/>
             </div>
         </div>
+
     );
 };
 
