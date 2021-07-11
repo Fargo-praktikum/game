@@ -14,12 +14,12 @@ server
         helmet.contentSecurityPolicy({
             directives: {
                 ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                "default-src": ["'self'", "https://local.ya-praktikum.tech", "https://ya-praktikum.tech", "https://fargo-cards-5.ya-praktikum.tech", "https://fonts.googleapis.com/", "https://fonts.gstatic.com"],
-                "connect-src": ["'self'", "https://local.ya-praktikum.tech", "https://ya-praktikum.tech"],
-                "img-src": ["'self'", "https://local.ya-praktikum.tech", "https://fargo-cards-5.ya-praktikum.tech", "*.googleapis.com", "data:" ],
-                "script-src": ["'unsafe-inline'", "'self'", "https://fargo-cards-5.ya-praktikum.tech", "https://cdnjs.cloudflare.com"],
+                "default-src": ["'self'", "local.ya-praktikum.tech", "ya-praktikum.tech", "fargo-cards-5.ya-praktikum.tech", "fonts.googleapis.com/", "fonts.gstatic.com"],
+                "connect-src": ["'self'", "local.ya-praktikum.tech", "ya-praktikum.tech", "fonts.googleapis.com/", "*.googleapis.com", "fonts.gstatic.com"],
+                "img-src": ["'self'", "local.ya-praktikum.tech", "fargo-cards-5.ya-praktikum.tech", "*.googleapis.com", "data:" ],
+                "script-src": ["'unsafe-inline'", "'self'", "fargo-cards-5.ya-praktikum.tech", "cdnjs.cloudflare.com"],
                 "style-src": ["'unsafe-inline'", "'self'", "fonts.googleapis.com"],
-                "font-src": ["'self'", "fonts.googleapis.com", "data:", "fonts.gstatic.com"],
+                "font-src": ["'self'", "fonts.googleapis.com", "data:", "fonts.gstatic.com", "data:"],
             },
         })
     )
