@@ -36,13 +36,13 @@ export class MainGameScene extends SceneBase {
         this._currentStageIndex = 0;
         this._currentPressedCard = undefined;
         this._currentScore = 0;
-        this._userSelector = userSelector;
+        this._userSelector = userSelector();
 
         // пока выбранная тема не используется, просто выведем на консоль. чтобы проверить правильность установки
         console.log(`Current game theme is ${gameInfo.currentTheme ?? ""}`);
     }
 
-    private _userSelector: () => User | null;
+    private _userSelector: User | null;
 
     private _stages: Stage[] = shuffleCards(cardsData, this._gameInfo.currentTheme).questions;
 

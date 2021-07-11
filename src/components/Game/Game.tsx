@@ -33,7 +33,6 @@ export const Game = (): JSX.Element => {
     sceneOptions.theme = theme;
 
     const user = useAppSelector((state): User | null => state.auth.userInfo);
-
     const history = useHistory();
 
     const isOnline = useAppSelector((state) => state.app.isOnline);
