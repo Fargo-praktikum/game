@@ -7,5 +7,5 @@ export default interface ScoreData {
     themes: {[key: string]:
             { score: number }
     },
-    avatar?: string
+    avatar?: string | null
 }

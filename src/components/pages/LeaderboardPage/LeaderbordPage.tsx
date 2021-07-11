@@ -10,7 +10,6 @@ import { getLeaderboardData } from "../../../services/leaderboardService";
 import ScoreRequestData from "../../../models/scoreRequestData";
 import { SidebarProfile } from "../../Profile/SidebarProfile/SidebarProfile";
 import { getUserById } from "../../../services/getUserById";
-import ScoreData from "../../../models/scoreData";
 
 export const LeaderboardPage = (): JSX.Element => {
     const [usersScore, setUsersScore] = useState<ScoreRequestData[]>([]);
@@ -22,12 +21,12 @@ export const LeaderboardPage = (): JSX.Element => {
     useEffect(() => {
         getLeaderboardData(currentTheme).then(async leaderboardScore => {
             setUsersScore(leaderboardScore);
-            getAvatars(leaderboardScore);
+            await getAvatars(leaderboardScore);
         });
 
         const getAvatars = async (usersScore: ScoreRequestData[]) => {
             const newLeaderboardAvatars: ScoreRequestData[] = await Promise.all(usersScore.map(async (el: ScoreRequestData) => {
-                const userAvatar = await getUserById(el.data.userId) as ScoreData;
+                const userAvatar = await getUserById(el.data.userId) ;
                 el.data.avatar = userAvatar.avatar;
                 return el;
             }));

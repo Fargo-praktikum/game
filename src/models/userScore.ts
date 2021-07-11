@@ -7,5 +7,5 @@ export interface UserScore {
     score: number
     userId?: number,
     theme?: string,
-    avatar?: string,
+    avatar?: string | null,
 }

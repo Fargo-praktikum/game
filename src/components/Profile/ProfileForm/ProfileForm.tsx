@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React, { FormEvent, useCallback, useEffect, useReducer } from "react";
+import React, { ChangeEventHandler, FormEvent, useCallback, useEffect, useReducer } from "react";
 import { ProfileFormField } from "../ProfileFormField";
 import { Button } from "../../Button/Button";
 import * as Yup from "yup";
@@ -90,12 +90,14 @@ export const ProfileForm = (): JSX.Element => {
     );
 
     const onChangeAvatar = useCallback(
-        async (e: Event | dataDnD) => {
+        async (event: dataDnD | ChangeEventHandler<HTMLInputElement>) => {
             let files;
-            if ("target" in e) {
-                files = (e.target as HTMLInputElement).files;
+            if ("target" in event) {
+                files = ((event as Event).target as HTMLInputElement).files;
             } else {
-                files = e.fileList;
+                if ("fileList" in event) {
+                    files = event.fileList;
+                }
             }
             if (!files) return;
 
@@ -105,9 +107,9 @@ export const ProfileForm = (): JSX.Element => {
             try {
                 await dispatch(changeUserAvatar(formData));
             }
-            catch (e) {
+            catch (event) {
                 console.error("Что-то пошло не так");
-                console.error(e);
+                console.error(event);
             }
         },
         []
@@ -151,7 +153,7 @@ export const ProfileForm = (): JSX.Element => {
                                 alt="Аватар"/>
                             <DragAndDrop data={dataDnD} dispatch={dispatchDnD} />
                         </label>
-                        <input id="file-input" type="file" onChange={onChangeAvatar}/>
+                        <input id="file-input" type="file" onChange={onChangeAvatar as unknown as ChangeEventHandler}/>
                     </div>
                 </div>
                 <Formik<UserProfile>

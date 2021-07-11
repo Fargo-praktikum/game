@@ -1,4 +1,3 @@
-import store from "../store/store";
 import { merge } from "../scripts/utils/myDash/merge";
 import scoreData from "../models/scoreData";
 import LeaderboardApi from "../api/leaderboardApi";
