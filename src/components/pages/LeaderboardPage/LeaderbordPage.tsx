@@ -10,7 +10,6 @@ import { getLeaderboardData } from "../../../services/leaderboardService";
 import ScoreRequestData from "../../../models/scoreRequestData";
 import { SidebarProfile } from "../../Profile/SidebarProfile/SidebarProfile";
 import { getUserById } from "../../../services/getUserById";
-import User from "../../../models/user";
 
 export const LeaderboardPage = (): JSX.Element => {
     const [usersScore, setUsersScore] = useState<ScoreRequestData[]>([]);
