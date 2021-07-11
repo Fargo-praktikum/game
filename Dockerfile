@@ -7,4 +7,4 @@ EXPOSE 5000
 RUN npm install
 RUN npm run build-dev
 
-CMD node serverDist/index.js
+CMD node serverDist/server.js

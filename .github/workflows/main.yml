@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ 9-spring-migrations-and-fixes ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -51,6 +51,7 @@ jobs:
 
     copy-files:
         runs-on: ubuntu-latest
+        needs: [build-and-push-image]
 
         steps:
             -   name: Checkout repository
