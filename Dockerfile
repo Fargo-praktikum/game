@@ -7,4 +7,4 @@ EXPOSE 5000
 RUN npm install
 RUN npm run build-dev
 
-CMD node serverDist/server.js
+CMD npx sequelize db:migrate --url postgresql://postgres:newPassword@postgres:5432/fargo-cards ; node serverDist/server.js

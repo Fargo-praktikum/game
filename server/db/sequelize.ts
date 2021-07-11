@@ -8,7 +8,7 @@ import { UserTheme } from "./models/theme/userTheme";
 import { SiteTheme } from "./models/theme/siteTheme";
 
 const sequelizeOptions: SequelizeOptions = {
-    host: process.env.NODE_ENV === "development" ? "localhost" : "postgres",
+    host: "postgres",
     port: 5432,
     username: "postgres",
     password: "newPassword",
