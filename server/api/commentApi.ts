@@ -11,7 +11,7 @@ interface AddEmojiRequest {
 
 export default class CommentApi {
 
-    static request = async (request: Request<void, void, void, { topicId: string }>, response: Response) => {
+    static request = async (request: Request<any, any, any, { topicId: string }>, response: Response) => {
         try {
             response.send(await commentService.request(Number((request.query.topicId))));
         }
