@@ -11,6 +11,4 @@ COPY --from=build /app/dist /app/dist
 COPY --from=build /app/serverDist /app/serverDist
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/migrations /app/migrations
-COPY --from=build /app/ya-docker-entrypoint.sh /app/ya-docker-entrypoint.sh
-RUN chmod +x /app/ya-docker-entrypoint.sh
-ENTRYPOINT ["/app/ya-docker-entrypoint.sh"]
+CMD npx sequelize db:migrate --migrations-path /app/migrations --url postgresql://postgres:newPassword@postgres:5432/fargo-cards ; node /app/serverDist/server.js

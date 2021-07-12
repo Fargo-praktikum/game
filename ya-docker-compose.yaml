@@ -2,7 +2,7 @@ version: "3"
 
 services:
     server-app:
-        image: ghcr.io/fargo-praktikum/game:main
+        image: ghcr.io/fargo-praktikum/game:9-spring-migrations-and-fixes
         depends_on:
             - postgres
         ports:
