@@ -9,14 +9,13 @@
         "lint-styles": "stylelint \"src/**/*.scss\"",
         "lint-fix": "eslint . --fix",
         "build-prod": "npm-run-all lint lint-styles test webpack-prod",
-        "build-dev/heroku": "npm-run-all lint lint-styles webpack-dev/heroku",
+        "build-dev_heroku": "npm-run-all lint lint-styles webpack-dev_heroku",
         "webpack-prod": "NODE_ENV=production webpack",
-        "webpack-dev/heroku": "NODE_ENV=development webpack",
+        "webpack-dev_heroku": "NODE_ENV=development webpack",
         "start": "set HTTP_PROTOCOL=http&& set NODE_ENV=development&& webpack --watch",
         "again": "NODE_ENV=development webpack --watch",
         "start:container-prod": "docker compose up",
-        "start:container-dev": "docker compose -f docker-compose.dev.yaml up",
-        "start:container-heroku": "docker compose -f docker-compose.heroku.yaml up",
+        "start:container-dev": "echo `NOT WORKING NOW docker compose -f docker-compose.dev.yaml up`",
         "stop:container": "docker-compose stop"
     },
     "repository": {

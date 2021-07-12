@@ -7,3 +7,4 @@ serverDist
 pgadmin-data/*
 postgres-data/*
 server/devCert/*.pem
+production.env

@@ -25,10 +25,13 @@ const tryToConnectToDB = async () => {
             console.log(e);
             --retries;
             console.log(`retries left ${retries}`);
-            await new Promise(res => setTimeout(res, 5000));
+            await new Promise(res => setTimeout(res, 1000));
         }
 
     }
 };
 
-tryToConnectToDB();
+tryToConnectToDB()
+    .then(() => {
+        if (!retries) startApp({ server });
+    });
