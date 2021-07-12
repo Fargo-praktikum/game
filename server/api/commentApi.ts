@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import CommentService, { CreateRequest } from "../services/commentService";
 import UserService from "../services/userService";
+import { handleError } from "./utils/sendError";
 
 const commentService = new CommentService();
 const userService = new UserService();
@@ -16,9 +17,7 @@ export default class CommentApi {
             response.send(await commentService.request(Number((request.query.topicId))));
         }
         catch (e) {
-            // TODO надо бы где-то сделать метод, в который это запихнуть
-            console.log(e);
-            response.status(500).send({ error: "Cannot get comments" });
+            handleError(e, "Cannot get comments", response);
         }
     };
 
@@ -30,9 +29,7 @@ export default class CommentApi {
             response.status(200).send();
         }
         catch (e) {
-            // TODO надо бы где-то сделать метод, в который это запихнуть
-            console.log(e);
-            response.status(500).send({ error: "Cannot add emoji" });
+            handleError(e, "Cannot add emoji", response);
         }
     };
 

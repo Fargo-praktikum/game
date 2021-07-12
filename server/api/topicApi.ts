@@ -1,6 +1,7 @@
 import TopicService, { CreateRequest } from "../services/topicService";
 import { Request, Response } from "express";
 import UserService from "../services/userService";
+import { handleError } from "./utils/sendError";
 
 const topicService = new TopicService();
 const userService = new UserService();
@@ -22,8 +23,7 @@ export default class TopicApi {
             response.send(await topicService.create(request.body));
         }
         catch (e) {
-            console.error(e);
-            response.status(500).send({ error: "Cannot create topic", details: e });
+            handleError(e, "Cannot create topic", response);
         }
     };
 
@@ -32,8 +32,7 @@ export default class TopicApi {
             response.send(await topicService.request(request.query));
         }
         catch (e) {
-            console.error(e);
-            response.status(500).send({ error: "Cannot get topics" });
+            handleError(e, "Cannot get topics", response);
         }
     };
 
