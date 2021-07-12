@@ -5,7 +5,7 @@ import { AllowNull, AutoIncrement, Column, DataType, Index, Model, PrimaryKey, T
     paranoid: true,
     tableName: "site_theme"
 })
-export class SiteTheme extends Model<SiteTheme> {
+export class SiteTheme extends Model<SiteTheme, { theme: string, description: string }> {
     @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)

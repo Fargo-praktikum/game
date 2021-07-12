@@ -31,12 +31,19 @@ if (!process.env.DATABASE_URL) {
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
-export const initEmoji = async () => {
+export const initDatabaseValues = async () => {
     const emojiRepository = sequelize.getRepository(Emoji);
+    const themeRepository = sequelize.getRepository(SiteTheme);
+
 
     if ((await emojiRepository.findAll()).length === 0) {
         emojiRepository.create({ iconName: "fire-solid.svg" });
         emojiRepository.create({ iconName: "poop-solid.svg" });
+    }
+
+    if ((await themeRepository.findAll()).length === 0) {
+        themeRepository.create({ theme: "STARS", description: "star theme" });
+        themeRepository.create({ theme: "BASIC", description: "basic white theme" });
     }
 };
 

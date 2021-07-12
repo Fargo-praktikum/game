@@ -1,6 +1,6 @@
 import { server } from "./server";
 import { startApp } from "./helpers/startApp";
-import sequelize, { initEmoji } from "./db/sequelize";
+import sequelize, { initDatabaseValues } from "./db/sequelize";
 
 (async function() {
     try {
@@ -9,7 +9,7 @@ import sequelize, { initEmoji } from "./db/sequelize";
 
         sequelize.sync().then(() => {
 
-            initEmoji().then(() => {
+            initDatabaseValues().then(() => {
                 console.log("synced");
             });
 
