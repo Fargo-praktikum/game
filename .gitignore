@@ -5,5 +5,5 @@ dist/
 .idea
 serverDist
 pgadmin-data/*
-postgresdata/*
+postgres-data/*
 server/devCert/*.pem

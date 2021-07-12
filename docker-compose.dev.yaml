@@ -4,15 +4,18 @@ services:
     ssr-app:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.dev
         depends_on:
             - postgres
         ports:
             - "5000:5000"
-        env_file: production.env
+        volumes:
+            # что бы слушать файлы
+            - ./SSR-frontend:/server
+        env_file: development.env
         networks:
             - main-networks
-        restart: on-failure
+        restart: always
 
     postgres:
         image: postgres:12
@@ -20,21 +23,15 @@ services:
             - "5432:5432"
         volumes:
             - ./postgres-data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_USER: postgresUser
-            POSTGRES_PASSWORD: newPassword
-            POSTGRES_DB: fargo-cards
+        env_file: development.env
         networks:
             - main-networks
-#        restart: always
+        restart: always
 
     pgadmin:
         container_name: pgadmin
         image: dpage/pgadmin4:4.18
-        environment:
-            PGADMIN_DEFAULT_EMAIL: admin@admin.com
-            PGADMIN_DEFAULT_PASSWORD: secret
-            PGADMIN_LISTEN_PORT: 80
+        env_file: development.env
         ports:
             - "8080:80"
         volumes:
@@ -43,12 +40,8 @@ services:
             - postgres
         networks:
             - main-networks
-#        restart: always
+        restart: always
 
 networks:
     main-networks:
         driver: bridge
-
-volumes:
-    postgres-data:
-    pgadmin-data:

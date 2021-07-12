@@ -1,7 +1,14 @@
 FROM node:13.12.0-alpine as build
+
 WORKDIR /server
-COPY . /server/
+
+COPY ./package*.json .
+RUN npm install
+
+COPY . .
 
 EXPOSE 5000
 
-RUN npm install && npm run build-dev
+RUN npm run build-dev/heroku
+
+CMD node serverDist/index.js

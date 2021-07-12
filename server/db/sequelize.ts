@@ -8,11 +8,6 @@ import { UserTheme } from "./models/theme/userTheme";
 import { SiteTheme } from "./models/theme/siteTheme";
 
 const sequelizeOptions: SequelizeOptions = {
-    host: "localhost",
-    port: 5432,
-    username: "postgresUser",
-    password: "newPassword",
-    database: "fargo-cards",
     models: [
         User,
         Topic,
@@ -32,7 +27,7 @@ const sequelizeOptions: SequelizeOptions = {
     }
 };
 
-const sequelize = new Sequelize(sequelizeOptions);
+const sequelize = new Sequelize(`${process.env.DATABASE_URL!}`, sequelizeOptions);
 
 export const initEmoji = async () => {
     const emojiRepository = sequelize.getRepository(Emoji);
