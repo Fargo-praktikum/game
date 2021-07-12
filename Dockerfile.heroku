@@ -1,6 +1,7 @@
-FROM node:13.12.0-alpine as build
+FROM ubuntu:18.04
+RUN apt update && apt install -y nodejs && apt install -y npm
 
-WORKDIR /server
+WORKDIR /var/www
 
 COPY ./package*.json .
 RUN npm install
@@ -16,4 +17,4 @@ ENV DATABASE_URL=postgres://postgresUser:newPassword@postgres:5432/fargo-cards
 
 RUN npm run build-dev_heroku
 
-CMD node serverDist/index.js
+CMD [ "node", "./serverDist/index.js" ]
