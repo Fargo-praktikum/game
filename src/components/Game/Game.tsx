@@ -6,8 +6,9 @@ import { EndGameScene } from "../../game/Scenes/endGameScene";
 import { MainGameScene } from "../../game/Scenes/mainGameScene";
 import { StartGameScene } from "../../game/Scenes/startGameScene";
 import { useAppSelector } from "../../hooks/storeHooks";
+import User from "../../models/user";
 import { merge } from "../../scripts/utils/myDash/merge";
-
+import "./game.scss";
 
 const sceneOptions = {
     fullScreen: {
@@ -28,9 +29,10 @@ const sceneOptionsBlack = merge(sceneOptions, {});
 sceneOptionsBlack.fullScreen.parameters.strokeColor = "black";
 
 export const Game = (): JSX.Element => {
-    const theme = useAppSelector((state): any | null => state.game.theme);
+    const theme = useAppSelector((state): string => state.game.theme);
     sceneOptions.theme = theme;
 
+    const user = useAppSelector((state): User | null => state.auth.userInfo);
     const history = useHistory();
 
     const isOnline = useAppSelector((state) => state.app.isOnline);
@@ -53,7 +55,9 @@ export const Game = (): JSX.Element => {
                             setCurrentScene(sceneFactory("end", gameInfo));
                         },
                         sceneOptions: sceneOptionsBlack
-                    });
+                    },
+                    () => user
+                    );
                 case "end":
                     return new EndGameScene({
                         gameInfo: initialGameInfo,
@@ -83,9 +87,9 @@ export const Game = (): JSX.Element => {
             currentScene.keyUpHandler(key);
         };
 
-        const clickHandler = (e: MouseEvent) => {
+        const clickHandler = (e: any) => {
             currentScene.gameObjects.forEach(el => {
-                if (clickInObj({ x1: el.x1, x2: el.x2, y1: el.y1, y2: el.y2 },{ x: e.x, y: e.y })) {
+                if (clickInObj({ x1: el.x1, x2: el.x2, y1: el.y1, y2: el.y2 },{ x: e.layerX, y: e.layerY })) {
                     currentScene.keyUpHandler(el.key);
                 }
             });
@@ -100,8 +104,10 @@ export const Game = (): JSX.Element => {
 
     }, [currentScene]);
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    let width = Math.floor(window.innerWidth * 0.8);
+    if (width > 1000) width = 1000;
+    let height = Math.floor(window.innerHeight * 0.8);
+    if (height > 700) height = 700;
     const canvas = useRef<HTMLCanvasElement>(null);
 
     //update canvas size if window resize happen
@@ -124,7 +130,7 @@ export const Game = (): JSX.Element => {
         };
     });
 
-    return <canvas ref={canvas} width={width} height={height} />;
+    return <canvas className="gameCanvas" ref={canvas} width={width} height={height} />;
 };
 
 function useWindowSize() {

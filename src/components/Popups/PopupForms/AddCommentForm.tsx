@@ -39,8 +39,7 @@ const AddCommentForm = (props: { replyTo: number | null, topicId: number }): JSX
                 await dispatch(createComment({
                     content: values.content,
                     topicId: props.topicId,
-                    parentId: props.replyTo,
-                    userId: userInfo.id
+                    parentId: props.replyTo
                 }));
             }
             catch (e) {

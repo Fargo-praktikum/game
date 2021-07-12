@@ -5,6 +5,7 @@ import { shuffle } from "../utils/shuffle";
 import { updateScore } from "../../services/leaderboardService";
 import { sound } from "../utils/soundEffects";
 import { drawProgressBar } from "../utils/drawProgressBar";
+import User from "../../models/user";
 
 interface Stage {
     question: string;
@@ -26,17 +27,22 @@ export class MainGameScene extends SceneBase {
     private _currentStageIndex: number;
     private _answersHistory: boolean[] = [];
 
-    constructor({ gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface) {
+    constructor(
+        { gameInfo, nextSceneCallback, sceneOptions }: SceneBaseConstructorInterface,
+        userSelector: () => User | null
+    ) {
         super({ gameInfo, nextSceneCallback, sceneOptions });
 
         this._currentStageIndex = 0;
         this._currentPressedCard = undefined;
         this._currentScore = 0;
+        this._userSelector = userSelector();
 
         // пока выбранная тема не используется, просто выведем на консоль. чтобы проверить правильность установки
         console.log(`Current game theme is ${gameInfo.currentTheme ?? ""}`);
     }
 
+    private _userSelector: User | null;
 
     private _stages: Stage[] = shuffleCards(cardsData, this._gameInfo.currentTheme).questions;
 
@@ -50,8 +56,8 @@ export class MainGameScene extends SceneBase {
             context,
             x: 150,
             y: 50,
-            width: width * .65,
-            height: 20,
+            width: width * .7,
+            height: 15,
             radius: 5,
             answers: this._answersHistory,
             commonCount: this._stages.length,
@@ -60,7 +66,7 @@ export class MainGameScene extends SceneBase {
 
         const currentStage = this._stages[this._currentStageIndex];
         // плашка с вопросом
-        drawPlayCard(context, 150, height / 2 - 95, currentStage.question);
+        drawPlayCard(context, 150, height * 0.5 - 95, currentStage.question);
 
         this._drawAnswerCards(context, width, height, 1, this._currentPressedCard);
         this._drawAnswerCards(context, width, height, 2, this._currentPressedCard);
@@ -84,9 +90,9 @@ export class MainGameScene extends SceneBase {
             }
         }
 
-        const answCard1 = { x: width / 2, y: (height / 2) - (answerCardHeight * 1.5) - answerCardGap };
-        const answCard2 = { x: width / 2, y: (height / 2) - (answerCardHeight / 2) };
-        const answCard3 = { x: width / 2, y: (height / 2) + (answerCardHeight / 2) + answerCardGap };
+        const answCard1 = { x: width * 0.65, y: (height / 2) - (answerCardHeight * 1.5) - answerCardGap };
+        const answCard2 = { x: width * 0.65, y: (height / 2) - (answerCardHeight / 2) };
+        const answCard3 = { x: width * 0.65, y: (height / 2) + (answerCardHeight / 2) + answerCardGap };
 
         if (this.gameObjects.length < 3) {
             this.gameObjects.push({ name: cardsData.capitals.themeName, key: "1", x1: answCard1.x,
@@ -128,7 +134,7 @@ export class MainGameScene extends SceneBase {
             if (this._currentStageIndex >= this._stages.length) {
                 if (this._gameInfo.currentTheme) {
                     if (this._gameInfo.needUpdateScore) {
-                        updateScore(this._gameInfo.currentTheme, this._currentScore);
+                        updateScore(this._gameInfo.currentTheme, this._currentScore, this._userSelector);
                     }
                 } else {
                     console.log("CurrentTheme undefined");
@@ -158,7 +164,6 @@ export class MainGameScene extends SceneBase {
             setTimeout(nextPage, timeToNextPage);
         }
     }
-
 }
 
 function shuffleCards(cardsData: any, theme: string | number | null | undefined) {
@@ -168,10 +173,8 @@ function shuffleCards(cardsData: any, theme: string | number | null | undefined)
         shuffleCardsData[theme].questions.forEach((key: {[key: string]: string[]}) => {
             key.options = <string[]>shuffle(key.options);
         });
-
         return shuffleCardsData[theme];
     } else {
         throw new Error("Theme is not string.");
     }
-
 }

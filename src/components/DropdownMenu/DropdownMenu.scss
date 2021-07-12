@@ -1,9 +1,9 @@
 .dropdown {
-    position: relative;
-    width: 86px;
+    width: 300px;
+    margin: 15px auto auto;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    background-color: #eee;
+    background-color: #fff;
 
     &__header {
         padding: 15px;
@@ -14,14 +14,9 @@
     }
 
     &__body {
-        position: absolute;
-        top: 50px;
-        left: 0;
-        display: none;
-        width: 100%;
         padding: 5px;
         border-top: 1px solid #e5e8ec;
-        background-color: #eee;
+        display: none;
     }
 
     &__body.open {

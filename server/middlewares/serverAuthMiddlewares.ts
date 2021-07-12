@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import axios from "axios";
-
 import { baseUrl } from "../../configs/baseUrl";
-import { setUser } from "../../src/store/authReducer";
-import store from "../../src/store/store";
+import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
+
 
 const checkHasAuthCookie = (cookies: any): boolean => {
     return ("authCookie" in cookies);
 };
 
-const cookieToString = (cookies: any): string => {
+
+const cookieToString = (cookies: Record<string, string>): string => {
     let res = "";
 
     if (cookies) {
-        Object.entries<string>(cookies).forEach(([key, value], ind) => {
+        Object.entries(cookies).forEach(([key, value], ind) => {
             res += `${ind === 0 ? "" : " "}${key}=${value};`;
         });
     }
@@ -22,8 +22,7 @@ const cookieToString = (cookies: any): string => {
 };
 
 
-export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunction) => {
-    console.log("зашел в pagesAuthMiddleware");
+export const pagesAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
 
     const hasAuthCookie = checkHasAuthCookie(cookies);
@@ -44,7 +43,7 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
             }
         })
         .then(resp => {
-            return store.dispatch(setUser(resp.data));
+            res.locals["user"] = resp.data;
         })
         .then((_res) => {
             next();
@@ -54,6 +53,7 @@ export const pagesAuthMiddleware = (req: Request, _res: Response, next: NextFunc
             next();
         });
 };
+
 
 export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
@@ -74,7 +74,7 @@ export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunctio
             }
         })
         .then(resp => {
-            res.locals["user"] = resp.data;
+            res.locals["user"] = fromSnakeCase(resp.data);
         })
         .then((_res) => {
             next();

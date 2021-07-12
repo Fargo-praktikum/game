@@ -36,11 +36,6 @@ class PopupboxManager extends EventEmitter {
     open({ content, config = {} }: openType) {
         this.content = content || null;
 
-        // if (Object.keys(config).length > 0) {
-        //     this.config = config;
-        // } else if (this._defaultConfig) {
-        //     this.config = this._defaultConfig;
-        // }
         this.config = config || this._defaultConfig;
 
         this.show = true;

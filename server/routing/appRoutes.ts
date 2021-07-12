@@ -3,6 +3,7 @@ import { pagesAuthMiddleware } from "../middlewares/serverAuthMiddlewares";
 import serverRenderMiddleware from "../middlewares/serverRenderMiddleware";
 import { stopSpamMiddleware } from "../middlewares/stopSpamMiddleware";
 
+
 const isDev = process.env.NODE_ENV === "development";
 const isHttps = process.env.HTTP_PROTOCOL === "https";
 
@@ -12,6 +13,7 @@ const commonAppMiddlewares = [
     serverRenderMiddleware
 ].filter(Boolean) as Array<RequestHandler>;
 
-export const appRoutes = (router: Router) => {
+
+export const appRoutes = (router: Router): void => {
     router.use("/*", commonAppMiddlewares);
 };

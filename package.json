@@ -14,7 +14,7 @@
         "webpack-dev_heroku": "NODE_ENV=development webpack",
         "start": "set HTTP_PROTOCOL=http&& set NODE_ENV=development&& webpack --watch",
         "run-app": "node ./serverDist/index.js",
-        "start:container-prod": "docker compose up",
+        "start:container": "docker compose up",
         "start:container-dev": "echo `NOT WORKING NOW docker compose -f docker-compose.dev.yaml up`",
         "stop:container": "docker-compose stop"
     },
@@ -69,6 +69,7 @@
         "react-test-renderer": "^17.0.2",
         "sass": "^1.32.8",
         "sass-loader": "^11.0.1",
+        "sequelize-cli": "^6.2.0",
         "serialize-javascript": "^5.0.1",
         "stylelint": "^13.12.0",
         "stylelint-config-sass-guidelines": "^8.0.0",
@@ -85,6 +86,8 @@
         "node": ">= 12.0.0"
     },
     "dependencies": {
+        "@material-ui/core": "^4.11.4",
+        "@material-ui/icons": "^4.11.2",
         "@reduxjs/toolkit": "^1.5.1",
         "@types/node": "^15.12.5",
         "@types/react": "^17.0.3",
@@ -98,6 +101,7 @@
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "formik": "^2.2.6",
+        "helmet": "^4.6.0",
         "https": "^1.0.0",
         "pg": "^8.6.0",
         "react": "^17.0.2",

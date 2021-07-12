@@ -36,7 +36,7 @@ export const App = (): JSX.Element => {
         return state.app.isOnline;
     });
     const mainTheme = useAppSelector((state) => state.game.theme);
-    const userInfo = useAppSelector((state): any | null => state.auth.userInfo);
+    const userInfo = useAppSelector((state) => state.auth.userInfo);
 
     useEffect(() => {
         if (!userInfo) {

@@ -4,15 +4,24 @@ import { Request, Response } from "express";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { Provider } from "react-redux";
 import App from "../../src/components/App/App";
-import store from "../../src/store/store";
 import { escapeObject } from "../../src/utils/escapeObject";
+import { createStore } from "../../src/store/store";
+import { setUser } from "../../src/store/authReducer";
+import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
 
 export default (req: Request, res: Response) => {
     console.log("зашел в serverRenderMiddleware");
     // console.log("req");
     // console.log(req);
     const location = req.baseUrl;
+
     const context: StaticRouterContext = {};
+
+    const store = createStore();
+
+    if (res.locals["user"]) {
+        store.dispatch(setUser(res.locals["user"]));
+    }
 
     const jsx = (
         <React.StrictMode>
@@ -51,9 +60,9 @@ function getHtml(reactHtml: string, reduxState = {}) {
             <link href="/static/app-bundle.css" rel="stylesheet">
         </head>
         <body>
-            <div id="root">${reactHtml}</div>
+            <div id="root" style="height: 100%">${reactHtml}</div>
             <script>
-                window.__INITIAL_STATE__ = ${escapeObject(JSON.stringify(reduxState)) }
+                window.__INITIAL_STATE__ = ${ escapeObject(JSON.stringify(fromSnakeCase(reduxState))) }
             </script>
             <script src="/static/app-bundle.js"></script>
         </body>

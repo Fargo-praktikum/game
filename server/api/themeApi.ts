@@ -1,5 +1,6 @@
 import ThemeService from "../services/themeService";
 import { Request, Response } from "express";
+import { handleError } from "./utils/sendError";
 
 const themeService = new ThemeService();
 
@@ -10,8 +11,7 @@ export default class ThemeApi {
             response.send(await themeService.create(request.body));
         }
         catch (e) {
-            console.error(e);
-            response.status(500).send({ error: "Cannot create theme" });
+            handleError(e, "Cannot create theme", response);
         }
     };
 
@@ -20,8 +20,7 @@ export default class ThemeApi {
             response.send(await themeService.update(request.body));
         }
         catch (e) {
-            console.error(e);
-            response.status(500).send({ error: "Cannot update theme" });
+            handleError(e, "Cannot update theme", response);
         }
     };
 
@@ -30,8 +29,7 @@ export default class ThemeApi {
             response.send(await themeService.request(request.query));
         }
         catch (e) {
-            console.error(e);
-            response.status(500).send({ error: "Cannot get theme" });
+            handleError(e, "Cannot get theme", response);
         }
     };
 

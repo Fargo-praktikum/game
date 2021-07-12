@@ -40,8 +40,7 @@ const AddTopicForm = (props: {onSubmitCallback: () => void}): JSX.Element => {
 
                 await dispatch(createTopic({
                     title: values.title,
-                    message: values.message,
-                    userId: userInfo.id
+                    message: values.message
                 }));
 
                 props.onSubmitCallback();

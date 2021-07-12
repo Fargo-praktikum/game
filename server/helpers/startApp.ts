@@ -37,8 +37,8 @@ console.log(APP_HOSTS);
 export const startApp = ({ server }: Options): void => {
     Loadable.preloadAll().then(async () => {
         if (isDev && isHttps) {
-            const key = readFileSync(resolve("server", "devCert","key.pem"));
-            const cert = readFileSync(resolve("server", "devCert","cert.pem"));
+            const key = readFileSync(resolve("server", "devCert", "key.pem"));
+            const cert = readFileSync(resolve("server", "devCert", "cert.pem"));
 
             https
                 .createServer({ key: key, cert: cert }, server)

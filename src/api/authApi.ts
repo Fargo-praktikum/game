@@ -68,12 +68,12 @@ export default class AuthAPI extends BaseApi {
         );
     }
 
-    async getOauthYandexServiceId(): Promise<string> {
+    async getOauthYandexServiceId(urlFromWindow: string): Promise<string> {
         const data = await this._http.get<{ service_id: string }>(
             "/oauth/yandex/service-id",
             {
                 data: {
-                    redirect_uri: appUrl
+                    redirect_uri: urlFromWindow
                 }
             }
         );

@@ -1,0 +1,22 @@
+.dragDropZone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px rgb(0 0 0 / 10%);
+
+    &__mainText {
+        font-weight: bold;
+    }
+}
+
+.dragDropZone p {
+    color: #000;
+}

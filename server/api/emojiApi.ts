@@ -1,5 +1,6 @@
 import EmojiService from "../services/emojiService";
 import { Request, Response } from "express";
+import { handleError } from "./utils/sendError";
 
 const emojiService = new EmojiService();
 
@@ -10,8 +11,7 @@ export default class EmojiApi {
             response.send(await emojiService.request());
         }
         catch (e) {
-            console.error(e);
-            response.status(500).send({ error: "Cannot get emojies" });
+            handleError(e, "Cannot get emojies", response);
         }
     };
 

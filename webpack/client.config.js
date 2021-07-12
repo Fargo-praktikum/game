@@ -6,6 +6,7 @@ const getClientEnvironment = require('./env');
 
 const dirName = path.join(__dirname, "../");
 
+
 const clientConfig = (packageEnv) => {
     const {NODE_ENV} = process.env;
     const isDev = NODE_ENV === "development";
