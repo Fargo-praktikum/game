@@ -9,7 +9,7 @@ services:
         ports:
             - "5000:5000"
         env_file:
-            - ./dev.env
+            - ./development.env
         restart:
             always
         networks:

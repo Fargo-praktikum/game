@@ -1,15 +1,15 @@
 import { Router } from "express";
 import ThemeApi from "../api/themeApi";
+import { apiAuthMiddleware } from "../middlewares/serverAuthMiddleware";
 
 export const themeRoutes = (router: Router) => {
 
     const themeRoute = Router();
 
-    // TODO тут в качестве миддваре должна передавать аутентификация. Прикрутить, когда появится
     themeRoute
-        .get("/", [], ThemeApi.request)
-        .post("/", [], ThemeApi.create)
-        .put("/", [], ThemeApi.update);
+        .get("/", [apiAuthMiddleware], ThemeApi.request)
+        .post("/", [apiAuthMiddleware], ThemeApi.create)
+        .put("/", [apiAuthMiddleware], ThemeApi.update);
 
     router.use("/api/theme", themeRoute);
 };

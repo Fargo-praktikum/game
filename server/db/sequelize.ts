@@ -6,12 +6,11 @@ import { CommentEmoji } from "./models/forum/commentEmoji";
 import { Emoji } from "./models/forum/emoji";
 import { UserTheme } from "./models/theme/userTheme";
 import { SiteTheme } from "./models/theme/siteTheme";
+import { config as dotEnvConfig } from "dotenv";
+
+dotEnvConfig();
 
 const sequelizeOptions: SequelizeOptions = {
-    host: "postgres",
-    port: 5432,
-    username: "postgres",
-    password: "newPassword",
     database: "fargo-cards",
     models: [
         User,
@@ -22,11 +21,15 @@ const sequelizeOptions: SequelizeOptions = {
         UserTheme,
         SiteTheme,
     ],
-    dialect: "postgres", // 'mysql', 'sqlite', 'mariadb', 'mssql'
+    dialect: "postgres",
     repositoryMode: true
 };
 
-const sequelize = new Sequelize(sequelizeOptions);
+if (!process.env.DATABASE_URL) {
+    throw new Error("Database connection uri not found");
+}
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
 export const initEmoji = async () => {
     const emojiRepository = sequelize.getRepository(Emoji);

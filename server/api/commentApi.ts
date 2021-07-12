@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import CommentService, { CreateRequest } from "../services/commentService";
+import CommentService from "../services/commentService";
 import UserService from "../services/userService";
 import { handleError } from "./utils/sendError";
 
@@ -37,15 +37,9 @@ export default class CommentApi {
         try {
             const { id: userId, login } = response.locals["user"];
 
-            // TODO тут проверяем, что переданный юзер совпадает с залогиненым
-            // по идее, можно было бы избавиться от передачи юзера, т.к. он уже тут есть, но не сейчас
-            if ((request.body as CreateRequest).userId !== parseInt(userId)) {
-                response.sendStatus(401);
-            }
-
             await userService.ensureUser({ id: userId, name: login });
 
-            response.send(await commentService.create(request.body));
+            response.send(await commentService.create({ ...request.body, userId }));
         }
         catch (e) {
             console.error(e);

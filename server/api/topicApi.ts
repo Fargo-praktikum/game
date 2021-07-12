@@ -1,4 +1,4 @@
-import TopicService, { CreateRequest } from "../services/topicService";
+import TopicService from "../services/topicService";
 import { Request, Response } from "express";
 import UserService from "../services/userService";
 import { handleError } from "./utils/sendError";
@@ -12,15 +12,9 @@ export default class TopicApi {
         try {
 
             const { id: userId, login } = response.locals["user"];
-
-            // TODO тут проверяем, что переданный юзер совпадает с залогиненым
-            // по идее, можно было бы избавиться от передачи юзера, т.к. он уже тут есть, но не сейчас
-            if ((request.body as CreateRequest).userId !== parseInt(userId)) {
-                response.sendStatus(401);
-            }
             await userService.ensureUser({ id: userId, name: login });
 
-            response.send(await topicService.create(request.body));
+            response.send(await topicService.create({ ...request.body, userId }));
         }
         catch (e) {
             handleError(e, "Cannot create topic", response);
