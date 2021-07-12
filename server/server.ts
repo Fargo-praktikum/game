@@ -16,7 +16,7 @@ server
                 ...helmet.contentSecurityPolicy.getDefaultDirectives(),
                 "default-src": ["'self'", "local.ya-praktikum.tech", "ya-praktikum.tech", "fargo-cards-5.ya-praktikum.tech", "fonts.googleapis.com/", "fonts.gstatic.com"],
                 "connect-src": ["'self'", "local.ya-praktikum.tech", "ya-praktikum.tech", "fonts.googleapis.com/", "*.googleapis.com", "fonts.gstatic.com"],
-                "img-src": ["'self'", "local.ya-praktikum.tech", "fargo-cards-5.ya-praktikum.tech", "*.googleapis.com", "data:" ],
+                "img-src": ["'self'", "local.ya-praktikum.tech", "ya-praktikum.tech", "fargo-cards-5.ya-praktikum.tech", "*.googleapis.com", "data:" ],
                 "script-src": ["'unsafe-inline'", "'self'", "fargo-cards-5.ya-praktikum.tech", "cdnjs.cloudflare.com"],
                 "style-src": ["'unsafe-inline'", "'self'", "fonts.googleapis.com"],
                 "font-src": ["'self'", "fonts.googleapis.com", "data:", "fonts.gstatic.com", "data:"],

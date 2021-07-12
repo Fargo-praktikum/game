@@ -29,7 +29,7 @@ const sceneOptionsBlack = merge(sceneOptions, {});
 sceneOptionsBlack.fullScreen.parameters.strokeColor = "black";
 
 export const Game = (): JSX.Element => {
-    const theme = useAppSelector((state): any | null => state.game.theme);
+    const theme = useAppSelector((state): string => state.game.theme);
     sceneOptions.theme = theme;
 
     const user = useAppSelector((state): User | null => state.auth.userInfo);

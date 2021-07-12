@@ -63,7 +63,7 @@ export const ProfileMain = (): JSX.Element => {
                     />
                     <ProfileMainField
                         label="Игровая тема"
-                        placeholder={themeInfo}
+                        placeholder={themeInfo ? themeInfo : "BASIC"}
                     />
                 </div>
                 <div className="form__field">

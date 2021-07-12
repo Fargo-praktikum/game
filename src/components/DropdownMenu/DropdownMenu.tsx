@@ -4,7 +4,7 @@ import { changeTheme } from "../../store/gameReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 
 interface DropdownMenuProps {
-    data: {
+    defaultData: {
         id: number,
         label: string
     }[],
@@ -13,7 +13,7 @@ interface DropdownMenuProps {
 
 export const DropdownMenu = (props: DropdownMenuProps) => {
     const [isOpen, setOpen] = useState(false);
-    const [items] = useState(props.data);
+    const items = [...props.defaultData];
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const dispatch = useAppDispatch();
     const toggleDropdown = () => setOpen(!isOpen);
@@ -35,6 +35,7 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
     const handleItemClick = (id: any) => {
         selectedItem == id ? setSelectedItem(null) : setSelectedItem(id);
         handleSubmit(id);
+        setOpen(!isOpen);
     };
 
 
