@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import axios from "axios";
 
 import { baseUrl } from "../../configs/baseUrl";
+import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
 
 const checkHasAuthCookie = (cookies: any): boolean => {
     return ("authCookie" in cookies);
@@ -74,7 +75,7 @@ export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunctio
             }
         })
         .then(resp => {
-            res.locals["user"] = resp.data;
+            res.locals["user"] = fromSnakeCase(resp.data);
         })
         .then((_res) => {
             next();

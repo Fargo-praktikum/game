@@ -7,3 +7,4 @@ export const phoneRexep = /^\+?\d{11}$/i;
 export const passwordMinLength = 6;
 
 export const appUrl = "http://local.ya-praktikum.tech";
+

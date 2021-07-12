@@ -7,10 +7,12 @@ import App from "../../src/components/App/App";
 import { escapeObject } from "../../src/utils/escapeObject";
 import { createStore } from "../../src/store/store";
 import { setUser } from "../../src/store/authReducer";
+import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
 
 export default (req: Request, res: Response) => {
 
     const location = req.baseUrl;
+
     const context: StaticRouterContext = {};
 
     const store = createStore();
@@ -58,7 +60,7 @@ function getHtml(reactHtml: string, reduxState = {}) {
         <body>
             <div id="root" style="height: 100%">${reactHtml}</div>
             <script>
-                window.__INITIAL_STATE__ = ${escapeObject(JSON.stringify(reduxState)) }
+                window.__INITIAL_STATE__ = ${ escapeObject(JSON.stringify(fromSnakeCase(reduxState))) }
             </script>
             <script src="/static/app-bundle.js"></script>
         </body>

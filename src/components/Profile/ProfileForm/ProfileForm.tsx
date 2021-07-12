@@ -139,7 +139,9 @@ export const ProfileForm = (): JSX.Element => {
     );
 
     useEffect(() => {
-        onChangeAvatar(dataDnD);
+        if (dataDnD.fileList.length > 0) {
+            onChangeAvatar(dataDnD);
+        }
     }, [dataDnD.fileList]);
 
     return (
@@ -201,7 +203,7 @@ export const ProfileForm = (): JSX.Element => {
                                     name="phone"
                                     label="Телефон"
                                 />
-                                <DropdownMenu data={themeData} text="Выберите тему игрового поля"/>
+                                <DropdownMenu defaultData={themeData} text="Выберите тему игрового поля"/>
                             </div>
                             <div className="floating-label-form__action-block">
                                 <div className="floating-label-form__error-message">{status}</div>

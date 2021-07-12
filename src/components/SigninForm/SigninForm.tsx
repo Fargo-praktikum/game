@@ -23,7 +23,10 @@ const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
 });
 
 
+
 export const SigninForm = (): JSX.Element => {
+
+    const urlFromWindow = window.location.host;
 
     const history = useHistory();
 
@@ -62,9 +65,9 @@ export const SigninForm = (): JSX.Element => {
         async () => {
             const authApi = new AuthAPI();
 
-            const serviceId = await authApi.getOauthYandexServiceId();
+            const serviceId = await authApi.getOauthYandexServiceId(urlFromWindow);
 
-            window.location.href = ` https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=https://localhost:5000`;
+            window.location.href = ` https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${urlFromWindow}`;
         },
         []
     );
