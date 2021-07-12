@@ -12,28 +12,16 @@ export type defaultConfigType = {
     closeBtn: boolean,
     padding: boolean,
     content: { [key in string]: any },
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onOpen?: Function,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onComplete?: Function,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onCleanUp?: Function,
+    onOpen?: (...args: unknown[]) => void,
+    onComplete?: (...args: unknown[]) => void,
+    onCleanUp?: (...args: unknown[]) => void,
 
     transition?: string;
     callback?: any;
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onClosed?: Function;
+    onClosed?: (...args: unknown[]) => void;
     children?: ReactChildren;
     style?: any;
 };
-
-// export interface IStatePopup extends defaultConfigType {
-//     transition?: string;
-//     callback?: NodeJS.Timeout;
-//     onClosed?: Function;
-//     children?: ReactChildren;
-//     style?: any;
-// }
 
 export type getConfigType = {
     params: Partial<defaultConfigType>
