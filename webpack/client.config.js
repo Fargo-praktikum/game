@@ -19,14 +19,14 @@ const clientConfig = (packageEnv) => {
     return {
         mode: process.env.NODE_ENV,
         entry: {
-            app: path.join(dirName, "/src/index.tsx"),
+            "static/app": path.join(dirName, "/src/index.tsx"),
             sw: {
                 import: path.join(dirName, "/src/sw.ts"),
-                filename: "../[name].js"
+                filename: "[name].js"
             }
         },
         output: {
-            path: path.join(dirName, "dist", "static"),
+            path: path.join(dirName, "dist"),
             filename: "[name]-bundle.js",
             clean: true
         },
@@ -48,7 +48,8 @@ const clientConfig = (packageEnv) => {
                             loader: 'file-loader',
                             options: {
                                 name: '[name].[ext]',
-                                publicPath: '/static'
+                                publicPath: '/',
+                                esModule: false
                             }
                         }
                     ]

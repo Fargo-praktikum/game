@@ -5,6 +5,6 @@ dist/
 .idea
 serverDist/
 pgadmin-data/
-postgres-data/
+postgresdata/
 server/devCert/*.pem
 production.env

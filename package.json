@@ -12,7 +12,7 @@
         "build-dev_heroku": "npm-run-all lint lint-styles webpack-dev_heroku",
         "webpack-prod": "NODE_ENV=production webpack",
         "webpack-dev_heroku": "NODE_ENV=development webpack",
-        "start": "set HTTP_PROTOCOL=http&& set NODE_ENV=development&& webpack --watch",
+        "start": "set HTTP_PROTOCOL=https&& set NODE_ENV=development&& webpack --watch",
         "run-app": "node ./serverDist/index.js",
         "start:container": "docker compose up",
         "start:container-dev": "echo `NOT WORKING NOW docker compose -f docker-compose.dev.yaml up`",

@@ -6,4 +6,4 @@ dist
 serverDist
 *.env
 pgadmin-data
-postgres-data
+postgresdata

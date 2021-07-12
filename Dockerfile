@@ -9,6 +9,6 @@ COPY . .
 
 EXPOSE 5000
 
-RUN npm run dev_heroku
+RUN npm run build-dev_heroku
 
 CMD npx sequelize db:migrate --url postgresql://postgres:newPassword@postgres:5432/fargo-cards ; node serverDist/index.js
