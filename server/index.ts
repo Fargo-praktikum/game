@@ -7,8 +7,6 @@ import sequelize, { initEmoji } from "./db/sequelize";
         await sequelize.authenticate();
         console.log("Connection has been established successfully.");
 
-        //TODO хочешь полность пересоздать БД - расскомменти, а другую закомменти
-        //sequalize.sync({ force: true }).then(() => {
         sequelize.sync().then(() => {
 
             initEmoji().then(() => {

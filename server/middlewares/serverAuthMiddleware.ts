@@ -7,7 +7,7 @@ const checkHasAuthCookie = (cookies: any): boolean => {
     return ("authCookie" in cookies);
 };
 
-const cookieToString = (cookies: any): string => {
+const cookieToString = (cookies: Record<string, string>): string => {
 
     let res = "";
 

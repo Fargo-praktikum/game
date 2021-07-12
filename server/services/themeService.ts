@@ -43,7 +43,7 @@ export default class ThemeService extends RestServiceBase<UserTheme> {
             },
         });
         if (userTheme) {
-            return this._siteThemeRepository.findByPk(userTheme?.themeId);
+            return this._siteThemeRepository.findByPk(userTheme.themeId);
         } else {
             return this.create(data.id!);
         }
