@@ -16,7 +16,7 @@ export default class TopicApi {
             // TODO тут проверяем, что переданный юзер совпадает с залогиненым
             // по идее, можно было бы избавиться от передачи юзера, т.к. он уже тут есть, но не сейчас
             if ((request.body as CreateRequest).userId !== parseInt(userId)) {
-                response.status(401).send();
+                response.sendStatus(401);
             }
             await userService.ensureUser({ id: userId, name: login });
 

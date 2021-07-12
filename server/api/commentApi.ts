@@ -21,12 +21,12 @@ export default class CommentApi {
         }
     };
 
-    static addEmoji = async (request: Request, response: Response) => {
+    static addEmoji = async (request: Request<any, any, AddEmojiRequest>, response: Response) => {
         try {
 
-            await commentService.addEmoji(parseInt(request.params.commentId), (request.body as AddEmojiRequest).emojiId);
+            await commentService.addEmoji(parseInt(request.params.commentId), request.body.emojiId);
 
-            response.status(200).send();
+            response.sendStatus(200);
         }
         catch (e) {
             handleError(e, "Cannot add emoji", response);
@@ -40,7 +40,7 @@ export default class CommentApi {
             // TODO тут проверяем, что переданный юзер совпадает с залогиненым
             // по идее, можно было бы избавиться от передачи юзера, т.к. он уже тут есть, но не сейчас
             if ((request.body as CreateRequest).userId !== parseInt(userId)) {
-                response.status(401).send();
+                response.sendStatus(401);
             }
 
             await userService.ensureUser({ id: userId, name: login });
