@@ -13,7 +13,7 @@
         "webpack-prod": "NODE_ENV=production webpack",
         "webpack-dev_heroku": "NODE_ENV=development webpack",
         "start": "set HTTP_PROTOCOL=http&& set NODE_ENV=development&& webpack --watch",
-        "again": "NODE_ENV=development webpack --watch",
+        "run-app": "node ./serverDist/index.js",
         "start:container-prod": "docker compose up",
         "start:container-dev": "echo `NOT WORKING NOW docker compose -f docker-compose.dev.yaml up`",
         "stop:container": "docker-compose stop"

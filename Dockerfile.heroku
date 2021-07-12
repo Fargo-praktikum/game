@@ -1,8 +1,6 @@
-FROM ubuntu:18.04
+FROM node:14
 
-RUN apt update && apt install -y nodejs && apt install -y npm
-
-WORKDIR /var/www
+WORKDIR /server
 
 COPY ./package*.json .
 RUN npm install
@@ -11,11 +9,12 @@ COPY . .
 
 EXPOSE 5000
 
-ENV NODE_ENV=development
-ENV HTTP_PROTOCOL=http
-ENV PORT=5000
-ENV DATABASE_URL=postgres://postgresUser:newPassword@postgres:5432/fargo-cards
+# env указал на самом хероку
+#ENV NODE_ENV=development
+#ENV HTTP_PROTOCOL=http
+#ENV PORT=5000
+#ENV DATABASE_URL=postgres://postgresUser:newPassword@postgres:5432/fargo-cards
 
 RUN npm run build-dev_heroku
 
-CMD [ "node", "./serverDist/index.js" ]
+CMD "npm run run-app"
