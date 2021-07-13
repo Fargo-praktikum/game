@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 
 import "./Forum.scss";
 
@@ -13,6 +13,7 @@ import Topic from "../../Forum/Topic/Topic";
 
 const ForumPage = (): JSX.Element => {
     const dispatch = useAppDispatch();
+    const { path } = useRouteMatch();
 
     useEffect(() => {
         dispatch(getTopics());
@@ -23,8 +24,14 @@ const ForumPage = (): JSX.Element => {
         <div className="forum__general">
             <ForumHeader/>
 
-            <Route exact path="/forum/:topicId" render={() => <Topic/>}/>
-            <Route exact path="/forum/" render={() => <TopicsList/>}/>
+            <Switch>
+                <Route exact path={path}>
+                    <TopicsList/>
+                </Route>
+                <Route path={`${path}/:topicId`}>
+                    <Topic/>
+                </Route>
+            </Switch>
 
             <PopupboxContainer/>
         </div>

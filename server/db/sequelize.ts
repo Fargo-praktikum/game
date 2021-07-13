@@ -8,7 +8,9 @@ import { UserTheme } from "./models/theme/userTheme";
 import { SiteTheme } from "./models/theme/siteTheme";
 import { config as dotEnvConfig } from "dotenv";
 
-dotEnvConfig();
+if (process.env.NODE_ENV === "development") {
+    dotEnvConfig({ path: `${process.env.NODE_ENV}.env` });
+}
 
 const sequelizeOptions: SequelizeOptions = {
     database: "fargo-cards",

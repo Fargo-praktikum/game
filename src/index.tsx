@@ -18,6 +18,17 @@ const preloadedState = window.__INITIAL_STATE__
     : undefined;
 delete window.__INITIAL_STATE__;
 
+// TODO выглядит костыльно, но пока не знаю, как победить этот момент
+// при передаче с сервера даты превращаются в строку
+preloadedState?.forum.comments.forEach((comment) => {
+    comment.createdAt = new Date(Date.parse(comment.createdAt as any));
+});
+
+preloadedState?.forum.topics.forEach((topic) => {
+    topic.createdAt = new Date(Date.parse(topic.createdAt as any));
+});
+//
+
 const store = createStore(preloadedState);
 
 function startServiceWorker() {

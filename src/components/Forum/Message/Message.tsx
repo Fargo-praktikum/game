@@ -56,7 +56,7 @@ const Message: React.FC<MessageType> = ({
                 </div>
                 <div className="message__info">
                     <p className="message__date">
-                        {date.toLocaleDateString()}&nbsp;
+                        {date.toLocaleDateString("en-US")}&nbsp;
                         {parentId &&
                              <a href={`#${parentId}`}>в ответ на {parentId}</a>
                         }

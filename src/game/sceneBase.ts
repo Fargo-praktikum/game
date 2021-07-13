@@ -56,6 +56,7 @@ export abstract class SceneBase {
 
         this._drawBackground(context, width, height);
 
+        this.gameObjects = [];
         this._drawGameObjects(context, width, height);
 
         if (this._sceneOptions?.fullScreen) {

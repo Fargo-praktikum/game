@@ -27,7 +27,8 @@ const serverConfig = {
                         loader: "file-loader",
                         options: {
                             esModule: false,
-                            emitFile: false
+                            emitFile: false,
+                            publicPath: "/"
                         },
                     },
                 ],

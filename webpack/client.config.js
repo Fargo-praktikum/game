@@ -36,7 +36,8 @@ const clientConfig = {
                     loader: 'file-loader',
                     options: {
                         //useRelativePath: true,
-                        esModule: false
+                        esModule: false,
+                        publicPath: "/"
                     }
                 }
             },
