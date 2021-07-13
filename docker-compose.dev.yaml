@@ -1,17 +1,20 @@
 version: "3.9"
 
 services:
-    server-app:
+    ssr-app:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.dev
         depends_on:
             - postgres
         ports:
             - "5000:5000"
-        env_file: ./development.env
+        volumes:
+            # что бы слушать файлы
+            - ./SSR-frontend:/server
+        env_file: development.env
         networks:
-            - awesome
+            - main-networks
         restart: always
 
     postgres:
@@ -19,16 +22,16 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - ./postgresdata:/var/lib/postgresql/data
-        env_file: ./development.env
+            - ./postgres-data:/var/lib/postgresql/data
+        env_file: development.env
         networks:
-            - awesome
+            - main-networks
         restart: always
 
     pgadmin:
         container_name: pgadmin
         image: dpage/pgadmin4:4.18
-        env_file: ./development.env
+        env_file: development.env
         ports:
             - "8080:80"
         volumes:
@@ -36,10 +39,9 @@ services:
         depends_on:
             - postgres
         networks:
-            - awesome
+            - main-networks
         restart: always
 
 networks:
-    awesome:
+    main-networks:
         driver: bridge
-

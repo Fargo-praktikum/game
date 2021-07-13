@@ -8,10 +8,11 @@ import { UserTheme } from "./models/theme/userTheme";
 import { SiteTheme } from "./models/theme/siteTheme";
 import { config as dotEnvConfig } from "dotenv";
 
+
 dotEnvConfig();
 
 const sequelizeOptions: SequelizeOptions = {
-    database: "fargo-cards",
+    // database: "fargo-cards",
     models: [
         User,
         Topic,
@@ -22,7 +23,13 @@ const sequelizeOptions: SequelizeOptions = {
         SiteTheme,
     ],
     dialect: "postgres",
-    repositoryMode: true
+    repositoryMode: true,
+    pool: {
+        max: 50,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    }
 };
 
 if (!process.env.DATABASE_URL) {
@@ -30,6 +37,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
+
 
 export const initDatabaseValues = async () => {
     const emojiRepository = sequelize.getRepository(Emoji);

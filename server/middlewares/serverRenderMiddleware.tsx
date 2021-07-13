@@ -10,7 +10,9 @@ import { setUser } from "../../src/store/authReducer";
 import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
 
 export default (req: Request, res: Response) => {
-
+    console.log("зашел в serverRenderMiddleware");
+    // console.log("req");
+    // console.log(req);
     const location = req.baseUrl;
 
     const context: StaticRouterContext = {};

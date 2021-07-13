@@ -2,8 +2,10 @@ import path from "path";
 import express from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import router from "./routing/router";
 import helmet from "helmet";
+import router from "./routing/router";
+
+
 const server = express();
 
 // TODO автор, по мануалу которого сделан SSR, рекомендует использовать это только для dev вурсии

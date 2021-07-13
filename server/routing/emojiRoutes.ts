@@ -1,6 +1,6 @@
 import { Router } from "express";
 import EmojiApi from "../api/emojiApi";
-import { apiAuthMiddleware } from "../middlewares/serverAuthMiddleware";
+import { setApiAuthMiddleware } from "../helpers/setApiAuthMiddleware";
 
 export const emojiRoutes = (router: Router) => {
 
@@ -8,7 +8,7 @@ export const emojiRoutes = (router: Router) => {
 
     // TODO тут в качестве миддваре должна передавать аутентификация. Прикрутить, когда появится
     emojiRoute
-        .get("/", [apiAuthMiddleware], EmojiApi.request);
+        .get("/", setApiAuthMiddleware(), EmojiApi.request);
 
     router.use("/api/emojies", emojiRoute);
 };

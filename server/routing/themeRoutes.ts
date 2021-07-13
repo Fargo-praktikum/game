@@ -1,15 +1,15 @@
 import { Router } from "express";
 import ThemeApi from "../api/themeApi";
-import { apiAuthMiddleware } from "../middlewares/serverAuthMiddleware";
+import { setApiAuthMiddleware } from "../helpers/setApiAuthMiddleware";
+
 
 export const themeRoutes = (router: Router) => {
-
     const themeRoute = Router();
 
     themeRoute
-        .get("/", [apiAuthMiddleware], ThemeApi.request)
-        .post("/", [apiAuthMiddleware], ThemeApi.create)
-        .put("/", [apiAuthMiddleware], ThemeApi.update);
+        .get("/", setApiAuthMiddleware(), ThemeApi.request)
+        .post("/", setApiAuthMiddleware(), ThemeApi.create)
+        .put("/", setApiAuthMiddleware(), ThemeApi.update);
 
     router.use("/api/theme", themeRoute);
 };

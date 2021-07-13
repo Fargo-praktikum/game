@@ -3,7 +3,8 @@ node_modules/
 coverage/
 dist/
 .idea
-serverDist
-pgadmin-data/*
-postgresdata/*
-server/devCert/*
+serverDist/
+pgadmin-data/
+postgresdata/
+server/devCert/*.pem
+production.env

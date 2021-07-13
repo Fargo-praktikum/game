@@ -17,3 +17,9 @@
 
 # Обычная (и серверная) аутентификация
 Адрес https://local.ya-praktikum.tech:5000/
+
+# Сводка по переменным
+- dev режим: NODE_ENV=development, HTTP_PROTOCOL=(http|https)
+- prod режим: NODE_ENV=production, HTTP_PROTOCOL=http
+- heroku режим: NODE_ENV=development, HTTP_PROTOCOL=http
+

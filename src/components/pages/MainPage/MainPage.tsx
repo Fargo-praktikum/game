@@ -170,4 +170,3 @@ export const MainPage = (): JSX.Element => {
         </>
     );
 };
-
