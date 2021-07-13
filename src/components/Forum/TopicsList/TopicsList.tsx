@@ -44,7 +44,7 @@ const TopicsList = (): JSX.Element => {
                                 <p className="f-list__from">
                                     {topic.user.name}
                                 </p>
-                                <div className="f-list_text">{topic.createdAt.toLocaleString()}</div>
+                                <div className="f-list_text">{topic.createdAt.toLocaleString("en-US")}</div>
                             </div>
                         </div>
                     );

@@ -81,6 +81,15 @@ export const Game = (): JSX.Element => {
 
     const [currentScene, setCurrentScene] = useState(sceneFactory("start", { currentTheme: null, needUpdateScore: isOnline }));
 
+    //update canvas size if window resize happen
+    const size = useWindowSize();
+
+    let width = Math.floor(size[0] * 0.8);
+    if (width > 1000) width = 1000;
+    let height = Math.floor(size[1] * 0.8);
+    if (height > 700) height = 700;
+    const canvas = useRef<HTMLCanvasElement>(null);
+
     useEffect(() => {
 
         const keyHandler = ({ key }: { key: string }) => {
@@ -103,15 +112,6 @@ export const Game = (): JSX.Element => {
         };
 
     }, [currentScene]);
-
-    let width = Math.floor(window.innerWidth * 0.8);
-    if (width > 1000) width = 1000;
-    let height = Math.floor(window.innerHeight * 0.8);
-    if (height > 700) height = 700;
-    const canvas = useRef<HTMLCanvasElement>(null);
-
-    //update canvas size if window resize happen
-    useWindowSize();
 
     useLayoutEffect(() => {
         if (canvas.current === null) throw new Error("Could not get current canvas");

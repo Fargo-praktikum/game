@@ -26,8 +26,6 @@ const formValidationSchema: Yup.SchemaOf<SigninRequestData> = Yup.object({
 
 export const SigninForm = (): JSX.Element => {
 
-    const urlFromWindow = window.location.host;
-
     const history = useHistory();
 
     const dispatch = useAppDispatch();
@@ -64,6 +62,8 @@ export const SigninForm = (): JSX.Element => {
     const handleOAuth = useCallback(
         async () => {
             const authApi = new AuthAPI();
+
+            const urlFromWindow = window.location.origin;
 
             const serviceId = await authApi.getOauthYandexServiceId(urlFromWindow);
 

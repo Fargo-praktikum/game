@@ -25,7 +25,7 @@ interface TopicListResponse {
     rows: TopicResponse[];
 }
 
-interface TopicList {
+export interface TopicList {
     total: number;
     topics: Topic[];
 }
@@ -46,7 +46,7 @@ interface CommentResponse {
      }]
 }
 
-const topicListAdapter = (topicListReponse: TopicListResponse): TopicList => {
+export const topicListAdapter = (topicListReponse: TopicListResponse): TopicList => {
     const res: TopicList = {
         total: topicListReponse.count,
         topics: topicListReponse.rows.map((topic) => {
@@ -78,7 +78,7 @@ const userAdapter = (userResponse: UserResponse): UserForumInfo => {
     return user;
 };
 
-const commentAdapter = (commentResponse: CommentResponse): Comment => {
+export const commentAdapter = (commentResponse: CommentResponse): Comment => {
 
     const emojies: Record<number, number> = {};
     commentResponse.emojies.forEach((emoji) => {

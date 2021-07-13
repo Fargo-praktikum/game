@@ -8,10 +8,12 @@ import { escapeObject } from "../../src/utils/escapeObject";
 import { createStore } from "../../src/store/store";
 import { setUser } from "../../src/store/authReducer";
 import { fromSnakeCase } from "../../src/utils/fromSnakeCase";
+import { setComments, setEmojies, setTopicsList } from "../../src/store/forumReducer";
+import { commentAdapter, topicListAdapter } from "../../src/api/forumApi";
 
 export default (req: Request, res: Response) => {
 
-    const location = req.baseUrl;
+    const location = req.originalUrl;
 
     const context: StaticRouterContext = {};
 
@@ -19,6 +21,19 @@ export default (req: Request, res: Response) => {
 
     if (res.locals["user"]) {
         store.dispatch(setUser(res.locals["user"]));
+    }
+
+    if (res.locals["forumPreload"]) {
+
+        const { topics, comments, emojies } = res.locals["forumPreload"];
+
+        store.dispatch(setTopicsList(topicListAdapter(topics).topics));
+        store.dispatch(setComments(
+            comments.map((comment: any) => {
+                return commentAdapter(comment);
+            })
+        ));
+        store.dispatch(setEmojies(emojies));
     }
 
     const jsx = (

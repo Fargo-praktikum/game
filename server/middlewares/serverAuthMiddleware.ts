@@ -44,7 +44,7 @@ export const pagesAuthMiddleware = (req: Request, res: Response, next: NextFunct
             }
         })
         .then(resp => {
-            res.locals["user"] = resp.data;
+            res.locals["user"] = fromSnakeCase(resp.data);
         })
         .then((_res) => {
             next();
