@@ -35,7 +35,6 @@ const clientConfig = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        //useRelativePath: true,
                         esModule: false,
                         publicPath: "/"
                     }
@@ -56,15 +55,6 @@ const clientConfig = {
         new MiniCssExtractPlugin({
             filename: "[name]-bundle.css",
         }),
-        // new CopyWebpackPlugin({
-        //     patterns: [
-        //         {
-        //             context: path.resolve(dirName),
-        //             from: "src/assets/",
-        //             to: "static"
-        //         }
-        //     ],
-        // }),
         new WebpackAssetsListPlugin({
             dir: path.join(dirName, "/dist")
         })
