@@ -86,6 +86,10 @@ jobs:
                     script: |
                         cd /var/app
 
+                        rm -f production.env
+
+                        env > production.env
+
                         mv ya-docker-compose.yaml docker-compose.yaml -f
 
                         sudo mv nginx.conf /etc/nginx -f
