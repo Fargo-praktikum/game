@@ -68,9 +68,9 @@ export const signIn = (data: SigninRequestData) => {
     };
 };
 
-export const oauthYndexSignIn = (code: string) => {
+export const oauthYndexSignIn = (code: string, redirectUri: string) => {
     return async (dispatch: TAppDispatch) => {
-        await authApi.oauthYandex(code);
+        await authApi.oauthYandex(code, redirectUri);
 
         return dispatch(getUser());
     };
