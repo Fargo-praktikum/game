@@ -71,10 +71,10 @@ jobs:
         needs: [build-and-push-image, copy-files]
 
         env:
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
-            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
 
         steps:
             -   name: run
