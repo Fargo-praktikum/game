@@ -4,7 +4,6 @@ import User from "../models/user";
 import { fromSnakeCase } from "../utils/fromSnakeCase";
 import toSnakeCase from "../utils/toSnakeCase";
 import { BaseApi } from "./baseApi";
-import { appUrl } from "../constants";
 
 export default class AuthAPI extends BaseApi {
 
@@ -56,13 +55,13 @@ export default class AuthAPI extends BaseApi {
         );
     }
 
-    async oauthYandex(code: string): Promise<unknown> {
+    async oauthYandex(code: string, redirectUri: string): Promise<unknown> {
         return this._http.post(
             "/oauth/yandex",
             {
                 data: {
                     code,
-                    redirect_uri: appUrl
+                    redirect_uri: redirectUri
                 }
             }
         );
