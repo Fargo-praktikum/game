@@ -14,6 +14,7 @@ import trophy from "../../../assets/trophy.png";
 import learn from "../../../assets/learn.png";
 
 import "./MainPage.scss";
+import { appUrl } from "../../../constants";
 
 
 const useStyles = makeStyles(() =>
@@ -93,7 +94,10 @@ export const MainPage = (): JSX.Element => {
 
     useEffect(() => {
         if (code && !user) {
-            dispatch(oauthYndexSignIn(code));
+            dispatch(oauthYndexSignIn(
+                code,
+                window.location.hostname === "localhost" ? appUrl : window.location.origin
+            ));
         }
     });
 
