@@ -1,0 +1,29 @@
+@import "../../../styles/variables";
+
+.leaderboard {
+    margin: auto;
+    padding: 40px 50px;
+    width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+    background: #fff;
+
+    &__header {
+        font-size: 16px;
+        color: $main-blue;
+        font-weight: bold;
+    }
+
+    &__subheader {
+        font-size: 13px;
+        margin: 10px 0 20px;
+        font-weight: normal;
+    }
+
+    &__wrapper {
+        display: flex;
+        height: 100vh;
+    }
+}
+
+

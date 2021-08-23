@@ -1,0 +1,31 @@
+.form__field {
+    position: relative;
+    padding: 0;
+    margin: 20px 0 0;
+    width: 510px;
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.form__name {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    color: #1e1e1e;
+}
+
+.form__textinput-profile {
+    border-style: none;
+    display: block;
+    background: transparent;
+    padding: 0;
+    font-size: 13px;
+}
+
+.right {
+    text-align: right;
+    width: 330px;
+}

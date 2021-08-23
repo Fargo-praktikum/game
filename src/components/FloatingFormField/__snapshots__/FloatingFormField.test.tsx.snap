@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка FloatingFormField с помощью snapshot все три свойства 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="floating-label-form__field"
+  >
+    <input
+      className="text-box floating-label-form__text-box"
+      name="password"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="Пароль"
+      type="password"
+    />
+    <label
+      className="floating-label-form__label"
+    >
+      Пароль
+    </label>
+  </div>
+</form>
+`;
+
+exports[`Проверка FloatingFormField с помощью snapshot корректная отрисовка 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="floating-label-form__field"
+  >
+    <input
+      className="text-box floating-label-form__text-box"
+      name="login"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="Логин"
+      type="text"
+    />
+    <label
+      className="floating-label-form__label"
+    >
+      Логин
+    </label>
+  </div>
+</form>
+`;

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка PopupboxContainer с помощью snapshot корректная отрисовка 1`] = `
+<div
+  className="popupbox"
+  style={
+    Object {
+      "transition": undefined,
+    }
+  }
+>
+  <div
+    className="popupbox-wrapper"
+  >
+    <img
+      alt="закрыть"
+      className="popupbox-btn--close"
+      onClick={[Function]}
+      src="test-file-stub"
+    />
+    <div
+      className="popupbox-content  "
+    />
+  </div>
+  <div
+    className="popupbox-overlay"
+    onClick={[Function]}
+    style={
+      Object {
+        "opacity": 0.75,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Проверка PopupboxContainer с помощью snapshot открытие popup с содержимым 1`] = `
+<div
+  className="popupbox is-active"
+  style={
+    Object {
+      "transition": "all 0.2s ease-in-out",
+    }
+  }
+>
+  <div
+    className="popupbox-wrapper"
+  >
+    <img
+      alt="закрыть"
+      className="popupbox-btn--close"
+      onClick={[Function]}
+      src="test-file-stub"
+    />
+    <div
+      className="popupbox-content  popupbox-content_withoutPadding"
+    >
+      <h1>
+        ПРИВЕТ
+      </h1>
+    </div>
+  </div>
+  <div
+    className="popupbox-overlay"
+    onClick={[Function]}
+    style={
+      Object {
+        "opacity": 0.75,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Проверка PopupboxContainer с помощью snapshot открытие popup с содержимым и обновление 1`] = `
+<div
+  className="popupbox is-active"
+  style={
+    Object {
+      "transition": "all 0.2s ease-in-out",
+    }
+  }
+>
+  <div
+    className="popupbox-wrapper"
+  >
+    <img
+      alt="закрыть"
+      className="popupbox-btn--close"
+      onClick={[Function]}
+      src="test-file-stub"
+    />
+    <div
+      className="popupbox-content  popupbox-content_withoutPadding"
+    >
+      <h1>
+        Обновленный контент
+      </h1>
+    </div>
+  </div>
+  <div
+    className="popupbox-overlay"
+    onClick={[Function]}
+    style={
+      Object {
+        "opacity": 0.75,
+      }
+    }
+  />
+</div>
+`;

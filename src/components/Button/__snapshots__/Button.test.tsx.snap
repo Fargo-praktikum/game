@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка Button отрисовка 1`] = `
+<button
+  className="button "
+  onClick={[Function]}
+>
+  Hello, World!
+</button>
+`;
+
+exports[`Проверка Button отрисовка с некоторымы props 1`] = `
+<button
+  className="button testClassName"
+>
+  test
+</button>
+`;

@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+
+.error-info {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    &__head {
+        font-size: 40px;
+        line-height: 40px;
+        font-weight: $font-weight-semi-bold;
+    }
+
+    &__message {
+        font-size: 20px;
+        line-height: 20px;
+        margin-top: 20px;
+        font-weight: $font-weight-semi-bold;
+    }
+
+    &__back-link {
+        margin-top: 69px;
+        color: $main-blue;
+        font-size: 11px;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover {
+            color: $main-red;
+        }
+    }
+}

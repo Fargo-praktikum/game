@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Проверка ErrorInfo отрисовка 1`] = `
+<div
+  className="error-info"
+>
+  <h1
+    className="error-info__head"
+  >
+    testName
+  </h1>
+  <div
+    className="error-info__message"
+  >
+    testMessage
+  </div>
+  <a
+    className="error-info__back-link"
+    href="/"
+    onClick={[Function]}
+  >
+    На главную
+  </a>
+</div>
+`;

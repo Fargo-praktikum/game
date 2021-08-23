@@ -1,0 +1,28 @@
+@import "../forumVar";
+
+.MC__general {
+    width: 90vw;
+    height: fit-content;
+    margin: auto;
+    padding: 0 30px 70px;
+}
+
+.MC__title {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.MC__comments {
+    margin-top: 30px;
+
+    div {
+        margin-bottom: 5px;
+    }
+}
+
+.MC__sendComment {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}

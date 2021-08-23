@@ -1,0 +1,9 @@
+node_modules/
+.vscode/
+coverage/
+dist/
+.idea
+serverDist
+pgadmin-data/*
+postgresdata/*
+server/devCert/*

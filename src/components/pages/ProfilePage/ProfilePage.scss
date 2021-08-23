@@ -1,0 +1,13 @@
+.wrap {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: #fff;
+}
+
+.imageUpload > input {
+    display: none;
+}

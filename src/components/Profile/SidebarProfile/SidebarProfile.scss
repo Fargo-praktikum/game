@@ -1,0 +1,20 @@
+.profile__sidebar {
+    width: 64px;
+    height: 100vh;
+    background: #fbfbfb;
+    border-right: 1px solid #eaeaea;
+    display: flex;
+
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.profile__button {
+    background-color: transparent;
+    border-style: none;
+}
+
+.profile__button:focus {
+    outline: none;
+}
